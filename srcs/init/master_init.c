@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:35:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/02 23:35:11 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/02 23:50:56 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_master	*ms_init_master(int av, char **ag, char **ev)
 	}
 	master->free_function = NULL;
 	master->cmds = NULL;
+	//ft_lstadd_back(&(master->free_function), ft_lstnew(ms_init_free_func(&master->cmds, ms_lstclear)));
 	master->envs = ev;
 	(void)av;
 	(void)ag;
@@ -64,8 +65,9 @@ void	ms_free_master(t_master	*master)
 	if (master->free_function)
 	{
 		ft_lstiter(master->free_function, ms_free_execute_one);
+		//ft_lstclear(&master->cmds, free);
+		free(master->cmds);
 		ft_lstclear(&master->free_function, free);
-		ft_lstclear(&master->cmds, free);
 	}
 	free(master);
 }

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:11:17 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/02 23:30:45 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/02 23:42:21 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,5 @@ t_bool	ms_cmd_env_register(t_ms_command *cmd)
 	cmd->analyze = &ms_env_analyze;
 	cmd->execute = &ms_env_execute;
 	cmd->print = &ms_env_print;
-	return (TRUE);
-}
-
-t_bool	ms_cmd_env_unregister(t_ms_command *cmd)
-{
-	cmd->analyze = NULL;
-	cmd->execute = NULL;
-	cmd->print = NULL;
 	return (TRUE);
 }
