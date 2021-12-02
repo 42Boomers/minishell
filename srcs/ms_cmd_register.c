@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_name.c                                     :+:      :+:    :+:   */
+/*   ms_cmd_register.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/02 17:28:59 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/02 20:35:48 by sylducam         ###   ########.fr       */
+/*   Created: 2021/12/02 22:06:27 by tglory            #+#    #+#             */
+/*   Updated: 2021/12/02 23:03:29 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	register_command()
+/**
+ * @brief Register here all cmds with ms_cmd_register
+ * @param master 
+ */
+void	ms_cmd_register_all(t_master *master)
 {
-
-}
-
-t_bool	analyze_command(t_ms_input *input)
-{
-	(void)input;
-	return (FALSE);
-}
-
-void	execute_command()
-{
-
-}
-
-void	print_command()
-{
-
+	ms_cmd_register("env", master, ms_cmd_env_register);
 }
