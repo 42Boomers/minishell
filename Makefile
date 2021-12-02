@@ -1,8 +1,9 @@
 CC		=	gcc
 NAME	=	minishell
-SRCS	=	$(wildcard srcs/*)
+SRCS	=	$(shell find . -name "*.c")
 OBJS	=	$(SRCS:.c=.o)
-CFLAGS	=	-Wall -Wextra #-Werror
+CFLAGS	=	-Wall -Wextra
+#CFLAGS	=	-Wall -Wextra -Werror
 
 all : $(NAME)
 
