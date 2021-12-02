@@ -1,8 +1,9 @@
 CC				=	gcc
 NAME			=	minishell
-INCLUDES		=	includes/minishell.h
+LIBS_PATH		=	libft/libft.a
+INCLUDES		=	$(wildcard includes)
 INCLUDES_FOLDER	=	-Iincludes -Ilibft
-SRCS			=	$(shell find . -name "*.c")
+SRCS			=	$(shell find srcs -name "*.c")
 OBJS			=	$(SRCS:.c=.o)
 CFLAGS			=	-Wall -Wextra
 #CFLAGS			=	-Wall -Wextra -Werror
@@ -13,9 +14,11 @@ all : $(NAME)
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES_FOLDER)
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	make -C libft
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS_PATH)
 
 clean:
+	make $@ -C libft
 	rm -f $(OBJS)
 
 fclean: clean
