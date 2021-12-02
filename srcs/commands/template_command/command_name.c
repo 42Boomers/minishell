@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_name.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:28:59 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/02 19:50:26 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/02 20:35:48 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	execute_command()
 
 }
 
-void	printf_command()
+void	print_command()
 {
 
 }
