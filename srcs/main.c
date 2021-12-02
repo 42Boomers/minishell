@@ -6,24 +6,23 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/02 17:40:39 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/02 19:16:15 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	read_env(char *env)
+int	main(int av, char **ag, char **evs)
 {
+	t_master	*master;
 
-}
-
-
-int	main(int av, char **ag, char **env)
-{
+	master = ms_init_master(av, ag, evs);
+	if (!master)
+		return (1);
+	ft_env_print_all(evs);
 	(void)av;
 	(void)ag;
-	(void)env;
-	while (*env)
-		printf("DEBUG %s\n", *env++);
+	(void)evs;
+	ms_free_master(master);
 	return (0);
 }

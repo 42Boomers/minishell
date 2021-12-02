@@ -1,14 +1,16 @@
-CC		=	gcc
-NAME	=	minishell
-SRCS	=	$(shell find . -name "*.c")
-OBJS	=	$(SRCS:.c=.o)
-CFLAGS	=	-Wall -Wextra
-#CFLAGS	=	-Wall -Wextra -Werror
+CC				=	gcc
+NAME			=	minishell
+INCLUDES		=	includes/minishell.h
+INCLUDES_FOLDER	=	-Iincludes -Ilibft
+SRCS			=	$(shell find . -name "*.c")
+OBJS			=	$(SRCS:.c=.o)
+CFLAGS			=	-Wall -Wextra
+#CFLAGS			=	-Wall -Wextra -Werror
 
 all : $(NAME)
 
 %.o:%.c $(INCLUDES)
-	$(CC) $(CFLAGS) -c $< -o $@ -Iincludes
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES_FOLDER)
 
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
