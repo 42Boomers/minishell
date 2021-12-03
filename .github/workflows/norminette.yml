@@ -1,4 +1,4 @@
-# .github/workflows/main.yml
+name: Check Norminette
 on: [push, pull_request]
 
 jobs:
@@ -9,4 +9,4 @@ jobs:
     - uses: actions/checkout@v2
     - uses: alexandregv/norminette-action@v3
       with:
-        flags: '.'
+        flags: 'includes srcs'

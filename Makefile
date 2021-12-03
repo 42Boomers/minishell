@@ -14,7 +14,7 @@ all : $(NAME)
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES_FOLDER)
 
 $(NAME) : $(OBJS)
-	make -C libft
+	make -C libft all
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS_PATH)
 
 clean:
