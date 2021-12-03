@@ -26,7 +26,6 @@ jobs:
       - name: Checkout repo & libft
         uses: actions/checkout@v2
         with:
-          # token: ${{ secrets.CI_TOKEN }}
           submodules: true
       - name: Make
         run: make
@@ -34,3 +33,4 @@ jobs:
         run: ./minishell
       - name: Test Leaks
         run: leaks -atExit -- ./minishell
+        shell: bash
