@@ -5,24 +5,19 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build Executable
+    name: Build Executable on Linux
     steps:
       - name: Checkout repo & libft
         uses: actions/checkout@v2
         with:
           # token: ${{ secrets.CI_TOKEN }}
           submodules: true
-      - name: Norminette
-        uses: alexandregv/norminette-action@v3
-        with:
-          flags: 'includes srcs'
-        continue-on-error: true
       - name: Make
         run: make
       - name: Clean
-        run: make clean
-      - name: Clean Executable
-        run: make fclean
+        run: |
+            make clean
+            make fclean
   build_macos:
     runs-on: macos-latest
     name: Build Executable on macOS
@@ -30,11 +25,10 @@ jobs:
       - name: Checkout repo & libft
         uses: actions/checkout@v2
         with:
-          # token: ${{ secrets.CI_TOKEN }}
           submodules: true
       - name: Make
         run: make
       - name: Clean
-        run: make clean
-      - name: Clean Executable
-        run: make fclean
+        run: |
+            make clean
+            make fclean

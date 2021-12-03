@@ -11,16 +11,10 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: true
-      - name: Norminette
-        uses: alexandregv/norminette-action@v3
-        with:
-          flags: 'includes srcs'
-        continue-on-error: true
       - name: Make
         run: make
       - name: Start Minishell
         run: ./minishell
-        continue-on-error: true
       - name: Leak Checker
         uses: solareenlo/42valgrind-action@v1.0.3
         with:
