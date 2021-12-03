@@ -5,12 +5,10 @@ on: [push, pull_request]
 jobs:
   launch:
     runs-on: ubuntu-latest
-    name: Launch Main Executable
+    name: Norminette Sources
     steps:
       - name: Checkout repo & Libft
         uses: actions/checkout@v2
-        # with:
-        #   submodules: true
       - name: Norminette
         uses: alexandregv/norminette-action@v3
         with:
