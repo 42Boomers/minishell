@@ -1,4 +1,4 @@
-name: Compilation
+name: Norme, Compilation & Leaks
 
 on: [push, pull_request]
 
@@ -21,15 +21,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Checkout submodules
+      - name: Checkout Libft
         uses: srt32/git-actions@v0.0.3
         with:
           args: git submodule update --init
-      - name: Build Executable
+      - name: Make
         run: sudo make
-      - name: Launch
+      - name: Launch minishell
         run: ./minishell
-      - name: 42valgrind Leak checker
+      - name: Leak Checker
         uses: solareenlo/42valgrind-action@v1.0.3
         with:
           flags: 'sh scripts/leaks.sh'
+      - name: Clean
+        run: sudo make fclean
