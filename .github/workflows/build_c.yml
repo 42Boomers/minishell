@@ -12,9 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v2
-      - name: git submodule
-        run: git submodule update
+      - name: Checkout submodules
+        uses: srt32/git-actions@v0.0.3
+        with:
+          args: git submodule update --init --recursive
       - name: build
         run: make
