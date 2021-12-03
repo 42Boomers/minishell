@@ -15,6 +15,6 @@ jobs:
         with:
           args: git submodule update --init
       - name: Build Executable
-        run: make
+        run: sudo make
       - name: Launch
         run: ./minishell
