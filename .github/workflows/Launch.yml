@@ -1,0 +1,37 @@
+name: Launch Main
+
+on: [push, pull_request]
+
+jobs:
+  launch:
+    runs-on: ubuntu-latest
+    name: Launch Main Executable
+    permissions:
+      checks: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Checkout Libft
+        uses: srt32/git-actions@v0.0.3
+        with:
+          args: git submodule update --init
+      - name: Make
+        run: make
+      - name: Launch
+        run: ./minishell
+  launch_macos:
+    runs-on: macos-latest
+    name: Launch Main Executable on macOS
+    permissions:
+      checks: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Checkout Libft
+        uses: srt32/git-actions@v0.0.3
+        with:
+          args: git submodule update --init
+      - name: Make
+        run: make
+      - name: Launch
+        run: ./minishell

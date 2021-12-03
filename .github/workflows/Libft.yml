@@ -1,0 +1,36 @@
+name: Norminette
+
+on: [push, pull_request]
+
+jobs:
+  norminette_libft_job:
+    runs-on: ubuntu-latest
+    name: Norminette Libft
+    steps:
+      - name: Checkout Minishell
+        uses: actions/checkout@v2
+      - name: Checkout Libft
+        uses: srt32/git-actions@v0.0.3
+        with:
+          args: git submodule update --init
+      - uses: alexandregv/norminette-action@v3
+        with:
+          flags: 'libft'
+  build_libft:
+    runs-on: ubuntu-latest
+    name: Build Libft
+    permissions:
+      checks: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Checkout Libft
+        uses: srt32/git-actions@v0.0.3
+        with:
+          args: git submodule update --init
+      - name: Make Libft
+        run: cd libft && make
+      - name: Clean Libft Projet
+        run: cd libft && make
+      - name: Clean Libft.a
+        run: cd libft && make

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:10:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/03 02:18:41 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/03 20:18:40 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_env_print(char *key, char *value)
 
 void	ft_env_print_all(char **envs)
 {
-	char **e;
+	char	**e;
 
 	while (*envs)
 	{

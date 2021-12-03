@@ -1,0 +1,41 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build Executable
+    permissions:
+      checks: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Checkout Libft
+        uses: srt32/git-actions@v0.0.3
+        with:
+          args: git submodule update --init
+      - name: Make
+        run: make
+      - name: Clean
+        run: make clean
+      - name: Clean Executable
+        run: make fclean
+  build_macos:
+    runs-on: macos-latest
+    name: Build Executable on macOS
+    permissions:
+      checks: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Checkout Libft
+        uses: srt32/git-actions@v0.0.3
+        with:
+          args: git submodule update --init
+      - name: Make
+        run: make
+      - name: Clean
+        run: make clean
+      - name: Clean Executable
+        run: make fclean
