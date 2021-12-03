@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 19:30:05 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/03 01:12:07 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/03 03:24:56 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static char	*ms_cmd_get_key(void *arg)
 	return (cmd->name);
 }
 
-t_ms_command	*ms_cmd_register(char *name, t_master *master, t_bool (*reg) (t_ms_command *))
+t_ms_command	*ms_cmd_register(char *name, t_master *master,
+		t_bool (*reg) (t_ms_command *))
 {
 	t_ms_command	*cmd;
 
@@ -54,7 +55,8 @@ t_ms_input	*ms_cmd_input(t_ms_command *cmd, char **args, int length)
 	return (input);
 }
 
-t_ms_command	*ms_cmd_launch(t_master *master, char *command, char **args, int length)
+t_ms_command	*ms_cmd_launch(t_master *master, char *command,
+		char **args, int length)
 {
 	t_ms_command	*cmd;
 	t_ms_input		*input;

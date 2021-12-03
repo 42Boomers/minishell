@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/03 01:06:53 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/03 03:25:22 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	main(int av, char **ag, char **evs)
 		return (1);
 	ms_cmd_register_all(master);
 	ms_cmd_launch(master, "env", NULL, 0);
-	//ft_env_print_all(evs);
 	(void)av;
 	(void)ag;
 	(void)evs;
