@@ -3,9 +3,9 @@ name: Compilation
 on: [push, pull_request]
 
 jobs:
-  libft:
+  norminette_job:
     runs-on: ubuntu-latest
-    name: libft
+    name: norminette
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -13,30 +13,23 @@ jobs:
         uses: srt32/git-actions@v0.0.3
         with:
           args: git submodule update --init
-  norminette_job:
-    runs-on: ubuntu-latest
-    name: norminette
-    steps:
-    - uses: actions/checkout@v2
-    - uses: alexandregv/norminette-action@v3
-      with:
-        flags: 'includes srcs libft'
-  build:
+      - uses: alexandregv/norminette-action@v3
+        with:
+          flags: 'includes srcs libft'
+  build_launch:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Checkout submodules
+        uses: srt32/git-actions@v0.0.3
+        with:
+          args: git submodule update --init
       - name: Build Executable
         run: sudo make
-  launch:
-    runs-on: ubuntu-latest
-    steps:
       - name: Launch
         run: ./minishell
-  valgrind:
-    runs-on: ubuntu-latest
-    name: 42valgrind
-    steps:
-    - uses: actions/checkout@v2
-    - name: 42valgrind Leak checker
-      uses: solareenlo/42valgrind-action@v1.0.3
-      with:
-        flags: 'sh scipts/leaks.sh'
+      - name: 42valgrind Leak checker
+        uses: solareenlo/42valgrind-action@v1.0.3
+        with:
+          flags: 'sh scipts/leaks.sh'
