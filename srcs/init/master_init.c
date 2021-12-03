@@ -6,31 +6,11 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:35:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/02 23:50:56 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/03 01:22:55 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_free_function	*ms_init_free_func(void	*ptr, void (*free_func) (void *))
-{
-	t_free_function	*free_function;
-
-	free_function = malloc(sizeof(t_free_function));
-	if (!free_function)
-	{
-		ft_println_red("Error > An error has occured while malloc t_free_function");
-		return (NULL);
-	}
-	free_function->ptr = ptr;
-	free_function->free_func = free_func;
-	return (free_function);
-}
-
-void	ms_free_f_add(t_master *master, void *ptr, void (*free_func) (void *))
-{
-	ft_lstadd_back(&(master->free_function), ft_lstnew(ms_init_free_func(ptr, free_func)));
-}
 
 t_master	*ms_init_master(int av, char **ag, char **ev)
 {
@@ -50,6 +30,26 @@ t_master	*ms_init_master(int av, char **ag, char **ev)
 	(void)ag;
 	(void)ev;
 	return (master);
+}
+
+t_free_function	*ms_init_free_func(void	*ptr, void (*free_func) (void *))
+{
+	t_free_function	*free_function;
+
+	free_function = malloc(sizeof(t_free_function));
+	if (!free_function)
+	{
+		ft_println_red("Error > An error has occured while malloc t_free_function");
+		return (NULL);
+	}
+	free_function->ptr = ptr;
+	free_function->free_func = free_func;
+	return (free_function);
+}
+
+void	ms_free_f_add(t_master *master, void *ptr, void (*free_func) (void *))
+{
+	ft_lstadd_back(&(master->free_function), ft_lstnew(ms_init_free_func(ptr, free_func)));
 }
 
 void	ms_free_execute_one(void *arg)

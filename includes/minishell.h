@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/02 23:31:01 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/03 02:21:16 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ typedef struct s_master
 	t_list	*free_function;
 	t_list	*cmds;
 }	t_master;
+
+/*-----------------------------{ GARBAGE }-----------------------------*/
+typedef struct s_garbage
+{
+	t_list	*lst;
+	char	*(*get_key) (void *);
+	void	(*release) (void *);
+}	t_garbage;
 
 /*-----------------------------{ BOOLEAN }-----------------------------*/
 typedef struct s_free_function

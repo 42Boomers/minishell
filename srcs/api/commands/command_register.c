@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 19:30:05 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/02 23:34:43 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/03 01:12:07 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,17 @@ t_ms_command	*ms_cmd_launch(t_master *master, char *command, char **args, int le
 		return (NULL);
 	}
 	input = ms_cmd_input(cmd, args, length);
-	if (!cmd->analyze(input))
+	if (cmd->analyze && !cmd->analyze(input))
 	{
 		ft_println_red("Error > An error has occured while analyze cmd");
 		return (NULL);
 	}
-	if (!cmd->execute(input))
+	if (cmd->execute && !cmd->execute(input))
 	{
 		ft_println_red("Error > An error has occured while execute cmd");
 		return (NULL);
 	}
-	if (!cmd->print(input))
+	if (cmd->print && !cmd->print(input))
 	{
 		ft_println_red("Error > An error has occured while print cmd");
 		return (NULL);
