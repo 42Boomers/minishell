@@ -1,4 +1,4 @@
-name: Norminette
+name: Libft Check
 
 on: [push, pull_request]
 
