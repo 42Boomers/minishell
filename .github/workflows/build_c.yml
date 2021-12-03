@@ -13,7 +13,7 @@ jobs:
       - name: Checkout submodules
         uses: srt32/git-actions@v0.0.3
         with:
-          args: git submodule update --init --recursive
+          args: git submodule update --init
       - name: Build Executable
         run: make
       - name: Launch
