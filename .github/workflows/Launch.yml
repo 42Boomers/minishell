@@ -7,15 +7,24 @@ jobs:
     runs-on: ubuntu-latest
     name: Launch Main Executable
     steps:
-      - name: Checkout repo & libft
+      - name: Checkout repo & Libft
         uses: actions/checkout@v2
         with:
-          # token: ${{ secrets.CI_TOKEN }}
           submodules: true
+      - name: Norminette
+      - uses: alexandregv/norminette-action@v3
+        with:
+          flags: 'includes srcs'
+        continue-on-error: true
       - name: Make
         run: make
-      - name: Launch
+      - name: Start Minishell
         run: ./minishell
+        continue-on-error: true
+      - name: Leak Checker
+        uses: solareenlo/42valgrind-action@v1.0.3
+        with:
+          flags: 'valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./minishell'
   launch_macos:
     runs-on: macos-latest
     name: Launch Main Executable on macOS
@@ -29,3 +38,5 @@ jobs:
         run: make
       - name: Launch
         run: ./minishell
+      - name: Test Leaks
+        run: leaks -atExit -- ./minishell
