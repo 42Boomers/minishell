@@ -3,19 +3,19 @@ name: Compilation
 on: [push, pull_request]
 
 jobs:
-  norminette_job:
-    runs-on: ubuntu-latest
-    name: norminette
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Checkout submodules
-        uses: srt32/git-actions@v0.0.3
-        with:
-          args: git submodule update --init
-      - uses: alexandregv/norminette-action@v3
-        with:
-          flags: 'includes srcs libft'
+  # norminette_job:
+  #   runs-on: ubuntu-latest
+  #   name: norminette
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v2
+  #     - name: Checkout submodules
+  #       uses: srt32/git-actions@v0.0.3
+  #       with:
+  #         args: git submodule update --init
+  #     - uses: alexandregv/norminette-action@v3
+  #       with:
+  #         flags: 'includes srcs libft'
   build_launch:
     runs-on: ubuntu-latest
     steps:
@@ -29,6 +29,8 @@ jobs:
         run: sudo make
       - name: Launch
         run: ./minishell
+      - name: Install 
+        run: sudo apt-get install -y diff python3 && python3 -m pip install --upgrade pip setuptools && python3 -m pip install norminette
       - name: 42valgrind Leak checker
         uses: solareenlo/42valgrind-action@v1.0.3
         with:
