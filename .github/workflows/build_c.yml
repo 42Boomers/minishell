@@ -1,4 +1,4 @@
-name: Build
+name: Compilation
 
 on: [push, pull_request]
 
@@ -8,11 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          known_hosts: ssh-keyscan -H ${{ secrets.SSH_HOST }}
-          key: ${{ secrets.SSH_GITHUB_ACTION_PRIVATE }}
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Checkout submodules
@@ -21,3 +16,5 @@ jobs:
           args: git submodule update --init --recursive
       - name: Build Executable
         run: make
+      - name: Launch
+        run: ./minishell
