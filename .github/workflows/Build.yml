@@ -12,6 +12,11 @@ jobs:
         with:
           # token: ${{ secrets.CI_TOKEN }}
           submodules: true
+      - name: Norminette
+        uses: alexandregv/norminette-action@v3
+        with:
+          flags: 'includes srcs'
+        continue-on-error: true
       - name: Make
         run: make
       - name: Clean

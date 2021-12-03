@@ -1,4 +1,4 @@
-name: Launch Main
+name: Launch_Main
 
 on: [push, pull_request]
 
@@ -12,7 +12,7 @@ jobs:
         with:
           submodules: true
       - name: Norminette
-      - uses: alexandregv/norminette-action@v3
+        uses: alexandregv/norminette-action@v3
         with:
           flags: 'includes srcs'
         continue-on-error: true
