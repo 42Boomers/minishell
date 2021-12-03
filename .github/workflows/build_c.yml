@@ -18,3 +18,5 @@ jobs:
         run: sudo make
       - name: Launch
         run: ./minishell
+      - name: Check Leaks
+        run: scripts/leaks.sh
