@@ -6,15 +6,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Build Executable
-    permissions:
-      checks: write
     steps:
-      - name: Checkout repository
+      - name: Checkout repo & libft
         uses: actions/checkout@v2
-      - name: Checkout Libft
-        uses: srt32/git-actions@v0.0.3
         with:
-          args: git submodule update --init
+          # token: ${{ secrets.CI_TOKEN }}
+          submodules: true
       - name: Make
         run: make
       - name: Clean
@@ -24,15 +21,12 @@ jobs:
   build_macos:
     runs-on: macos-latest
     name: Build Executable on macOS
-    permissions:
-      checks: write
     steps:
-      - name: Checkout repository
+      - name: Checkout repo & libft
         uses: actions/checkout@v2
-      - name: Checkout Libft
-        uses: srt32/git-actions@v0.0.3
         with:
-          args: git submodule update --init
+          # token: ${{ secrets.CI_TOKEN }}
+          submodules: true
       - name: Make
         run: make
       - name: Clean

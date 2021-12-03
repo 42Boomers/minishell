@@ -6,8 +6,6 @@ jobs:
   leaks_valgrind:
     runs-on: ubuntu-latest
     name: Valgrind Leaks Test
-    permissions:
-      checks: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
