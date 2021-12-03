@@ -32,4 +32,4 @@ jobs:
       - name: 42valgrind Leak checker
         uses: solareenlo/42valgrind-action@v1.0.3
         with:
-          flags: 'sh scipts/leaks.sh'
+          flags: 'sh scripts/leaks.sh'
