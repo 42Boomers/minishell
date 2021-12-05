@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 10:27:40 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 11:02:24 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	register_handler(int signum)
 	return (sigaction(signum, &sig, NULL));
 }
 
-void	register_signals()
+void	ms_register_signals(t_master *master)
 {
 	// int	i;
 
@@ -38,4 +38,5 @@ void	register_signals()
 	// while (i <= 60)
 	// 	register_handler(i++);
 	register_handler(2);
+	(void)master;
 }

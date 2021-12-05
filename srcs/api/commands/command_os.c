@@ -6,35 +6,38 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:35:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 10:21:47 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 11:06:43 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_bool ms_cmd_os_start(t_master *master, char *command,
+static t_bool	ms_cmd_os_start(t_master *master, char *command,
 				char **argv, char **env)
 {
-    pid_t cpid;
-    pid_t wpid;
-    int status;
+	pid_t	cpid;
+	pid_t	wpid;
+	int		status;
 
-    cpid = fork();
-    if (cpid == -1) {
-        perror("fork");
-        exit(EXIT_FAILURE);
-    }
-    if (cpid == 0) {
+	cpid = fork();
+	if (cpid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	if (cpid == 0)
 		execve(command, argv, env);
-    } else {
+	else
+	{
 		status = -1;
-        while (status == -1 || (!WIFEXITED(status) && !WIFSIGNALED(status)))
+		while (status == -1 || (!WIFEXITED(status) && !WIFSIGNALED(status)))
 		{
-            wpid = waitpid(cpid, &status, WUNTRACED | WCONTINUED);
-            if (wpid == -1) {
-                perror("waitpid");
-                exit(EXIT_FAILURE);
-            }
+			wpid = waitpid(cpid, &status, WUNTRACED | WCONTINUED);
+			if (wpid == -1)
+			{
+				perror("waitpid");
+				exit(EXIT_FAILURE);
+			}
 			if (master->verbose)
 			{
 				if (WIFEXITED(status))
@@ -46,8 +49,8 @@ static t_bool ms_cmd_os_start(t_master *master, char *command,
 				else if (WIFCONTINUED(status))
 					printf("DEBUG relancé\n");
 			}
-        }
-    }
+		}
+	}
 	return (TRUE);
 }
 
@@ -66,7 +69,8 @@ static t_bool	ms_cmd_os_search(t_master *master,
 			argv = ms_malloc_master(master, sizeof(char *) * 2);
 			argv[0] = command;
 			argv[1] = NULL;
-			printf("DEBUG Prog found : '%s'\n", name);
+			if (master->verbose)
+				printf("DEBUG Prog found : '%s'\n", name);
 			return (ms_cmd_os_start(master, name, argv, ms_env_format(master)));
 		}
 	}
@@ -79,7 +83,7 @@ t_bool	ms_cmd_os(t_master *master, char *command,
 	char	**paths;
 	char	*path;
 	int		i;
-	
+
 	path = ms_env_get(master, "PATH");
 	if (!path)
 		return (FALSE);
@@ -93,8 +97,9 @@ t_bool	ms_cmd_os(t_master *master, char *command,
 	if (!paths[0])
 	{
 		free(paths);
-		return (FALSE); 
+		return (FALSE);
 	}
+	(void)args;
 	return (ms_cmd_os_search(master, command, paths));
 }
 
