@@ -1,0 +1,3 @@
+Le CTRL + C doit faire comme bash 
+- Afficher "^C" (FAIT)
+- Supprimer le message en cours

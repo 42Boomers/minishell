@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:35:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 09:49:43 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 14:17:13 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@ t_master	*ms_init_master(int av, char **ag, char **ev)
 		return (NULL);
 	}
 	master->free_function = NULL;
-	master->history = NULL;
 	master->cmds = NULL;
 	ms_garbage_add(&master->free_function, &(master->cmds), ms_lstclear);
-	ms_garbage_add(&master->free_function, &(master->history), ms_lstclear);
 	master->av = av;
 	master->ag = ag;
 	master->verbose = TRUE;
+	master->paths = NULL;
+	master->hist_file = ".ms_history";
 	ms_env_init(master, ev);
+	mv_history_read(master);
 	return (master);
 }
 

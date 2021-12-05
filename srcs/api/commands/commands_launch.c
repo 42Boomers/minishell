@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:00:00 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 09:36:20 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 14:03:54 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,11 @@ t_ms_command	*ms_cmd_launch(t_master *master, char *command,
 	t_ms_command	*cmd;
 	t_ms_input		*input;
 
-	ft_lstadd_back(&(master->history), ft_lstnew(ft_strdup(command)));
 	cmd = ft_lstget(master->cmds, command, ms_cmd_get_key);
 	if (!cmd)
 	{
 		if (!ms_cmd_os(master, command, args))
-			printf("\e[31mminishell: command not found: %s.\n\e[0m", command);
+			printf("\e[31mminishell: %s: command not found\n\e[0m", command);
 		return (NULL);
 	}
 	input = ms_cmd_input(cmd, args, args_size);

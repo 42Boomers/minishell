@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 11:20:43 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 14:01:47 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <errno.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 /*-----------------------------{ BOOLEAN }-----------------------------*/
 typedef enum s_bool
@@ -45,8 +47,9 @@ typedef struct s_master
 	char	**ag;
 	// char	**raw_envs;
 	char	***envs;
+	char	**paths;
 	int		envs_size;
-	t_list	*history;
+	char	*hist_file;
 	t_list	*free_function;
 	t_list	*cmds;
 	t_bool	verbose;
@@ -118,9 +121,10 @@ char			*ms_env_get(t_master *master, char *key);
 char			**ms_env_format(t_master *master);
 char			*ms_pwd(t_master *master);
 int				ms_write(char **array, int size);
-t_bool			ms_cmd_os(t_master *master, char *command,
-					char **args);
 void			ms_fork(t_master *master, void child(t_master *));
+char			**ms_env_path_get(t_master *master);
+char			**ms_env_path_refresh(t_master *master);
+t_bool			ms_file_can_use(char *fname);
 
 /*----------------------------{ API CMDS }-----------------------------*/
 
@@ -129,7 +133,13 @@ t_ms_command	*ms_cmd_register(char *name, char *description,
 void			ms_cmd_register_all(t_master *master);
 t_ms_command	*ms_cmd_launch(t_master *master, char *command,
 					char **args, int args_size);
+t_bool			ms_cmd_os(t_master *master, char *command,
+					char **args);
+t_bool			ms_cmd_os_run(t_master *master, char *command,
+					char **argv, char **env);
 t_bool			ms_launch_at_start(t_master *master);
+t_bool			mv_history_read(t_master *master);
+t_bool			mv_history_write(t_master *master, char *command);
 
 /*------------------------------{ CMDS }-------------------------------*/
 
