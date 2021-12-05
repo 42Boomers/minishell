@@ -14,15 +14,15 @@ jobs:
       - name: Print Informations for Segfault
         run: |
           make re CFLAGS='-Wall -Wextra -g3 -fsanitize=address' > /dev/null
-          ./minishell
+          ./minishell test
       - name: Make
         run: make re
       - name: Start Minishell
-        run: ./minishell
+        run: ./minishell test
       - name: Valgrind - Leak Checker
         uses: solareenlo/42valgrind-action@v1.0.3
         with:
-          flags: 'valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./minishell'
+          flags: 'valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./minishell test'
   launch_macos:
     runs-on: macos-latest
     name: Launch Main Executable on macOS
@@ -34,15 +34,15 @@ jobs:
       - name: Print Informations for Segfault
         run: |
           make re CFLAGS='-Wall -Wextra -g3 -fsanitize=address' > /dev/null
-          ./minishell
+          ./minishell test
       - name: Make
         run: make re
       - name: Launch
-        run: ./minishell
+        run: ./minishell test
       - name: Copy libLeaksAtExit.dylib
         run: |
           cd /usr/local/lib
           sudo ln -s /Applications/Xcode.app//Contents/Developer/usr/lib/libLeaksAtExit.dylib
       - name: Leaks - Leak Checker
-        run: leaks -atExit -- ./minishell
+        run: leaks -atExit -- ./minishell test
         shell: bash
