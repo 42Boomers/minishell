@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 10:25:32 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 10:55:46 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	main(int av, char **ag, char **evs)
 	// pid_t	pid;
 
 	ret = 0;
-	printf("PID %d\n", getpid());
 	ret = ms_start(av, ag, evs);
 	// ret = test(av, ag, evs);
 	// other_pid = -1;
