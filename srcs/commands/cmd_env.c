@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:11:17 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 01:27:54 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 02:56:50 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@
  */
 t_bool	ms_env_analyze(t_ms_input *input)
 {
-	input->data = ms_malloc(&input->garbage, sizeof(t_ms_cmd_env));
-	if (!input->data)
-		return (FALSE);
-	((t_ms_cmd_env *) input->data)->raw_envs = input->cmd->master->envs;
+	// input->data = ms_malloc(&input->garbage, sizeof(t_ms_cmd_env));
+	// if (!input->data)
+	// 	return (FALSE);
+	// ((t_ms_cmd_env *) input->data)->raw_envs = input->cmd->master->raw_envs;
+	(void)input;
 	return (TRUE);
 }
 
@@ -35,24 +36,30 @@ t_bool	ms_env_analyze(t_ms_input *input)
  */
 t_bool	ms_env_execute(t_ms_input *input)
 {
-	t_ms_cmd_env	*env_cmd;
-	char			**raw_envs;
-	char			***envs;
-	int				i;
+	// t_ms_cmd_env	*env_cmd;
+	// char			**raw_envs;
+	// char			***envs;
+	// int				i;
 
-	env_cmd = (t_ms_cmd_env*) input->data;
-	raw_envs = env_cmd->raw_envs;
-	i = 0;
-	while (raw_envs[i])
-		i++;
-	env_cmd->envs_size = i;
-	env_cmd->envs = ms_malloc(&input->garbage, sizeof(char**) * i);
-	envs = env_cmd->envs;
-	i = -1;
-	while (raw_envs[++i])
-	{
-		envs[i] = ft_strtrunc(raw_envs[i], '=');
-	}
+	// env_cmd = (t_ms_cmd_env*) input->data;
+	// raw_envs = env_cmd->raw_envs;
+	// i = 0;
+	// while (raw_envs[i])
+	// 	i++;
+	// env_cmd->envs_size = i;
+	// env_cmd->envs = ms_malloc(&input->garbage, sizeof(char**) * i);
+	// if (!env_cmd->envs)
+	// 	return (FALSE);
+	// envs = env_cmd->envs;
+	// i = -1;
+	// while (raw_envs[++i])
+	// {
+	// 	envs[i] = ft_strtrunc(raw_envs[i], '=');
+	// 	ms_garbage_add(&input->garbage, envs[i][0], free);
+	// 	ms_garbage_add(&input->garbage, envs[i][1], free);
+	// 	ms_garbage_add(&input->garbage, envs[i], free);
+	// }
+	(void)input;
 	return (TRUE);
 }
 
@@ -64,19 +71,17 @@ t_bool	ms_env_execute(t_ms_input *input)
  */
 t_bool	ms_env_print(t_ms_input *input)
 {
-	t_ms_cmd_env	*env_cmd;
 	char			***envs;
 	int				i;
+	// t_ms_cmd_env	*env_cmd;
 
-	env_cmd = (t_ms_cmd_env*) input->data;
-	envs = env_cmd->envs;
+	// env_cmd = (t_ms_cmd_env*) input->data;
+	// envs = env_cmd->envs;
+	envs = input->cmd->master->envs;
 	i = 0;
-	while (i < env_cmd->envs_size)
+	while (i < input->cmd->master->envs_size)
 	{
 		printf("%s=%s\n", envs[i][0], envs[i][1]);
-		free(envs[i][0]);
-		free(envs[i][1]);
-		free(envs[i]);
 		i++;
 	}
 	return (TRUE);

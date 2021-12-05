@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_register.c                                 :+:      :+:    :+:   */
+/*   commands_register.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 19:30:05 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 01:28:56 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 04:03:06 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,20 @@ static char	*ms_cmd_get_key(void *arg)
 	return (cmd->name);
 }
 
-t_ms_command	*ms_cmd_register(char *name, t_master *master,
-		t_bool (*reg) (t_ms_command *))
+t_ms_command	*ms_cmd_register(char *name, char *description, 
+		t_master *master, t_bool (*reg) (t_ms_command *))
 {
 	t_ms_command	*cmd;
 
-	cmd = ms_malloc_master(master, sizeof(*cmd));
+	cmd = malloc(sizeof(*cmd));
 	if (!cmd)
 		return (NULL);
 	cmd->name = name;
+	cmd->description = description;
 	cmd->master = master;
+	cmd->analyze = NULL;
+	cmd->execute = NULL;
+	cmd->print = NULL;
 	if (!reg(cmd))
 	{
 		ft_println_red("Error > An error has occured while register cmd");
@@ -59,7 +63,7 @@ static t_ms_input	*ms_cmd_input(t_ms_command *cmd, char **args, int length)
 static t_bool	ms_cmd_execute(t_ms_input *input)
 {
 	t_ms_command	*cmd;
-	
+
 	cmd = input->cmd;
 	if (cmd->analyze && !cmd->analyze(input))
 	{

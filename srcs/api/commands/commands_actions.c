@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_malloc.c                                        :+:      :+:    :+:   */
+/*   commands_actions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/02 21:24:38 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 01:24:50 by tglory           ###   ########lyon.fr   */
+/*   Created: 2021/12/05 02:47:22 by tglory            #+#    #+#             */
+/*   Updated: 2021/12/05 02:52:07 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_lstclear(void *arg)
+t_bool	ms_launch_at_start(t_master *master)
 {
-	t_list	**lst;
+	char	*command;
+	char	**args;
+	char	**ag;
 
-	lst = arg;
-	ft_lstclear(lst, free);
-}
-
-void	*ms_malloc(t_list **garbage, size_t size)
-{
-	void	*ptr;
-
-	ptr = malloc(size);
-	if (!ptr)
+	if (master->av <= 1)
+		return (FALSE);
+	ag = master->ag;
+	command = *++ag;
+	args = NULL;
+	if (master->av > 2)
 	{
-		ft_println_red("Error > cannot malloc");
-		return (NULL);
+		ag++;
+		args = ag;
 	}
-	ms_garbage_add(garbage, ptr, free);
-	return (ptr);
-}
-
-void	*ms_malloc_master(t_master *master, size_t size)
-{
-	return ms_malloc(&master->free_function, size);
+	ms_cmd_launch(master, command, args, master->av - 1);
+	return (TRUE);
 }

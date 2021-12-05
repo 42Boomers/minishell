@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:35:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 00:29:28 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 04:05:32 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,29 @@ t_master	*ms_init_master(int av, char **ag, char **ev)
 	}
 	master->free_function = NULL;
 	master->cmds = NULL;
-	//ft_lstadd_back(&(master->free_function), ft_lstnew(ms_init_free_func(&master->cmds, ms_lstclear)));
+	ms_garbage_add(&master->free_function, &(master->cmds), ms_lstclear);
 	master->av = av;
 	master->ag = ag;
-	master->envs = ev;
+	ms_env_init(master, ev);
 	return (master);
+}
+
+void	ms_free_master(t_master	*master)
+{
+	ms_garbage_free(&master->free_function);
+	free(master);
+}
+
+/**
+ * @brief Register here all cmds with ms_cmd_register
+ * @param master 
+ */
+void	ms_cmd_register_all(t_master *master)
+{
+	ms_cmd_register("help", "This message",
+		master, ms_cmd_help_register);
+	ms_cmd_register("pwd", "Show current path",
+		master, ms_cmd_pwd_register);
+	ms_cmd_register("env", "Show all environnement variable",
+		master, ms_cmd_env_register);
 }
