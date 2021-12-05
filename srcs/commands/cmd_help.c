@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:11:17 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 05:25:26 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 08:20:13 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ms_help_cmd(void *content)
 }
 
 static t_bool	ms_help_print(t_ms_input *input)
-{
+{ 
 	ft_lstiter(input->cmd->master->cmds, ms_help_cmd);
 	return (TRUE);
 }

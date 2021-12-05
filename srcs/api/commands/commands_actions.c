@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 02:47:22 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 02:52:07 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 09:41:50 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,22 @@ t_bool	ms_launch_at_start(t_master *master)
 {
 	char	*command;
 	char	**args;
-	char	**ag;
+	// int		i;
 
-	if (master->av <= 1)
+	if (master->av <= 2)
 		return (FALSE);
-	ag = master->ag;
-	command = *++ag;
+	command = master->ag[2];
 	args = NULL;
-	if (master->av > 2)
-	{
-		ag++;
-		args = ag;
-	}
-	ms_cmd_launch(master, command, args, master->av - 1);
+	// i = 0;
+	// if (master->av > 2)
+	// {
+	// 	args = malloc(sizeof(char *) *  master->av - 2);
+	// 	while (i < master->av - 2)
+	// 	{
+	// 		args
+	// 	}
+	// }
+	// ms_cmd_launch(master, command, master->ag, master->av - 1);
+	ms_cmd_launch(master, command, args, 0);
 	return (TRUE);
 }

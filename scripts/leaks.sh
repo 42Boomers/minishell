@@ -15,9 +15,9 @@ make all > /dev/null
 if [[ "$OSTYPE" == "darwin"* ]] ; then
 	leaks -atExit -- ./minishell $@
 elif [[ "$OSTYPE" == "linux-gnu"* ]] ; then
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./minishell $@
+	valgrind --leak-check=full --track-origins=yes --errors-for-leak-kinds=all --error-exitcode=1 ./minishell $@
 elif [[ "$OSTYPE" == "msys"* ]] ; then
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./minishell $@
+	valgrind --leak-check=full --track-origins=yes --errors-for-leak-kinds=all --error-exitcode=1 ./minishell $@
 else
 	echo "Unknown OS $OSTYPE"
 fi

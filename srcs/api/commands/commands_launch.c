@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:00:00 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 05:06:45 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 09:36:20 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static t_bool	ms_cmd_execute(t_ms_input *input)
 	return (TRUE);
 }
 
-
 t_ms_command	*ms_cmd_launch(t_master *master, char *command,
 		char **args, int args_size)
 {
@@ -71,7 +70,8 @@ t_ms_command	*ms_cmd_launch(t_master *master, char *command,
 	cmd = ft_lstget(master->cmds, command, ms_cmd_get_key);
 	if (!cmd)
 	{
-		printf("\e[31mminishell: command not found: %s.\n\e[0m", command);
+		if (!ms_cmd_os(master, command, args))
+			printf("\e[31mminishell: command not found: %s.\n\e[0m", command);
 		return (NULL);
 	}
 	input = ms_cmd_input(cmd, args, args_size);

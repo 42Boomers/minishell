@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:35:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 05:18:37 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 09:49:43 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_master	*ms_init_master(int av, char **ag, char **ev)
 	ms_garbage_add(&master->free_function, &(master->history), ms_lstclear);
 	master->av = av;
 	master->ag = ag;
+	master->verbose = TRUE;
 	ms_env_init(master, ev);
 	return (master);
 }

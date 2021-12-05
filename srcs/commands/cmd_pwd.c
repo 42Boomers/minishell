@@ -6,11 +6,21 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:11:17 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 05:25:32 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 08:23:01 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*ms_pwd(t_master *master)
+{
+	char	*env;
+
+	env = ms_env_get(master, "PWD");
+	if (!env)
+		return (NULL);
+	return (env);
+}
 
 static t_bool	ms_pwd_print(t_ms_input *input)
 {

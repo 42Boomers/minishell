@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 05:37:54 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 10:18:41 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <errno.h>
+
+/*-----------------------------{ BOOLEAN }-----------------------------*/
+typedef enum s_bool
+{
+	FALSE = 0,
+	TRUE = !FALSE
+}	t_bool;
 
 /*--------------------------{ MAIN STRUCT }--------------------------*/
 typedef struct s_master
@@ -38,6 +49,7 @@ typedef struct s_master
 	t_list	*history;
 	t_list	*free_function;
 	t_list	*cmds;
+	t_bool	verbose;
 }	t_master;
 
 /*-----------------------------{ GARBAGE }-----------------------------*/
@@ -54,13 +66,6 @@ typedef struct s_free_function
 	void	*ptr;
 	void	(*free_func)(void *);
 }	t_free_function;
-
-/*-----------------------------{ BOOLEAN }-----------------------------*/
-typedef enum s_bool
-{
-	FALSE = 0,
-	TRUE = !FALSE
-}	t_bool;
 
 /*--------------------------{ COMMAND INPUT }--------------------------*/
 typedef struct s_ms_input
@@ -98,6 +103,7 @@ typedef struct s_ms_command
 t_master		*ms_init_master(int av, char **ag, char **ev);
 void			ms_free_master(t_master	*master);
 t_bool			ms_test_cmd(t_master *master);
+t_bool			ms_readline(t_master *master);
 
 /*-------------------------------{ API }-------------------------------*/
 
@@ -106,10 +112,14 @@ void			ft_println_orange(char *str);
 void			ft_println_red(char *str);
 t_bool			ms_str_equals(char *str1, char*str2);
 t_bool			ms_str_equals_ignore(char *str1, char *str2);
-char			**ft_env_get(char *env);
 t_bool			ms_env_init(t_master *master, char **envs);
-char			**ms_env_get(t_master *master, char *key);
+char			*ms_env_get(t_master *master, char *key);
+char			**ms_env_format(t_master *master);
 char			*ms_pwd(t_master *master);
+int				ms_write(char **array, int size);
+t_bool			ms_cmd_os(t_master *master, char *command,
+					char **args);
+void			ms_fork(t_master *master, void child(t_master *));
 
 /*----------------------------{ API CMDS }-----------------------------*/
 
@@ -129,7 +139,8 @@ t_bool			ms_cmd_echo_register(t_ms_command *cmd);
 
 /*-----------------------------{ GARBAGE }-----------------------------*/
 void			*ms_malloc(t_list **garbage, size_t size);
-void			*ms_malloc_custom(t_list **garbage, size_t size, void (*free_func) (void *));
+void			*ms_malloc_custom(t_list **garbage, size_t size,
+					void (*free_func) (void *));
 void			*ms_malloc_master(t_master *master, size_t size);
 void			ms_garbage_default_add(t_master *master, void *ptr,
 					void (*free_func) (void *));

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:10:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 02:56:11 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 08:56:18 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_bool	ms_env_init(t_master *master, char **raw_envs)
 	return (TRUE);
 }
 
-char	**ms_env_get(t_master *master, char *key)
+char	*ms_env_get(t_master *master, char *key)
 {
 	int		i;
 	char	*tmp;
@@ -44,29 +44,40 @@ char	**ms_env_get(t_master *master, char *key)
 	{
 		tmp = master->envs[i][0];
 		if (!ft_strncmp(tmp, key, ft_strlen(tmp) + 1))
-			return (master->envs[i]);
+			return (master->envs[i][1]);
 		i++;
 	}
+	// return (getenv(key)); //-> get env from system
 	return (NULL);
 }
 
 t_bool	ms_env_set(t_master *master, char *key, char *value)
 {
-	char	**env;
+	char	*env;
 
 	env = ms_env_get(master, key);
 	if (!env)
 		return (FALSE);
-	env[1] = value;
+	env = value;
 	return (TRUE);
 }
 
-char	*ms_pwd(t_master *master)
+char	**ms_env_format(t_master *master)
 {
-	char	**env;
+	int		i;
+	char	**out;
 
-	env = ms_env_get(master, "PWD");
-	if (!env)
+	i = 0;
+	out = malloc(sizeof(char *) * (master->envs_size + 1));
+	if (!out)
 		return (NULL);
-	return (env[1]);
+	while (i < master->envs_size)
+	{
+		out[i] = ft_strjoin_plus(master->envs[i][0], "=", master->envs[i][1]);
+		ms_garbage_default_add(master, out[i], free);
+		i++;
+	}
+	out[i] = NULL;
+	ms_garbage_default_add(master, out, free);
+	return (out);
 }
