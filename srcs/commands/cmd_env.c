@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:11:17 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 02:56:50 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 05:25:28 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param input
  * @return t_bool
  */
-t_bool	ms_env_analyze(t_ms_input *input)
+static t_bool	ms_env_analyze(t_ms_input *input)
 {
 	// input->data = ms_malloc(&input->garbage, sizeof(t_ms_cmd_env));
 	// if (!input->data)
@@ -34,7 +34,7 @@ t_bool	ms_env_analyze(t_ms_input *input)
  * @param input
  * @return t_bool
  */
-t_bool	ms_env_execute(t_ms_input *input)
+static t_bool	ms_env_execute(t_ms_input *input)
 {
 	// t_ms_cmd_env	*env_cmd;
 	// char			**raw_envs;
@@ -69,7 +69,7 @@ t_bool	ms_env_execute(t_ms_input *input)
  * @param input
  * @return t_bool
  */
-t_bool	ms_env_print(t_ms_input *input)
+static t_bool	ms_env_print(t_ms_input *input)
 {
 	char			***envs;
 	int				i;

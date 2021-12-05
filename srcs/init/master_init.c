@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:35:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 04:05:32 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 05:18:37 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ t_master	*ms_init_master(int av, char **ag, char **ev)
 		return (NULL);
 	}
 	master->free_function = NULL;
+	master->history = NULL;
 	master->cmds = NULL;
 	ms_garbage_add(&master->free_function, &(master->cmds), ms_lstclear);
+	ms_garbage_add(&master->free_function, &(master->history), ms_lstclear);
 	master->av = av;
 	master->ag = ag;
 	ms_env_init(master, ev);
@@ -49,4 +51,6 @@ void	ms_cmd_register_all(t_master *master)
 		master, ms_cmd_pwd_register);
 	ms_cmd_register("env", "Show all environnement variable",
 		master, ms_cmd_env_register);
+	ms_cmd_register("echo", "Print arguments",
+		master, ms_cmd_echo_register);
 }

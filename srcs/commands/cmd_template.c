@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_help.c                                         :+:      :+:    :+:   */
+/*   cmd_template.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/02 21:11:17 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 05:25:26 by tglory           ###   ########lyon.fr   */
+/*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
+/*   Updated: 2021/12/05 05:25:40 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ms_help_cmd(void *content)
+static t_bool	ms_template_analyze(t_ms_input *input)
 {
-	t_ms_command *cmd;
-
-	cmd = (t_ms_command *) content;
-	printf(" | %s : %s\n", cmd->name, cmd->description);
-}
-
-static t_bool	ms_help_print(t_ms_input *input)
-{
-	ft_lstiter(input->cmd->master->cmds, ms_help_cmd);
+	(void)input;
 	return (TRUE);
 }
 
-t_bool	ms_cmd_help_register(t_ms_command *cmd)
+static t_bool	ms_template_execute(t_ms_input *input)
 {
-	cmd->print = &ms_help_print;
+	(void)input;
+	return (TRUE);
+}
+
+static t_bool	ms_template_print(t_ms_input *input)
+{
+	(void)input;
+	return (TRUE);
+}
+
+t_bool	ms_cmd_template_register(t_ms_command *cmd)
+{
+	cmd->analyze = &ms_template_analyze;
+	cmd->execute = &ms_template_execute;
+	cmd->print = &ms_template_print;
 	return (TRUE);
 }

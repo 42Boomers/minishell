@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 04:07:37 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 05:37:54 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_master
 	// char	**raw_envs;
 	char	***envs;
 	int		envs_size;
+	t_list	*history;
 	t_list	*free_function;
 	t_list	*cmds;
 }	t_master;
@@ -65,7 +66,7 @@ typedef enum s_bool
 typedef struct s_ms_input
 {
 	char					**args;
-	int						length;
+	int						args_size;
 	void					*data;
 	struct s_ms_command		*cmd;
 	t_list					*garbage;
@@ -84,6 +85,8 @@ typedef struct s_ms_command
 {
 	char		*name;
 	char		*description;
+	char		**default_args;
+	int			default_args_size;
 	t_bool		(*analyze)(t_ms_input *);
 	t_bool		(*execute)(t_ms_input *);
 	t_bool		(*print)(t_ms_input *);
@@ -114,7 +117,7 @@ t_ms_command	*ms_cmd_register(char *name, char *description,
 					t_master *master, t_bool (*reg) (t_ms_command *));
 void			ms_cmd_register_all(t_master *master);
 t_ms_command	*ms_cmd_launch(t_master *master, char *command,
-					char **args, int length);
+					char **args, int args_size);
 t_bool			ms_launch_at_start(t_master *master);
 
 /*------------------------------{ CMDS }-------------------------------*/
@@ -122,6 +125,7 @@ t_bool			ms_launch_at_start(t_master *master);
 t_bool			ms_cmd_env_register(t_ms_command *cmd);
 t_bool			ms_cmd_pwd_register(t_ms_command *cmd);
 t_bool			ms_cmd_help_register(t_ms_command *cmd);
+t_bool			ms_cmd_echo_register(t_ms_command *cmd);
 
 /*-----------------------------{ GARBAGE }-----------------------------*/
 void			*ms_malloc(t_list **garbage, size_t size);
