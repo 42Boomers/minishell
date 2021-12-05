@@ -2,19 +2,18 @@ CC				=	gcc
 NAME			=	minishell
 LIBS_PATH		=	libft/libft.a
 INCLUDES		=	$(wildcard includes)
-INCLUDES_FOLDER	=	-Iincludes -Ilibft
-OBJ_DIR			=	objs
+INCLUDES_FOLDER	=	-Iincludes -Ilibft -Ilibft/gnl -Ilibft/custom
+OBJS_DIR		=	objs
 SRCS_DIR		=	srcs
-SRCS			=	$(shell find srcs -name "*.c")
-OBJS			=	$(SRCS:$(SRCS_DIR)/%.c=$(OBJ_DIR)/%.o)
+SRCS			=	$(shell find $(SRCS_DIR) -name "*.c")
+OBJS			=	$(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 CFLAGS			=	-Wall -Wextra
 #CFLAGS			=	-Wall -Wextra -Werror
 
 all : $(NAME)
 
-$(OBJ_DIR)/%.o:$(SRCS_DIR)/%.c $(INCLUDES)
-	mkdir -p $(dir $@)
-	$(CC) -c $(INCLUDES_FOLDER) -o $@ $< $(CFLAGS)
+$(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c $(INCLUDES)
+	mkdir -p $(dir $@) && $(CC) -c $(INCLUDES_FOLDER) $(CFLAGS) -o $@ $<
 
 $(NAME) : $(OBJS)
 	make -C libft full
@@ -22,12 +21,11 @@ $(NAME) : $(OBJS)
 
 clean:
 	rm -f $(OBJS)
-	rm -rf $(OBJ_DIR)
+	rm -rf $(OBJS_DIR)
 
 fclean: clean
 	make $@ -C libft
-	rm -f $(LIBS_PATH)
-	rm -f $(NAME)
+	rm -f $(LIBS_PATH) $(NAME)
 
 re:
 	make fclean
