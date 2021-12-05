@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 10:18:41 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 11:20:43 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ t_master		*ms_init_master(int av, char **ag, char **ev);
 void			ms_free_master(t_master	*master);
 t_bool			ms_test_cmd(t_master *master);
 t_bool			ms_readline(t_master *master);
+void			ms_register_signals(t_master *master);
 
 /*-------------------------------{ API }-------------------------------*/
 
