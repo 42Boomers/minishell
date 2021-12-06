@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 14:01:47 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/06 19:23:05 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_master
 	char	*hist_file;
 	t_list	*free_function;
 	t_list	*cmds;
-	t_bool	verbose;
+	t_bool	verbose; // syl : c'est quoi ?
 }	t_master;
 
 /*-----------------------------{ GARBAGE }-----------------------------*/

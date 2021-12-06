@@ -1,2 +1,7 @@
-dossier objs (Makefile)
+Ask tglory :
+Comment les headers sont ajoutes sans le path complet ?
+Comment objs bien classes ? Makefile
+
+dossier objs libft (Makefile)
+virer les coms
 architecture ajouter dossier commands et sous-dossiers voir cahier
