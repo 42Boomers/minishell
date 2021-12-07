@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:51:11 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 07:09:18 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 17:48:34 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_bool	mv_history_read(t_master *master)
 		}
 		// if (master->verbose)
 		// 	printf("ADDED TO HISTORY: %s\n", line);
-		add_history(line);
+		add_history(line); // syl : function not coded yet, right ?
 		free(line);
 		// ms_garbage_default_add(master, &line, free);
 	}

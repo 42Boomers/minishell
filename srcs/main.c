@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 15:45:50 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/07 17:52:48 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ms_start(int av, char **ag, char **evs)
 	t_master	*master;
 
 	master = ms_init_master(av, ag, evs);
-	ms_register_signals(master);
+	ms_register_signals(master); // syl : I really struggle with understanding signals. Need help
 	if (!master)
 		return (1);
 	ms_cmd_register_all(master);

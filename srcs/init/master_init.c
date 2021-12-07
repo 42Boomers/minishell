@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:35:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 15:56:12 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/07 18:00:40 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ void	ms_free_master(t_master	*master)
 void	ms_cmd_register_all(t_master *master)
 {
 	ms_cmd_register("help", "This message",
-		master, ms_cmd_help_register);
+		master, ms_cmd_help_register); // syl : calling ms_cmd_help_register without params ?
 	ms_cmd_register("pwd", "Show current path",
 		master, ms_cmd_pwd_register);
-	ms_cmd_register("env", "Show all environnement variable",
+	ms_cmd_register("env", "Show all environment variables",
 		master, ms_cmd_env_register);
 	ms_cmd_register("echo", "Print arguments",
 		master, ms_cmd_echo_register);
-	ms_cmd_register("cd", "Move into other directory",
+	ms_cmd_register("cd", "Move to other directory",
 		master, ms_cmd_cd_register);
 }

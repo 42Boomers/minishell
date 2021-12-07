@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_help.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:11:17 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 08:20:13 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 17:59:17 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_bool	ms_help_print(t_ms_input *input)
 	return (TRUE);
 }
 
-t_bool	ms_cmd_help_register(t_ms_command *cmd)
+t_bool	ms_cmd_help_register(t_ms_command *cmd) // syl : where do you declare this t_ms_command ?
 {
 	cmd->print = &ms_help_print;
 	return (TRUE);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:24:38 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 02:56:28 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 17:28:30 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	*ms_malloc(t_list **garbage, size_t size)
 	return (ms_malloc_custom(garbage, size, free));
 }
 
-void	*ms_malloc_master(t_master *master, size_t size)
+void	*ms_malloc_master(t_master *master, size_t size) // syl : du mal a comprendre ces poupees russes
 {
 	return (ms_malloc(&master->free_function, size));
 }
