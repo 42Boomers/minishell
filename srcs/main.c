@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 07:36:25 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 15:45:50 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ms_start(int av, char **ag, char **evs)
 	return (0);
 }
 
-int	main(int av, char **ag, char **evs)
+int	main(int av, char **ag, char **evs) // syl : pourquoi argc devient av et argv devient ag ? c = count et v = value, non ?
 {
 	int		ret;
 	// static pid_t	other_pid;

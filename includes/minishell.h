@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 05:56:01 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 15:50:17 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ typedef enum s_bool
 {
 	NONE = -1,
 	FALSE = 0,
-	TRUE = !FALSE
+	TRUE = !FALSE // syl : Tristan, tu peux epxliquer pourquoi 3 valeurs ? -3, par exmeple = true ?
 }	t_bool;
 
 /*--------------------------{ MAIN STRUCT }--------------------------*/
 typedef struct s_master
 {
 	char	**pwd;
-	char	**old_pwd;
+	char	**old_pwd; // syl : old_pwd ? Pour faire cd - ?
 	int		last_status;
 	// char	*home;
 	// char	*user;
@@ -72,7 +72,7 @@ typedef struct s_free_function
 {
 	void	*ptr;
 	void	(*free_func)(void *);
-}	t_free_function;
+}	t_free_function; // syl : difficile a comprendre pour moi
 
 /*----------------------------{ STR BUILD }----------------------------*/
 typedef struct s_str_build
