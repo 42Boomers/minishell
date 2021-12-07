@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands_register.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 19:30:05 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 05:40:32 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 19:07:21 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_ms_command	*ms_cmd_register(char *name, char *description,
 	cmd->default_args_size = 0;
 	if (!reg(cmd))
 	{
-		ft_println_red("Error > An error has occured while register cmd");
+		ft_println_red("Error > An error has occured while registering cmd");
 		return (NULL);
 	}
 	ft_lstadd_back(&(master->cmds), ft_lstnew(cmd));

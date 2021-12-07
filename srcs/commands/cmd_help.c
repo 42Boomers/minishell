@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:11:17 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 17:59:17 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/07 18:55:45 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_bool	ms_help_print(t_ms_input *input)
 	return (TRUE);
 }
 
-t_bool	ms_cmd_help_register(t_ms_command *cmd) // syl : where do you declare this t_ms_command ?
+t_bool	ms_cmd_help_register(t_ms_command *cmd)
 {
 	cmd->print = &ms_help_print;
 	return (TRUE);
