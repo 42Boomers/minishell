@@ -1,9 +1,18 @@
 Ask tglory :
 Comment les headers sont ajoutes sans le path complet ?
-	-> dans le make, argument "-Iincludes -Ilibft -Ilibft/gnl -Ilibft/custom" lors de la compil
+	-> tristan : dans le make, argument "-Iincludes -Ilibft -Ilibft/gnl -Ilibft/custom" lors de la compil
 Comment objs bien classes ? Makefile
-	-> renome le prefix du path des *.o en objs lors du convertion des noms de %.c en %.o
+	-> tristan : renome le prefix du path des *.o en objs lors du convertion des noms de %.c en %.o
+	-> syl : J'ai besoin de plus d'explications par rapport a ca
 dossier objs libft (Makefile)
-	-> Virer parce que les testers aiment pas :/
+	-> tristan : Virer parce que les testers aiment pas :/
+	-> syl : les testers de minishell ? Tu peux m'en dire plus ?
+
+Je t'ai mis des commentaires un peu partout dans le code. Tu peux me repondre
+ici si tu veux. Ce qui me pose le plus de difficulte pour l'instant ce sont tes
+listes de free_function et les malloc custom, je me perds un peu dans tout ca
+
+
+--------------------------------------------------------------------------------
 virer les coms
 architecture ajouter dossier commands et sous-dossiers voir cahier

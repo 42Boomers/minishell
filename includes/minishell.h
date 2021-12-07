@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 15:50:17 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/07 15:59:25 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_master
 {
 	char	**pwd;
 	char	**old_pwd; // syl : old_pwd ? Pour faire cd - ?
-	int		last_status;
+	int		last_status; // syl : kezako ?
 	// char	*home;
 	// char	*user;
 	// char	*shell;
@@ -50,7 +50,7 @@ typedef struct s_master
 	int		av;
 	char	**ag;
 	// char	**raw_envs;
-	char	***envs;
+	char	***envs; // syl : triple * ?
 	char	**paths;
 	int		envs_size;
 	char	*hist_file;

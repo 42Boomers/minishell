@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   master_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:35:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 01:34:00 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 15:56:12 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_master	*ms_init_master(int av, char **ag, char **ev)
 	master->pwd = NULL;
 	master->old_pwd = NULL;
 	master->last_status = 0;
-	master->hist_file = ".ms_history";
+	master->hist_file = ".ms_history"; // syl : what's .ms_history ?
 	ms_env_init(master, ev);
 	mv_history_read(master);
 	return (master);

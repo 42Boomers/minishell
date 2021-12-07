@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:10:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 05:55:13 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 15:58:09 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_bool	ms_env_init(t_master *master, char **raw_envs)
 	int		i;
 
 	i = 0;
-	while (raw_envs[i])
+	while (raw_envs[i]) // syl : i = lines ? envs is structured by lines ?
 		i++;
 	master->envs_size = i;
 	master->envs = ms_malloc_master(master, sizeof(char **) * i);
