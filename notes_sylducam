@@ -1,2 +1,9 @@
-dossier objs (Makefile)
+Ask tglory :
+Comment les headers sont ajoutes sans le path complet ?
+	-> dans le make, argument "-Iincludes -Ilibft -Ilibft/gnl -Ilibft/custom" lors de la compil
+Comment objs bien classes ? Makefile
+	-> renome le prefix du path des *.o en objs lors du convertion des noms de %.c en %.o
+dossier objs libft (Makefile)
+	-> Virer parce que les testers aiment pas :/
+virer les coms
 architecture ajouter dossier commands et sous-dossiers voir cahier

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 11:02:28 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 07:36:25 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ int	ms_start(int av, char **ag, char **evs)
 	if (!master)
 		return (1);
 	ms_cmd_register_all(master);
-	if (av > 2)
-		ms_launch_at_start(master);
-	else if (av > 1 && ft_isequals_ignore("test", ag[1]))
-		ms_test_cmd(master);
+	if (av > 1)
+	{
+		if (ft_isequals_ignore("test", ag[1]))
+			ms_test_cmd(master);
+		else
+			ms_launch_at_start(master);
+	}
 	else
 		ms_readline(master);
 	ms_free_master(master);

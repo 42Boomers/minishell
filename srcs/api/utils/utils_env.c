@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:10:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 08:56:18 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 05:55:13 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,24 @@ char	*ms_env_get(t_master *master, char *key)
 	return (NULL);
 }
 
-t_bool	ms_env_set(t_master *master, char *key, char *value)
+char	**ms_env_set(t_master *master, char *key, char *value)
 {
-	char	*env;
+	int		i;
+	char	*tmp;
 
-	env = ms_env_get(master, key);
-	if (!env)
-		return (FALSE);
-	env = value;
-	return (TRUE);
+	i = 0;
+	while (i < master->envs_size)
+	{
+		tmp = master->envs[i][0];
+		if (!ft_strncmp(tmp, key, ft_strlen(tmp) + 1))
+		{
+			free(master->envs[i][1]);
+			master->envs[i][1] = ft_strdup(value);
+			return (&master->envs[i][1]);
+		}
+		i++;
+	}
+	return (NULL);
 }
 
 char	**ms_env_format(t_master *master)

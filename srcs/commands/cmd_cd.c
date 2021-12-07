@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 14:32:17 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 08:45:08 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,21 @@ static t_bool	ms_cd_analyze(t_ms_input *input)
 
 static t_bool	ms_cd_execute(t_ms_input *input)
 {
-	(void)input;
+	char	*new_pwd;
+
+	if (input->args_size == 0)
+	{
+		printf("cd: cd relative path in dev\n");
+		return (FALSE);
+	}
+	new_pwd = input->args[0];
+	if (ms_file_is_dir(input->args[0]) != 1)
+	{
+		printf("cd: no such directory: %s\n", input->args[0]);
+		return (FALSE);
+	}
+	chdir(new_pwd);
+	ms_pwd_set(input->cmd->master, new_pwd);
 	return (TRUE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:00:00 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 14:03:54 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 06:06:51 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,31 @@ static t_ms_input	*ms_cmd_input(t_ms_command *cmd, char **args, int args_size)
 
 static t_bool	ms_cmd_execute(t_ms_input *input)
 {
-	t_ms_command	*cmd;
+	t_bool	cmd_result;
 
-	cmd = input->cmd;
-	if (cmd->analyze && !cmd->analyze(input))
+	if (input->cmd->analyze)
 	{
-		ft_println_red("Error > An error has occured while analyze cmd");
-		return (FALSE);
+		cmd_result = input->cmd->analyze(input);
+		if (cmd_result == -1)
+			ft_println_red("Error > An error has occured while analyze cmd");
+		else if (cmd_result != 1)
+			return (FALSE);
 	}
-	if (cmd->execute && !cmd->execute(input))
+	if (input->cmd->execute)
 	{
-		ft_println_red("Error > An error has occured while execute cmd");
-		return (FALSE);
+		cmd_result = input->cmd->execute(input);
+		if (cmd_result == -1)
+			ft_println_red("Error > An error has occured while execute cmd");
+		else if (cmd_result != 1)
+			return (FALSE);
 	}
-	if (cmd->print && !cmd->print(input))
+	if (input->cmd->print)
 	{
-		ft_println_red("Error > An error has occured while print cmd");
-		return (FALSE);
+		cmd_result = input->cmd->print(input);
+		if (cmd_result == -1)
+			ft_println_red("Error > An error has occured while print cmd");
+		else if (cmd_result != 1)
+			return (FALSE);
 	}
 	return (TRUE);
 }
@@ -74,7 +82,7 @@ t_ms_command	*ms_cmd_launch(t_master *master, char *command,
 		return (NULL);
 	}
 	input = ms_cmd_input(cmd, args, args_size);
-	ms_cmd_execute(input);
+	mv_set_status(master, ms_cmd_execute(input));
 	ms_garbage_free(&input->garbage);
 	free(input);
 	return (cmd);

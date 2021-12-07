@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 02:14:02 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 05:56:01 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_master
 	char	*hist_file;
 	t_list	*free_function;
 	t_list	*cmds;
-	t_bool	verbose;
+	t_bool	verbose; // syl : c'est quoi ?
 }	t_master;
 
 /*-----------------------------{ GARBAGE }-----------------------------*/
@@ -115,7 +115,6 @@ typedef struct s_ms_command
 }	t_ms_command;
 
 /*----------------------------{ MINISHELL }----------------------------*/
-
 t_master		*ms_init_master(int av, char **ag, char **ev);
 void			ms_free_master(t_master	*master);
 t_bool			ms_test_cmd(t_master *master);
@@ -123,7 +122,6 @@ t_bool			ms_readline(t_master *master);
 void			ms_register_signals(t_master *master);
 
 /*-------------------------------{ API }-------------------------------*/
-
 void			ft_println(char *str);
 void			ft_println_orange(char *str);
 void			ft_println_red(char *str);
@@ -144,7 +142,6 @@ char			**ms_env_set(t_master *master, char *key, char *value);
 void			ms_pwd_set(t_master *master, char *new_pwd);
 
 /*----------------------------{ API CMDS }-----------------------------*/
-
 t_ms_command	*ms_cmd_register(char *name, char *description,
 					t_master *master, t_bool (*reg) (t_ms_command *));
 void			ms_cmd_register_all(t_master *master);
@@ -158,8 +155,13 @@ t_bool			ms_launch_at_start(t_master *master);
 t_bool			mv_history_read(t_master *master);
 t_bool			mv_history_write(t_master *master, char *command);
 
-/*------------------------------{ CMDS }-------------------------------*/
+/*----------------------------{ API STR }-----------------------------*/
+t_str_build		*ft_str_build_init(void);
+void			ft_str_destroy(t_str_build *builder);
+char			*ft_str_build(t_str_build *builder);
+void			ft_str_add(t_str_build *builder, char *str);
 
+/*------------------------------{ CMDS }-------------------------------*/
 t_bool			ms_cmd_env_register(t_ms_command *cmd);
 t_bool			ms_cmd_pwd_register(t_ms_command *cmd);
 t_bool			ms_cmd_help_register(t_ms_command *cmd);

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 10:14:23 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/05 16:47:52 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,31 @@
 
 void	ms_fork(t_master *master, void child(t_master *))
 {
-    pid_t cpid;
-    pid_t wpid;
-    int status;
+	pid_t	cpid;
+	pid_t	wpid;
+	int		status;
 
-    cpid = fork();
-    if (cpid == -1) {
-        perror("fork");
-        exit(EXIT_FAILURE);
-    }
-    if (cpid == 0) {
+	cpid = fork();
+	if (cpid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	if (cpid == 0)
+	{
 		child(master);
-    } else {
+	}
+	else
+	{
 		status = -1;
-        while (status == -1 || (!WIFEXITED(status) && !WIFSIGNALED(status)))
+		while (status == -1 || (!WIFEXITED(status) && !WIFSIGNALED(status)))
 		{
-            wpid = waitpid(cpid, &status, WUNTRACED | WCONTINUED);
-            if (wpid == -1) {
-                perror("waitpid");
-                exit(EXIT_FAILURE);
-            }
+			wpid = waitpid(cpid, &status, WUNTRACED | WCONTINUED);
+			if (wpid == -1)
+			{
+				perror("waitpid");
+				exit(EXIT_FAILURE);
+			}
 			if (WIFEXITED(status))
 				printf("DEBUG terminé, code=%d\n", WEXITSTATUS(status));
 			else if (WIFSIGNALED(status))
@@ -42,6 +47,6 @@ void	ms_fork(t_master *master, void child(t_master *))
 				printf("DEBUG arrêté par le signal %d\n", WSTOPSIG(status));
 			else if (WIFCONTINUED(status))
 				printf("DEBUG relancé\n");
-        }
-    }
+		}
+	}
 }

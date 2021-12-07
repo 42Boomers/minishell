@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:51:11 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 14:24:51 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/07 07:09:18 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,15 @@ t_bool	mv_history_read(t_master *master)
 		if (!line)
 			break ;
 		if (ft_isblank(line))
+		{
+			free(line);
 			continue ;
-		if (master->verbose)
-			printf("ADDED TO HISTORY: %s\n", line);
+		}
+		// if (master->verbose)
+		// 	printf("ADDED TO HISTORY: %s\n", line);
 		add_history(line);
-		//ms_garbage_default_add(master, &line, free);
+		free(line);
+		// ms_garbage_default_add(master, &line, free);
 	}
 	close(fd);
 	return (TRUE);
@@ -43,7 +47,7 @@ t_bool	mv_history_write(t_master *master, char *command)
 {
 	int		fd;
 
-	fd = open(master->hist_file, O_WRONLY | O_CREAT);
+	fd = open(master->hist_file, O_WRONLY | O_CREAT | O_APPEND);
 	if (fd == -1)
 		return (FALSE);
 	ft_putstr_fd(command, fd);
