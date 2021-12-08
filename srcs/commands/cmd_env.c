@@ -6,12 +6,12 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:11:17 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/08 19:46:34 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/08 20:22:33 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-∂
+
 /**
  * @brief Print command ENV
  * Print all the environment variable.
