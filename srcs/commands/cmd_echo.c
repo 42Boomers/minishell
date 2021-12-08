@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/08 18:47:17 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/08 21:50:39 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*ms_env_parse(t_master *master, char *str)
 		ft_str_add(build, cat);
 	}
 	j = i;
-	while (str[i] && (str[i] != ' ' || str[i] != '/'))
+	while (str[i] && (ft_isalnum(str[i])))
 		i++;
 	if (i == j)
 	{
@@ -77,6 +77,36 @@ static char	*ms_env_parse(t_master *master, char *str)
 	free(tmp);
 	return (cat);
 }
+/*
+static char	*ms_env_quote_simple(t_master *master, char *str)
+{
+	char	*tmp;
+	int		i;
+	int		j;
+	int		k;
+	char	*env;
+	char	*cat;
+	t_str_build	*build;
+
+	i = 0;
+	while (str[i] && str[i] != '\'')
+		i++;
+	if (!str[i])
+		return (NULL);
+	build = ft_str_build_init();
+	if (i != 0)
+	{
+		ft_strlcpy(tmp, str, i);
+		ft_str_add(build, tmp);
+	}
+	j = i;
+	while (str[i] && str[i] != '\'')
+		i++;
+	if (!str[i])
+		return (NULL);
+
+	return (cat);
+}*/
 
 static t_bool	ms_echo_print(t_ms_input *input)
 {

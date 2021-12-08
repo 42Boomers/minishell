@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:35:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/08 19:43:05 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/08 20:28:51 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_bool	ms_cmd_os_start(t_master *master,
 
 	argv = ms_malloc_master(master, sizeof(char *) * 2);
 	argv[0] = command;
-	argv[1] = NULL;
+	argv[1] = NULL; // TODO add args to cmd os
 	return (ms_cmd_os_run(master, command, argv, ms_env_format(master)));
 }
 
