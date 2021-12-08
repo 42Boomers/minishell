@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 17:36:20 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/08 19:45:25 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,21 @@ typedef enum s_bool
 {
 	NONE = -1,
 	FALSE = 0,
-	TRUE = !FALSE // syl : Tristan, tu peux epxliquer pourquoi 3 valeurs ? -3, par exmeple = true ?
+	TRUE = !FALSE
 }	t_bool;
 
 /*--------------------------{ MAIN STRUCT }--------------------------*/
 typedef struct s_master
 {
 	char	**pwd;
-	char	**old_pwd; // syl : old_pwd ? Pour faire cd - ?
-	int		last_status; // syl : kezako ?
+	char	**old_pwd;
+	int		last_status;
 	// char	*home;
 	// char	*user;
 	// char	*shell;
 	// char	*tmp;
-	int		av;
-	char	**ag;
+	int		ac;
+	char	**av;
 	// char	**raw_envs;
 	char	***envs;
 	char	**paths;
@@ -56,23 +56,15 @@ typedef struct s_master
 	char	*hist_file;
 	t_list	*free_function;
 	t_list	*cmds;
-	t_bool	verbose; // syl : c'est quoi ?
+	t_bool	verbose;
 }	t_master;
-
-/*-----------------------------{ GARBAGE }-----------------------------*/
-// typedef struct s_garbage
-// {
-// 	t_list	*lst;
-// 	char	*(*get_key)(void *);
-// 	void	(*free_func)(void *);
-// }	t_garbage;
 
 /*----------------------------{ AUTO FREE }----------------------------*/
 typedef struct s_free_function
 {
 	void	*ptr;
 	void	(*free_func)(void *);
-}	t_free_function; // syl : difficile a comprendre pour moi
+}	t_free_function;
 
 /*----------------------------{ STR BUILD }----------------------------*/
 typedef struct s_str_build
@@ -93,14 +85,6 @@ typedef struct s_ms_input
 	t_list					*garbage;
 }	t_ms_input;
 
-typedef struct s_ms_cmd_env
-{
-	char					**raw_envs;
-	char					***envs;
-	int						envs_size;
-	t_list					*free_function;
-}	t_ms_cmd_env;
-
 /*-----------------------------{ COMMAND }-----------------------------*/
 typedef struct s_ms_command
 {
@@ -115,7 +99,7 @@ typedef struct s_ms_command
 }	t_ms_command;
 
 /*----------------------------{ MINISHELL }----------------------------*/
-t_master		*ms_init_master(int av, char **ag, char **ev);
+t_master		*ms_init_master(int ac, char **av, char **evs);
 void			ms_free_master(t_master	*master);
 t_bool			ms_test_cmd(t_master *master);
 t_bool			ms_readline(t_master *master);
@@ -173,7 +157,7 @@ void			*ms_malloc(t_list **garbage, size_t size);
 void			*ms_malloc_custom(t_list **garbage, size_t size,
 					void (*free_func) (void *));
 void			*ms_malloc_master(t_master *master, size_t size);
-void			ms_garbage_default_add(t_master *master, void *ptr,
+void			ms_garbage_master_add(t_master *master, void *ptr,
 					void (*free_func) (void *));
 void			ms_garbage_add(t_list **garbage, void *ptr,
 					void (*free_func) (void *));

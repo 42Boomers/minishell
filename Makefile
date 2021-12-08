@@ -6,7 +6,7 @@ LIBS_INCLUDES_DIR	=	-Iincludes -Ilibft -Ilibft/gnl -Ilibft/custom
 LIBS_FLAG			=	-lreadline
 OBJS_DIR			=	objs
 SRCS_DIR			=	srcs
-SRCS				=	$(shell find $(SRCS_DIR) -name "*.c")
+SRCS				=	$(shell find $(SRCS_DIR) -name "*.c") # change to brut files names
 OBJS				=	$(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 CFLAGS				=	-Wall -Wextra
 #CFLAGS				=	-Wall -Wextra -Werror
@@ -14,7 +14,7 @@ CFLAGS				=	-Wall -Wextra
 all : $(NAME)
 
 $(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c $(INCLUDES)
-	mkdir -p $(dir $@) && $(CC) -c $(LIBS_INCLUDES_DIR) $(LIBS_FLAG) $(CFLAGS) -o $@ $<
+	mkdir -p $(dir $@) && $(CC) -c $(LIBS_INCLUDES_DIR) $(CFLAGS) -o $@ $<
 
 $(NAME) : $(OBJS)
 	make -C libft full

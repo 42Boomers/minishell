@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_pwd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:11:17 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 19:12:00 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/08 19:46:40 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_bool	ms_pwd_print(t_ms_input *input)
 {
-	printf("%s\n", ms_pwd(input->cmd->master)); // syl : what's the difference with the original master ?
+	printf("%s\n", ms_pwd(input->cmd->master));
 	return (TRUE);
 }
 

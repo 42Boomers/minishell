@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:51:11 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 17:48:34 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/08 19:43:05 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ t_bool	mv_history_read(t_master *master)
 		}
 		// if (master->verbose)
 		// 	printf("ADDED TO HISTORY: %s\n", line);
-		add_history(line); // syl : function not coded yet, right ?
+		add_history(line);
 		free(line);
-		// ms_garbage_default_add(master, &line, free);
+		// ms_garbage_master_add(master, &line, free);
 	}
 	close(fd);
 	return (TRUE);
@@ -47,7 +47,7 @@ t_bool	mv_history_write(t_master *master, char *command)
 {
 	int		fd;
 
-	fd = open(master->hist_file, O_WRONLY | O_CREAT | O_APPEND);
+	fd = open(master->hist_file, O_WRONLY | O_CREAT | O_APPEND, 644);
 	if (fd == -1)
 		return (FALSE);
 	ft_putstr_fd(command, fd);

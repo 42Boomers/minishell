@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:18:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 06:31:25 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/08 19:43:05 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ t_bool	ms_readline_two(t_master *master, char *input)
 	raw_args = ft_split(input, ' ');
 	if (raw_args && raw_args[0])
 	{
-		ms_garbage_default_add(master, raw_args, free);
+		ms_garbage_master_add(master, raw_args, free);
 		i = 0;
 		while (raw_args[i])
-			ms_garbage_default_add(master, raw_args[i++], free);
+			ms_garbage_master_add(master, raw_args[i++], free);
 		args = raw_args;
 		ms_cmd_launch(master, raw_args[0], ++args, i - 1);
 	}
@@ -40,7 +40,6 @@ t_bool	ms_readline_two(t_master *master, char *input)
 
 int	ms_readline_check(t_master *master, char **input)
 {
-	(void)master;
 	*input = readline("\e[36mminishell > \e[96m");
 	if (!*input)
 	{

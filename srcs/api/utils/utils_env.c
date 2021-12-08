@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:10:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 15:58:09 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/08 19:43:05 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_bool	ms_env_init(t_master *master, char **raw_envs)
 	int		i;
 
 	i = 0;
-	while (raw_envs[i]) // syl : i = lines ? envs is structured by lines ?
+	while (raw_envs[i])
 		i++;
 	master->envs_size = i;
 	master->envs = ms_malloc_master(master, sizeof(char **) * i);
@@ -27,9 +27,9 @@ t_bool	ms_env_init(t_master *master, char **raw_envs)
 	while (raw_envs[++i])
 	{
 		master->envs[i] = ft_strtrunc(raw_envs[i], '=');
-		ms_garbage_default_add(master, master->envs[i][0], free);
-		ms_garbage_default_add(master, master->envs[i][1], free);
-		ms_garbage_default_add(master, master->envs[i], free);
+		ms_garbage_master_add(master, master->envs[i][0], free);
+		ms_garbage_master_add(master, master->envs[i][1], free);
+		ms_garbage_master_add(master, master->envs[i], free);
 	}
 	return (TRUE);
 }
@@ -83,10 +83,10 @@ char	**ms_env_format(t_master *master)
 	while (i < master->envs_size)
 	{
 		out[i] = ft_strjoin_plus(master->envs[i][0], "=", master->envs[i][1]);
-		ms_garbage_default_add(master, out[i], free);
+		ms_garbage_master_add(master, out[i], free);
 		i++;
 	}
 	out[i] = NULL;
-	ms_garbage_default_add(master, out, free);
+	ms_garbage_master_add(master, out, free);
 	return (out);
 }

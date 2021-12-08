@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_os.c                                       :+:      :+:    :+:   */
+/*   commands_os.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:35:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 13:46:03 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/08 19:43:05 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_bool	ms_cmd_os_search(t_master *master,
 	while (*paths)
 	{
 		name = ft_strjoin_plus(*paths++, "/", command);
-		ms_garbage_default_add(master, name, free);
+		ms_garbage_master_add(master, name, free);
 		if (ms_file_can_use(name))
 			return (ms_cmd_os_start(master, name));
 	}

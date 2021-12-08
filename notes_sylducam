@@ -1,7 +1,7 @@
 Ask tglory :
 Comment les headers sont ajoutes sans le path complet ?
-	-> tristan : dans le make, argument "-Iincludes -Ilibft -Ilibft/gnl -Ilibft/custom" lors de la compil
-Comment objs bien classes ? Makefile
+	-> tristan : d
+Comment objs bien classes ? Makefileans le make, argument "-Iincludes -Ilibft -Ilibft/gnl -Ilibft/custom" lors de la compil
 	-> tristan : renome le prefix du path des *.o en objs lors du convertion des noms de %.c en %.o
 	-> syl : J'ai besoin de plus d'explications par rapport a ca
 dossier objs libft (Makefile)

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 13:15:43 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/08 19:35:19 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	handle_signal(int signum, siginfo_t *sig_info, void *ucontext_t)
 	if (signum == 2)
 	{
 		rl_redisplay();
-		printf("\n\e[36mminishell > \e[96m");
+		printf("\n\e[36mminishell DEBUG > \e[96m");
 	}
 	else
 		printf("DEBUG SIGNAL %d - from PID %d\n", sig_info->si_signo, sig_info->si_pid);
