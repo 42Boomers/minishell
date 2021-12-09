@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/08 19:45:25 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/09 01:46:40 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_master
 	char	**paths;
 	int		envs_size;
 	char	*hist_file;
-	t_list	*free_function;
+	t_list	*garbage;
 	t_list	*cmds;
 	t_bool	verbose;
 }	t_master;
@@ -124,6 +124,7 @@ t_bool			ms_file_is_dir(char *dname);
 void			mv_set_status(t_master *master, int status);
 char			**ms_env_set(t_master *master, char *key, char *value);
 void			ms_pwd_set(t_master *master, char *new_pwd);
+char			**ft_split_ultimate(char const *s, char c);
 
 /*----------------------------{ API CMDS }-----------------------------*/
 t_ms_command	*ms_cmd_register(char *name, char *description,

@@ -6,23 +6,11 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/08 21:50:39 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/09 01:35:03 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// static t_bool	ms_echo_analyze(t_ms_input *input)
-// {
-// 	(void)input;
-// 	return (TRUE);
-// }
-
-// static t_bool	ms_echo_execute(t_ms_input *input)
-// {
-// 	(void)input;
-// 	return (TRUE);
-// }
 
 static char	*ms_env_parse(t_master *master, char *str)
 {
@@ -77,15 +65,62 @@ static char	*ms_env_parse(t_master *master, char *str)
 	free(tmp);
 	return (cat);
 }
+
+/*
+static char	**ms_env_quote_simple(t_master *master, char **args)
+{
+	char	**out;
+	char	*tmp;
+	int		i;
+	int		i1;
+	int		i2;
+	int		size;
+	int		s1;
+	int		s2;
+	t_str_build	*build;
+
+	i1 = 0;
+	i2 = 0;
+	i = 0;
+	size = 0;
+	while (args[i1][i2] && args[i1][i2] != '\'')
+	{
+		i2++;
+		if (!args[i1][i2])
+		{
+			i1++;
+			i2 = 0;
+		}
+	}
+	if (!args[i1][i2])
+		return (NULL);
+	s1 = i1;
+	s2 = i2 + 1;
+	if (!args[i1][i2])
+	{
+		i1++;
+		i2 = 0;
+	}
+	while (args[i1][i2] && args[i1][i2] != '\'')
+	{
+		size++;
+		i2++;
+		if (!args[i1][i2])
+		{
+			i1++;
+			i2 = 0;
+		}
+	}
+	if (!args[i1][i2])
+		return (NULL);
+	return (out);
+}*/
 /*
 static char	*ms_env_quote_simple(t_master *master, char *str)
 {
 	char	*tmp;
 	int		i;
 	int		j;
-	int		k;
-	char	*env;
-	char	*cat;
 	t_str_build	*build;
 
 	i = 0;
@@ -105,7 +140,7 @@ static char	*ms_env_quote_simple(t_master *master, char *str)
 	if (!str[i])
 		return (NULL);
 
-	return (cat);
+	return (tmp);
 }*/
 
 static t_bool	ms_echo_print(t_ms_input *input)

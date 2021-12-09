@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:24:38 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/08 19:32:53 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/09 01:46:40 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ void	*ms_malloc(t_list **garbage, size_t size)
 
 void	*ms_malloc_master(t_master *master, size_t size)
 {
-	return (ms_malloc(&master->free_function, size));
+	return (ms_malloc(&master->garbage, size));
 }

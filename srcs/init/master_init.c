@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:35:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/08 19:37:12 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/09 01:46:40 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ t_master	*ms_init_master(int ac, char **av, char **evs)
 		ft_println_red("Error > An error has occured while malloc t_master");
 		return (NULL);
 	}
-	master->free_function = NULL;
+	master->garbage = NULL;
 	master->cmds = NULL;
-	ms_garbage_add(&master->free_function, &(master->cmds), ms_lstclear);
+	ms_garbage_add(&master->garbage, &(master->cmds), ms_lstclear);
 	master->av = av;
 	master->ac = ac;
 	master->verbose = TRUE;
@@ -40,7 +40,7 @@ t_master	*ms_init_master(int ac, char **av, char **evs)
 
 void	ms_free_master(t_master	*master)
 {
-	ms_garbage_free(&master->free_function);
+	ms_garbage_free(&master->garbage);
 	free(master);
 }
 

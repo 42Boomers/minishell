@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 00:28:11 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/08 19:43:17 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/09 01:46:40 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 t_free_function	*ms_init_free_func(void	*ptr, void (*free_func) (void *))
 {
-	t_free_function	*free_function;
+	t_free_function	*garbage;
 
-	free_function = malloc(sizeof(*free_function));
-	if (!free_function)
+	garbage = malloc(sizeof(*garbage));
+	if (!garbage)
 	{
 		ft_println_red("Error > An error has occured while " \
 			"malloc t_free_function");
 		return (NULL);
 	}
-	free_function->ptr = ptr;
-	free_function->free_func = free_func;
-	return (free_function);
+	garbage->ptr = ptr;
+	garbage->free_func = free_func;
+	return (garbage);
 }
 
 void	ms_garbage_add(t_list **garbage, void *ptr, void (*free_func) (void *))
@@ -36,7 +36,7 @@ void	ms_garbage_add(t_list **garbage, void *ptr, void (*free_func) (void *))
 void	ms_garbage_master_add(t_master *master, void *ptr,
 	void (*free_func) (void *))
 {
-	ms_garbage_add(&master->free_function, ptr, free_func);
+	ms_garbage_add(&master->garbage, ptr, free_func);
 }
 
 static void	ms_free_execute_one(void *arg)
