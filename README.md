@@ -1,5 +1,5 @@
 # minishell
-Create a basic shell from strach in C. 
+Create a basic shell from scratch in C. 
 
 Somes commandes are re-developped like :
 ```
