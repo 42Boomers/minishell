@@ -15,10 +15,10 @@
 
 static int	ft_skip(const char *s, int n)
 {
-	if (s[n] == '\"')
+	if (s[n] == '\"' && ((n == 0) || s[n - 1] != '\\'))
 	{
 		n++;
-		while (s[n] != '\"')
+		while (s[n] && (s[n] != '\"' || (s[n] == '\"' && s[n - 1] == '\\')))
 			n++;
 	}
 	return (n);

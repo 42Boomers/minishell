@@ -12,11 +12,28 @@
 
 #include "minishell.h"
 
+int	ft_pipe_check(char **args)
+{
+	int	i;
+
+	i = -1;
+	while (args[++i])
+	{
+		if (ft_strcmp(args[i], "|") == 0)
+		{
+			args[i] = NULL;
+			if (!args[i + 1])
+				return (0);
+			return (i + 1);
+		}
+	}
+	return (0);
+}
+
 t_bool	ms_readline_two(t_master *master, char *input)
 {
 	char	**raw_args;
 	int		i;
-
 	raw_args = ft_split_ultimate(input, ' ');
 	if (raw_args && raw_args[0])
 	{

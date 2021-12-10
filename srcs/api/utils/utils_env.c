@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+/*
+**	mrozniec: je viens de penser, mais ca ne serais pas plus simple d'utiliser getenv() qui est autoriser, plutot que de la réecrire?
+*/
 
 t_bool	ms_env_init(t_master *master, char **raw_envs)
 {

@@ -40,7 +40,7 @@ t_master	*ms_init_master(int ac, char **av, char **evs)
 
 void	ms_free_master(t_master	*master)
 {
-	rl_clear_history();
+	clear_history();
 	ms_garbage_free(&master->garbage);
 	free(master);
 }

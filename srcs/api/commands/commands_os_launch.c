@@ -50,7 +50,7 @@ static t_bool	ms_cmd_os_run_parent(t_master *master, pid_t cpid)
 t_bool	ms_cmd_os_run(t_master *master, char *command,
 				char **argv, char **env)
 {
-	pid_t	cpid;
+	/*pid_t	cpid;
 
 	cpid = fork();
 	if (cpid == -1)
@@ -58,9 +58,9 @@ t_bool	ms_cmd_os_run(t_master *master, char *command,
 		perror("fork");
 		exit(EXIT_FAILURE);
 	}
-	if (cpid == 0)
+	if (cpid == 0)*/
 		execve(command, argv, env);
-	else
-		ms_cmd_os_run_parent(master, cpid);
+/*	else
+		ms_cmd_os_run_parent(master, cpid);*/
 	return (TRUE);
 }

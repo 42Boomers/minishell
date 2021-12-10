@@ -117,6 +117,9 @@ char			**ms_env_format(t_master *master);
 char			*ms_pwd(t_master *master);
 void			ms_write(char **array, int size);
 void			ms_fork(t_master *master, void child(t_master *));
+/*ms_fork 2 v1.0*/
+//void			ms_fork2(t_master *master, char *command, char **args, int pipe_check);
+void			ms_fork2(t_master *master, char *command, char **args);
 char			**ms_env_path_get(t_master *master);
 char			**ms_env_path_refresh(t_master *master);
 t_bool			ms_file_can_use(char *fname);
@@ -125,6 +128,7 @@ void			mv_set_status(t_master *master, int status);
 char			**ms_env_set(t_master *master, char *key, char *value);
 void			ms_pwd_set(t_master *master, char *new_pwd);
 char			**ft_split_ultimate(char const *s, char c);
+int				ft_pipe_check(char **args);
 
 /*----------------------------{ API CMDS }-----------------------------*/
 t_ms_command	*ms_cmd_register(char *name, char *description,

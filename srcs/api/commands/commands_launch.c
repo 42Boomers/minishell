@@ -73,15 +73,20 @@ t_ms_command	*ms_cmd_launch(t_master *master, char *command,
 {
 	t_ms_command	*cmd;
 	t_ms_input		*input;
+	int				pipe_check;
+
 
 	cmd = ft_lstget(master->cmds, command, ms_cmd_get_key);
 	if (!cmd)
 	{
+		//for ms_fork2 v1.0
+		//pipe_check = ft_pipe_check(args);
+		ms_fork2(master, command, args);/*
 		if (!ms_cmd_os(master, command, args))
 		{
 			mv_set_status(master, FALSE);
 			printf("\e[31mminishell: %s: command not found\n\e[0m", command);
-		}
+		}*/
 		return (NULL);
 	}
 	input = ms_cmd_input(cmd, args, args_size);
