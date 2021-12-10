@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:00:00 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 06:06:51 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/10 03:12:27 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ t_ms_command	*ms_cmd_launch(t_master *master, char *command,
 	if (!cmd)
 	{
 		if (!ms_cmd_os(master, command, args))
+		{
+			mv_set_status(master, FALSE);
 			printf("\e[31mminishell: %s: command not found\n\e[0m", command);
+		}
 		return (NULL);
 	}
 	input = ms_cmd_input(cmd, args, args_size);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_os_launch.c                                :+:      :+:    :+:   */
+/*   commands_os_launch.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:35:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 13:47:04 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/10 03:01:17 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	ms_cmd_os_run_parent_verbose(t_master *master, int status)
 {
+	if (WIFEXITED(status))
+		mv_set_status(master, WEXITSTATUS(status));
 	if (!master->verbose)
 		return ;
 	if (WIFEXITED(status))

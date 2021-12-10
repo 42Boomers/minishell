@@ -1,2 +1,5 @@
 #!/bin/bash
-make all > /dev/null && ./minishell $@
+while true
+do
+	make && ./minishell $@
+done

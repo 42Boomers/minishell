@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 02:00:47 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 08:31:17 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/10 03:19:40 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void	ft_str_add(t_str_build *builder, char *str)
 
 void	ft_strfill(size_t i, char *dest, const char *src)
 {
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
+	int index;
+	
+	index = 0;
+	while (src[index])
+		dest[i++] = src[index++];
 	dest[i] = 0;
 }
 
