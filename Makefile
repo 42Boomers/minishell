@@ -17,7 +17,7 @@ all : $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(INCLUDES)
 # $(OBJS): $(SRCS) $(INCLUDES)
-	mkdir -p $(dir $@) && $(CC) -c $(LIBS_INCLUDES_DIR) $(CFLAGS) $(LIBS_FLAG) -o $@ $<
+	mkdir -p $(dir $@) && $(CC) -c $(LIBS_INCLUDES_DIR) $(CFLAGS) -o $@ $<
 
 # $(NAME) : $(shell mkdir $(OBJS_DIR)) $(OBJS)
 $(NAME) : $(OBJS)
