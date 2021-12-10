@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/10 06:36:21 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/10 06:49:06 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,7 @@ t_bool	ms_cmd_echo_register(t_ms_command *cmd)
 	args[i++] = "$NAME\n";
 	args[i++] = "$PATH";
 	args[i++] = "\n$PWD_$NAME";
-	free(args);
-	// ms_cmd_register_default_args(cmd, args, i);
+	ms_cmd_register_default_args(cmd, args, i);
 	return (TRUE);
 }
 
