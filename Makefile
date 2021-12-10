@@ -17,18 +17,19 @@ all : $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(INCLUDES)
 # $(OBJS): $(SRCS) $(INCLUDES)
-	mkdir -p $(dir $@) && $(CC) -c $(LIBS_INCLUDES_DIR) $(CFLAGS) -o $@ $<
+	mkdir -p $(dir $@) && $(CC) -c $(LIBS_INCLUDES_DIR) $(CFLAGS) $(LIBS_FLAG) -o $@ $<
 
 # $(NAME) : $(shell mkdir $(OBJS_DIR)) $(OBJS)
 $(NAME) : $(OBJS)
 	make -C libft full
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS_PATH) $(LIBS_FLAG) 
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS_PATH) $(LIBS_FLAG)
 
 clean:
-	rm -f $(OBJS) ; rm -rf $(OBJS_DIR)
+	rm -f $(OBJS)
 
 fclean: clean
 	make $@ -C libft
+	rm -rf $(OBJS_DIR)
 	rm -f $(LIBS_PATH) $(NAME)
 
 re:

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/10 06:49:06 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/10 06:57:41 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static char	*ms_env_parse(t_master *master, char *str)
 			ft_str_add(build, tmp);
 		}
 		j = i++;
+		if (!*str || !(*str + 1))
+			break ;
 		str++;
 		if (*str == '?')
 		{
