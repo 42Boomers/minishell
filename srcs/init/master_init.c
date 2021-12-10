@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:35:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/10 23:34:30 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/10 23:36:30 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,11 @@ t_master	*ms_init_master(int ac, char **av, char **evs)
 
 void	ms_free_master(t_master	*master)
 {
-# if defined(__APPLE__)
-	rl_clear_history();
-# else
+// # if defined(__APPLE__)
+	// rl_clear_history();
+// # else
 	clear_history();
-# endif
-
+// # endif
 	ms_garbage_free(&master->garbage);
 	free(master);
 }
