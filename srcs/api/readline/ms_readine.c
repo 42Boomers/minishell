@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:18:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/09 01:33:53 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/10 05:46:20 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_bool	ms_readline_two(t_master *master, char *input)
 {
 	char	**raw_args;
-	char	**args;
 	int		i;
 
 	raw_args = ft_split_ultimate(input, ' ');
@@ -25,8 +24,8 @@ t_bool	ms_readline_two(t_master *master, char *input)
 		i = 0;
 		while (raw_args[i])
 			ms_garbage_master_add(master, raw_args[i++], free);
-		args = raw_args;
-		ms_cmd_launch(master, raw_args[0], ++args, i - 1);
+		ms_cmd_launch(master, raw_args[0], raw_args + 1, i - 1);
+		raw_args++;
 	}
 	else
 	{

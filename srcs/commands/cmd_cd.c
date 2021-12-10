@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 08:45:08 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/10 05:26:12 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static t_bool	ms_cd_execute(t_ms_input *input)
 		return (FALSE);
 	}
 	new_pwd = input->args[0];
-	if (ms_file_is_dir(input->args[0]) != 1)
+	if (ms_file_is_dir(new_pwd) != 1)
 	{
-		printf("cd: no such directory: %s\n", input->args[0]);
+		printf("cd: no such directory: %s\n", new_pwd);
 		return (FALSE);
 	}
 	chdir(new_pwd);

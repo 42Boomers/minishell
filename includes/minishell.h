@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/09 01:46:40 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/10 06:29:33 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,12 +139,15 @@ t_bool			ms_cmd_os_run(t_master *master, char *command,
 t_bool			ms_launch_at_start(t_master *master);
 t_bool			mv_history_read(t_master *master);
 t_bool			mv_history_write(t_master *master, char *command);
+void			ms_cmd_register_default_args(t_ms_command *cmd,
+					char **default_args, int default_args_size);
 
 /*----------------------------{ API STR }-----------------------------*/
 t_str_build		*ft_str_build_init(void);
 void			ft_str_destroy(t_str_build *builder);
 char			*ft_str_build(t_str_build *builder);
 void			ft_str_add(t_str_build *builder, char *str);
+char			**ft_str_array_build(t_str_build *builder);
 
 /*------------------------------{ CMDS }-------------------------------*/
 t_bool			ms_cmd_env_register(t_ms_command *cmd);

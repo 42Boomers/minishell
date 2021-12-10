@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands_register.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 19:30:05 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/07 19:07:21 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/10 06:28:15 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,23 @@ void	ms_cmd_register_default_args(t_ms_command *cmd,
 {
 	cmd->default_args = default_args;
 	cmd->default_args_size = default_args_size;
+	ms_garbage_master_add(cmd->master, cmd->default_args, free);
+}
+
+/**
+ * @brief Register here all cmds with ms_cmd_register
+ * @param master 
+ */
+void	ms_cmd_register_all(t_master *master)
+{
+	ms_cmd_register("help", "This message",
+		master, ms_cmd_help_register);
+	ms_cmd_register("pwd", "Show current path",
+		master, ms_cmd_pwd_register);
+	ms_cmd_register("env", "Show all environment variables",
+		master, ms_cmd_env_register); // syl : ICI
+	ms_cmd_register("echo", "Print arguments",
+		master, ms_cmd_echo_register);
+	ms_cmd_register("cd", "Move to other directory",
+		master, ms_cmd_cd_register);
 }

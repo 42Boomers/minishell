@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/10 05:23:54 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/10 06:36:21 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,9 @@ static char	*ms_env_parse(t_master *master, char *str)
 			tmp[l] = 0;
 			// env = getenv(tmp);
 			env = ms_env_get(master, tmp);
+			free(tmp);
 			if (env)
-			{
 				ft_str_add(build, ft_strdup(env));
-				free(tmp);
-			}
 		}
 		str2 = str;
 		k = i++;
@@ -121,9 +119,22 @@ static t_bool	ms_echo_print(t_ms_input *input)
 
 t_bool	ms_cmd_echo_register(t_ms_command *cmd)
 {
+	char	**args;
+	int		i;
+	
 	// cmd->analyze = &ms_echo_analyze;
 	// cmd->execute = &ms_echo_execute;
 	cmd->print = &ms_echo_print;
+	i = 0;
+	args = malloc(sizeof(char *) * 6);
+	args[i++] = "Hello";
+	args[i++] = "World\n";
+	args[i++] = "\"Ceci est un test\"\n";
+	args[i++] = "$NAME\n";
+	args[i++] = "$PATH";
+	args[i++] = "\n$PWD_$NAME";
+	free(args);
+	// ms_cmd_register_default_args(cmd, args, i);
 	return (TRUE);
 }
 

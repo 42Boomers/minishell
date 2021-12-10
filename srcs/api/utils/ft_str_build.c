@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 02:00:47 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/10 03:19:40 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/10 06:07:03 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,24 @@ char	*ft_str_build(t_str_build *builder)
 	if (!out)
 		return (NULL);
 	ft_lst_to_str(builder, &out);
+	return (out);
+}
+
+char	**ft_str_array_build(t_str_build *builder)
+{
+	char	**out;
+	// int		i;
+	t_list	*tmp;
+
+	// i = 0;
+	tmp = builder->lst;
+	out = malloc(sizeof(char*) * builder->lst_size);
+	if (!out)
+		return (NULL);
+	while (tmp)
+	{
+		*out++ = ft_strdup(tmp->content);
+	}
 	return (out);
 }
 
