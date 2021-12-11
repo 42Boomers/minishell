@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 19:30:05 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/10 06:28:15 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/11 01:18:06 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ void	ms_cmd_register_all(t_master *master)
 {
 	ms_cmd_register("help", "This message",
 		master, ms_cmd_help_register);
-	ms_cmd_register("pwd", "Show current path",
+	ms_cmd_register("pwd", "Print current path",
 		master, ms_cmd_pwd_register);
-	ms_cmd_register("env", "Show all environment variables",
+	ms_cmd_register("env", "Print all environment variables",
 		master, ms_cmd_env_register); // syl : ICI
 	ms_cmd_register("echo", "Print arguments",
 		master, ms_cmd_echo_register);
 	ms_cmd_register("cd", "Move to other directory",
 		master, ms_cmd_cd_register);
+	ms_cmd_register("unset", "Delete environment variable",
+		master, ms_cmd_unset_register);
 }

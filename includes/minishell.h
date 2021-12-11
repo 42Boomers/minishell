@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/10 06:29:33 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/11 01:29:13 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,22 @@ typedef struct s_master
 	char	**pwd;
 	char	**old_pwd;
 	int		last_status;
-	// char	*home;
-	// char	*user;
-	// char	*shell;
-	// char	*tmp;
 	int		ac;
 	char	**av;
-	// char	**raw_envs;
-	char	***envs;
+	t_list	*envs;
 	char	**paths;
-	int		envs_size;
 	char	*hist_file;
 	t_list	*garbage;
 	t_list	*cmds;
 	t_bool	verbose;
 }	t_master;
 
+/*------------------------------{ ENVS }------------------------------*/
+typedef struct s_env
+{
+	char	*key;
+	char	*value;
+}	t_env;
 /*----------------------------{ AUTO FREE }----------------------------*/
 typedef struct s_free_function
 {
@@ -113,16 +113,18 @@ t_bool			ms_str_equals(char *str1, char*str2);
 t_bool			ms_str_equals_ignore(char *str1, char *str2);
 t_bool			ms_env_init(t_master *master, char **envs);
 char			*ms_env_get(t_master *master, char *key);
+t_bool			ms_env_remove(t_master *master, char *key);
 char			**ms_env_format(t_master *master);
+char			**ms_env_replace(t_master *master, char *key, char *value);
+void			ms_env_destroy(t_master *master);
+char			**ms_env_path_get(t_master *master);
+char			**ms_env_path_refresh(t_master *master);
 char			*ms_pwd(t_master *master);
 void			ms_write(char **array, int size);
 void			ms_fork(t_master *master, void child(t_master *));
-char			**ms_env_path_get(t_master *master);
-char			**ms_env_path_refresh(t_master *master);
 t_bool			ms_file_can_use(char *fname);
 t_bool			ms_file_is_dir(char *dname);
 void			mv_set_status(t_master *master, int status);
-char			**ms_env_set(t_master *master, char *key, char *value);
 void			ms_pwd_set(t_master *master, char *new_pwd);
 char			**ft_split_ultimate(char const *s, char c);
 
@@ -155,6 +157,8 @@ t_bool			ms_cmd_pwd_register(t_ms_command *cmd);
 t_bool			ms_cmd_help_register(t_ms_command *cmd);
 t_bool			ms_cmd_echo_register(t_ms_command *cmd);
 t_bool			ms_cmd_cd_register(t_ms_command *cmd);
+t_bool			ms_cmd_unset_register(t_ms_command *cmd);
+t_bool			ms_cmd_export_register(t_ms_command *cmd);
 
 /*-----------------------------{ GARBAGE }-----------------------------*/
 void			*ms_malloc(t_list **garbage, size_t size);

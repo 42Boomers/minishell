@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/10 06:57:41 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/10 23:52:21 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*ms_env_parse(t_master *master, char *str)
 		{
 			tmp = malloc(sizeof(char) * (i - k));
 			if (!tmp)
-				return (NULL); 	// cant malloc
+				return (NULL); // cant malloc
 			ft_strlcpy(tmp, str2, i - k);
 			ft_str_add(build, tmp);
 		}
@@ -123,7 +123,7 @@ t_bool	ms_cmd_echo_register(t_ms_command *cmd)
 {
 	char	**args;
 	int		i;
-	
+
 	// cmd->analyze = &ms_echo_analyze;
 	// cmd->execute = &ms_echo_execute;
 	cmd->print = &ms_echo_print;

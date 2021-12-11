@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 14:32:00 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/11 01:23:50 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static t_bool	ms_unset_analyze(t_ms_input *input)
 	(void)input;
 	return (TRUE);
 }
-
-int	strcmp(char *str1, char *str2)
+/*
+int	ms_strcmp(char *str1, char *str2)
 {
 	int i;
 
@@ -65,7 +65,7 @@ static t_bool	env_recreate(t_master *master, int to_skip)
 	master->envs = new_envs;
 	//ici le pointeur new_envs remplace l'ancien master->env, sans free, il faut corriger les leaks
 	return (TRUE);
-}
+}*/
 
 static t_bool	ms_unset_execute(t_ms_input *input)
 {
@@ -75,16 +75,18 @@ static t_bool	ms_unset_execute(t_ms_input *input)
 	j = 0;
 	while (j < input->args_size)
 	{
-		i = 0;
-		while (i < input->cmd->master->envs_size)
-		{
-			if (!ft_strcmp(input->cmd->master->envs[i][0], input->args[j]))
-			{
-				env_recreate(input->cmd->master, i);
-				break;
-			}
-			i++;
-		}
+		if (!ms_env_remove(input->cmd->master, input->args[j]))
+			printf("Can't remove %s\n", input->args[j]);
+		// i = 0;
+		// while (i < input->cmd->master->envs_size)
+		// {
+		// 	if (!ft_strcmp(input->cmd->master->envs[i][0], input->args[j]))
+		// 	{
+		// 		env_recreate(input->cmd->master, i);
+		// 		break;
+		// 	}
+		// 	i++;
+		// }
 		j++;
 	}
 	return (TRUE);

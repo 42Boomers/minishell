@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 02:00:47 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/10 06:07:03 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/10 23:51:28 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,13 @@ void	ft_str_add(t_str_build *builder, char *str)
 
 void	ft_strfill(size_t i, char *dest, const char *src)
 {
-	int index;
-	
+	int	index;
+
 	index = 0;
 	while (src[index])
 		dest[i++] = src[index++];
 	dest[i] = 0;
 }
-
 
 static void	ft_lst_to_str(t_str_build *builder, char **out)
 {
@@ -80,12 +79,10 @@ char	*ft_str_build(t_str_build *builder)
 char	**ft_str_array_build(t_str_build *builder)
 {
 	char	**out;
-	// int		i;
 	t_list	*tmp;
 
-	// i = 0;
 	tmp = builder->lst;
-	out = malloc(sizeof(char*) * builder->lst_size);
+	out = malloc(sizeof(char *) * builder->lst_size);
 	if (!out)
 		return (NULL);
 	while (tmp)
