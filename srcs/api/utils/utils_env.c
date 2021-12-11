@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:10:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/11 01:43:11 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/11 01:48:05 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,13 @@ t_bool	ms_env_remove(t_master *master, char *key)
 {
 	if (ft_lstremove(master->envs, key, ms_env_key_get, ms_env_free))
 		return (FALSE);
+	return (TRUE);
+}
+
+t_bool	ms_env_add_raw(t_master *master, char *env)
+{
+	ft_lstadd_back(&master->envs,
+		ft_lstnew(ms_env_create(env)));
 	return (TRUE);
 }
 

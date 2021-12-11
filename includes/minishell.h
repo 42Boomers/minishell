@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/11 01:29:13 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/11 01:48:20 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ char			**ms_env_replace(t_master *master, char *key, char *value);
 void			ms_env_destroy(t_master *master);
 char			**ms_env_path_get(t_master *master);
 char			**ms_env_path_refresh(t_master *master);
+t_bool			ms_env_add_raw(t_master *master, char *env);
 char			*ms_pwd(t_master *master);
 void			ms_write(char **array, int size);
 void			ms_fork(t_master *master, void child(t_master *));

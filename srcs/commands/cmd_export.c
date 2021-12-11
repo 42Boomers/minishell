@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/05 14:32:29 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/11 01:49:40 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,15 @@ static t_bool	ms_export_analyze(t_ms_input *input)
 
 static t_bool	ms_export_execute(t_ms_input *input)
 {
-	(void)input;
+	int i;
+
+	i = 0;
+	while (input->args_size > i)
+	{
+		if (!ms_env_add_raw(input->cmd->master, input->args[i]))
+			printf("Can't add %s\n", input->args[i]);
+		i++;
+	}
 	return (TRUE);
 }
 

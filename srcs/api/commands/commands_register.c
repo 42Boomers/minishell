@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 19:30:05 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/11 01:18:06 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/11 01:49:38 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,6 @@ void	ms_cmd_register_all(t_master *master)
 		master, ms_cmd_cd_register);
 	ms_cmd_register("unset", "Delete environment variable",
 		master, ms_cmd_unset_register);
+	ms_cmd_register("export", "Add environment variable",
+		master, ms_cmd_export_register);
 }
