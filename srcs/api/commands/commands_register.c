@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands_register.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 19:30:05 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/11 01:49:38 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/12 21:56:00 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ms_cmd_register_default_args(t_ms_command *cmd,
 void	ms_cmd_register_all(t_master *master)
 {
 	ms_cmd_register("help", "This message",
-		master, ms_cmd_help_register);
+		master, ms_cmd_help_register); // syl : pourquoi il n'y a aucun argument a ms_cmp_help_register ?
 	ms_cmd_register("pwd", "Print current path",
 		master, ms_cmd_pwd_register);
 	ms_cmd_register("env", "Print all environment variables",

@@ -7,10 +7,12 @@ Comment objs bien classes ? Makefileans le make, argument "-Iincludes -Ilibft -I
 dossier objs libft (Makefile)
 	-> tristan : Virer parce que les testers aiment pas :/
 	-> syl : les testers de minishell ? Tu peux m'en dire plus ?
-
-Je t'ai mis des commentaires un peu partout dans le code. Tu peux me repondre
-ici si tu veux. Ce qui me pose le plus de difficulte pour l'instant ce sont tes
-listes de free_function et les malloc custom, je me perds un peu dans tout ca
+minishell.h:95   Alors, on a un enum booleen, qui renvoie -1, 0 ou pas 0 (deja,
+				 ca, je comprends pas). Maintenant, cet enum booleen devient une
+				 structure (t_ms_input *)(???) qui elle meme prend le nom de
+				 analyze, execute ou print mais en (*analyze), wtf ??? Tu
+				 dereference quoi avec ce (*nom), ou alors c'est un cast ? Mais
+				 un cast de quoi ? Je comprends rien T_T
 
 
 --------------------------------------------------------------------------------

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/11 01:48:20 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/12 21:46:02 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct s_ms_input
 	void					*data;
 	struct s_ms_command		*cmd;
 	t_list					*garbage;
-}	t_ms_input;
+}	t_ms_input; // syl : rename en t_ms_cmd_input ?
 
 /*-----------------------------{ COMMAND }-----------------------------*/
 typedef struct s_ms_command
@@ -92,7 +92,7 @@ typedef struct s_ms_command
 	char		*description;
 	char		**default_args;
 	int			default_args_size;
-	t_bool		(*analyze)(t_ms_input *);
+	t_bool		(*analyze)(t_ms_input *); // syl : peux-tu m'expliquer (*analyze). Need grosse explication irl mdr (voir notes_sylducam)
 	t_bool		(*execute)(t_ms_input *);
 	t_bool		(*print)(t_ms_input *);
 	t_master	*master;
