@@ -6,11 +6,14 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:10:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/11 01:48:05 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/13 17:49:52 by mrozniec         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+/*
+**	mrozniec: je viens de penser, mais ca ne serais pas plus simple d'utiliser getenv() qui est autoriser, plutot que de la réecrire?
+*/
 
 static t_env	*ms_env_create_basic(char *key, char *value)
 {

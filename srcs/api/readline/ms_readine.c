@@ -6,17 +6,34 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:18:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/10 05:46:20 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/13 17:49:52 by mrozniec         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	ft_pipe_check(char **args)
+{
+	int	i;
+
+	i = -1;
+	while (args[++i])
+	{
+		if (ft_strcmp(args[i], "|") == 0)
+		{
+			args[i] = NULL;
+			if (!args[i + 1])
+				return (0);
+			return (i + 1);
+		}
+	}
+	return (0);
+}
+
 t_bool	ms_readline_two(t_master *master, char *input)
 {
 	char	**raw_args;
 	int		i;
-
 	raw_args = ft_split_ultimate(input, ' ');
 	if (raw_args && raw_args[0])
 	{

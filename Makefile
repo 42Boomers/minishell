@@ -9,7 +9,7 @@ SRCS_DIR			=	srcs
 SRCS				=	$(shell find $(SRCS_DIR) -name "*.c") # change to brut files names
 OBJS				=	$(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 # OBJS				=	$(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:$(SRCS_DIR)/%.c=%.o)))
-CFLAGS				=	-Wall -Wextra
+CFLAGS				=	-Wall -Wextra -g
 #CFLAGS				=	-Wall -Wextra -Werror
 
 all : $(NAME)

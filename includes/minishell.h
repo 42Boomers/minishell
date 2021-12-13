@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/12 21:46:02 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/13 17:54:45 by mrozniec         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,13 @@ char			**ms_env_path_refresh(t_master *master);
 t_bool			ms_env_add_raw(t_master *master, char *env);
 char			*ms_pwd(t_master *master);
 void			ms_write(char **array, int size);
-void			ms_fork(t_master *master, void child(t_master *));
+void			ms_fork2(t_master *master, char *command, char **args);
 t_bool			ms_file_can_use(char *fname);
 t_bool			ms_file_is_dir(char *dname);
 void			mv_set_status(t_master *master, int status);
 void			ms_pwd_set(t_master *master, char *new_pwd);
 char			**ft_split_ultimate(char const *s, char c);
+int				ft_pipe_check(char **args);
 
 /*----------------------------{ API CMDS }-----------------------------*/
 t_ms_command	*ms_cmd_register(char *name, char *description,

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 18:02:37 by mrozniec          #+#    #+#             */
-/*   Updated: 2021/12/10 23:50:44 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/13 17:49:52 by mrozniec         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,29 @@
 
 static int	ft_skip(const char *s, int n)
 {
+	while (s[n] && s[n + 1] && s[n] == '\\')
+		n += 2;
 	if (s[n] == '\"')
 	{
 		n++;
-		while (s[n] != '\"')
-			n++;
+		while (s[n] && s[n] != '\"')
+		{
+			if (s[n + 1] && s[n] == '\\')
+				n += 2;
+			else
+				n++;
+		}
+	}
+	if (s[n] == '\'')
+	{
+		n++;
+		while (s[n] && s[n] != '\'')
+		{
+			if (s[n + 1] && s[n] == '\\')
+				n += 2;
+			else
+				n++;
+		}
 	}
 	return (n);
 }

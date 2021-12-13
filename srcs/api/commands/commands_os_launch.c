@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:35:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/10 03:01:17 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/13 17:49:52 by mrozniec         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_bool	ms_cmd_os_run_parent(t_master *master, pid_t cpid)
 t_bool	ms_cmd_os_run(t_master *master, char *command,
 				char **argv, char **env)
 {
-	pid_t	cpid;
+	/*pid_t	cpid;
 
 	cpid = fork();
 	if (cpid == -1)
@@ -58,9 +58,9 @@ t_bool	ms_cmd_os_run(t_master *master, char *command,
 		perror("fork");
 		exit(EXIT_FAILURE);
 	}
-	if (cpid == 0)
+	if (cpid == 0)*/
 		execve(command, argv, env);
-	else
-		ms_cmd_os_run_parent(master, cpid);
+/*	else
+		ms_cmd_os_run_parent(master, cpid);*/
 	return (TRUE);
 }

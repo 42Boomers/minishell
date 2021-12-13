@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/10 23:45:48 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/13 18:23:29 by mrozniec         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static void	handle_signal(int signum, siginfo_t *sig_info, void *ucontext_t)
 {
 	(void)ucontext_t;
-	if (signum == 2)
+	if (signum == 2)// 2 = ctrl-c
 	{
-		rl_redisplay();
-		printf("\n\e[36mminishell DEBUG > \e[96m");
+		rl_redisplay(); // etudie la fonction. est elle autoriser?
+		printf("\n\e[36mminishell DEBUG > \e[96m");//retour a zero du readline
 	}
 	else
 		printf("DEBUG SIGNAL %d - from PID %d\n", sig_info->si_signo, sig_info->si_pid);
