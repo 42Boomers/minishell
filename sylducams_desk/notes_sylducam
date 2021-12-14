@@ -16,6 +16,10 @@ minishell.h:95   Alors, on a un enum booleen, qui renvoie -1, 0 ou pas 0 (deja,
 
 
 --------------------------------------------------------------------------------
+SIGNAUX
+https://man7.org/linux/man-pages/man2/sigaction.2.html
+
+
 virer les coms
 architecture ajouter dossier commands et sous-dossiers voir cahier
 norme
