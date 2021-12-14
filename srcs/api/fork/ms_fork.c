@@ -11,46 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-void	ms_fork(t_master *master, void child(t_master *))
-{
-	pid_t	cpid;
-	pid_t	wpid;
-	int		status;
-
-	cpid = fork();
-	if (cpid == -1)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
-	if (cpid == 0)
-	{
-		child(master);
-	}
-	else
-	{
-		status = -1;
-		while (status == -1 || (!WIFEXITED(status) && !WIFSIGNALED(status)))
-		{
-			wpid = waitpid(cpid, &status, WUNTRACED | WCONTINUED);
-			if (wpid == -1)
-			{
-				perror("waitpid");
-				exit(EXIT_FAILURE);
-			}
-			if (WIFEXITED(status))
-				printf("DEBUG terminé, code=%d\n", WEXITSTATUS(status));
-			else if (WIFSIGNALED(status))
-				printf("DEBUG tué par le signal %d\n", WTERMSIG(status));
-			else if (WIFSTOPPED(status))
-				printf("DEBUG arrêté par le signal %d\n", WSTOPSIG(status));
-			else if (WIFCONTINUED(status))
-				printf("DEBUG relancé\n");
-		}
-	}
-}
-*/
 
 static void	ms_child(t_master *master, char *command, char **args)
 {
@@ -61,12 +21,16 @@ static void	ms_child(t_master *master, char *command, char **args)
 	}
 }
 
-static int	ms_wait_fork(pid_t fork_id, char **args)
+static int	ms_wait_fork(pid_t fork_id, char **args, int *redir)
 {
 	int	*status;
 
 	status = NULL;
 	waitpid(fork_id, status, 0);
+	if (redir[0] > 0)
+		close(redir[0]);
+	if (redir[1] > 0)
+		close(redir[1]);
 	return (ft_pipe_check(args));
 }
 
@@ -78,52 +42,59 @@ static char	*ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
 	*fd_in = pip_end[0];
 	command = (*args)[pip_rec];
 	*args = &((*args)[pip_rec + 1]);
+	ms_check_redir(&command, *args);
 	return (command);
 }
 
-static void	ms_fork_init(const int *fd_in, int pip_end[2], char **args, pid_t \
+static int	*ms_fork_init(const int *fd_in, int pip_end[2], char **args, pid_t \
 *fork_id)
 {
 	int	pip_rec;
+	int	*redir;
 
+	redir = malloc(2*sizeof(int));
 	*fork_id = fork();
-	if (*fork_id < 0)
+	if (*fork_id < 0 || !redir)
 	{
 		ft_println_red("Error > An error has occured while fork creation");
-		return ;
+		return (NULL);
 	}
+	ms_red_in_out(args, redir);
 	if (*fork_id == 0)
 	{
-		dup2(*fd_in, 0);
 		pip_rec = ft_pipe_check(args);
-		if (pip_rec > 0)
+		if (redir[0] > 0)
+			dup2(redir[0], 0);
+		else
+			dup2(*fd_in, 0);
+		if (pip_rec > 0 && redir[1] == 0)
 			dup2(pip_end[1], 1);
+		if (redir[1] > 0)
+			dup2(redir[1], 1);
 		close(pip_end[0]);
 	}
+	return (redir);
 }
 
-void	ms_fork2(t_master *master, char *command, char **args)
+void	ms_fork(t_master *master, char *command, char **args)
 {
 	int		pip_end[2];
 	int		fd_in;
+	int		*redir;
 	int		pip_rec;
 	pid_t	fork_id;
 
-	fd_in = 0;
 	pip_rec = 1;
 	while (pip_rec > 0)
 	{
-		if (pipe(pip_end) == -1)
-		{
-			ft_println_red("Error > An error has occured while pipe creation");
+		if (ms_error_pipe(pip_end) == -1)
 			return ;
-		}
-		ms_fork_init(&fd_in, pip_end, args, &fork_id);
+		redir = ms_fork_init(&fd_in, pip_end, args, &fork_id);
 		if (fork_id == 0)
 			ms_child(master, command, args);
 		else
 		{
-			pip_rec = ms_wait_fork(fork_id, args);
+			pip_rec = ms_wait_fork(fork_id, args, redir);
 			if (pip_rec > 0)
 				command = ms_next_fork(pip_rec, pip_end, &fd_in, &args);
 		}

@@ -78,7 +78,8 @@ t_ms_command	*ms_cmd_launch(t_master *master, char *command,
 	cmd = ft_lstget(master->cmds, command, ms_cmd_get_key);
 	if (!cmd)
 	{
-		ms_fork2(master, command, args);
+		ms_check_redir(&command, args);
+		ms_fork(master, command, args);
 		return (NULL);
 	}
 	input = ms_cmd_input(cmd, args, args_size);
