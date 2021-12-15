@@ -47,24 +47,12 @@ static void	ms_red_in(char **args, int *fd_red_in)
 	if (pos > 0)
 	{
 		*fd_red_in = open(args[pos], O_RDONLY);
-		while (args[pos + 1])
-		{
-			args[pos - 1] = args [pos + 1];
-			pos++;
-		}
-		args[pos - 1] = NULL;
-		args[pos] = NULL;
+		ms_del_red(args, pos);
 	}
 	else if (pos < 0)
 	{
 		pos = -pos;
-		while (args[pos + 1])
-		{
-			args[pos - 1] = args [pos + 1];
-			pos++;
-		}
-		args[pos - 1] = NULL;
-		args[pos] = NULL;
+		ms_del_red(args, pos);
 	}
 	else
 		fd_red_in[0] = 0;
@@ -105,25 +93,13 @@ static void	ms_red_out(char **args, int *fd_red_out)
 	if (pos > 0)
 	{
 		fd_red_out[1] = open(args[pos], O_CREAT | O_WRONLY | O_TRUNC, 0666);
-		while (args[pos + 1])
-		{
-			args[pos - 1] = args [pos + 1];
-			pos++;
-		}
-		args[pos - 1] = NULL;
-		args[pos] = NULL;
+		ms_del_red(args, pos);
 	}
 	else if (pos < 0)
 	{
 		pos = -pos;
 		fd_red_out[1] = open(args[pos], O_CREAT | O_WRONLY | O_APPEND, 0666);
-		while (args[pos + 1])
-		{
-			args[pos - 1] = args [pos + 1];
-			pos++;
-		}
-		args[pos - 1] = NULL;
-		args[pos] = NULL;
+		ms_del_red(args, pos);
 	}
 	else
 		fd_red_out[1] = 0;

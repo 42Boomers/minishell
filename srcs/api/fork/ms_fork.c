@@ -47,10 +47,9 @@ static char	*ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
 	return (command);
 }
 
-static int	*ms_fork_init(const int *fd_in, int pip_end[2], char **args, pid_t \
+static int	*ms_fork_init(int *fd_in, int pip_end[2], char **args, pid_t \
 *fork_id)
 {
-	int	pip_rec;
 	int	*redir;
 
 	redir = malloc(2 * sizeof(int));
@@ -67,20 +66,7 @@ static int	*ms_fork_init(const int *fd_in, int pip_end[2], char **args, pid_t \
 		return (NULL);
 	}
 	if (*fork_id == 0)
-	{
-		pip_rec = ft_pipe_check(args);
-		if (redir[0] > 0)
-			dup2(redir[0], 0);
-		else
-			dup2(*fd_in, 0);
-		if (redir[1] > 0)
-			close(pip_end[1]);
-		if (redir[1] > 0)
-			dup2(redir[1], 1);
-		else if (pip_rec > 0)
-			dup2(pip_end[1], 1);
-		close(pip_end[0]);
-	}
+		ms_fork_init2(args, redir, pip_end, fd_in);
 	return (redir);
 }
 

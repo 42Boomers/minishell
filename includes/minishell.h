@@ -125,6 +125,8 @@ void			ms_write(char **array, int size);
 void			ms_fork(t_master *master, char *command, char **args);
 void			ms_red_in_out(char **args, int *redir);
 void			ms_check_redir(char **command, char **args);
+void			ms_del_red(char **args, int pos);
+void			ms_fork_init2(char **args, int *redir, int pip_end[2], int *fd_in);
 int				ms_error_pipe(int pip_end[2]);
 t_bool			ms_file_can_use(char *fname);
 t_bool			ms_file_is_dir(char *dname);
