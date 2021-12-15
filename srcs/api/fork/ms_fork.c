@@ -21,16 +21,17 @@ static void	ms_child(t_master *master, char *command, char **args)
 	}
 }
 
-static int	ms_wait_fork(pid_t fork_id, char **args, int *redir)
+static int	ms_wait_fork(pid_t fork_id, char **args, int **redir)
 {
 	int	*status;
 
 	status = NULL;
 	waitpid(fork_id, status, 0);
-	if (redir[0] > 0)
-		close(redir[0]);
-	if (redir[1] > 0)
-		close(redir[1]);
+	if (*redir[0] > 0)
+		close(*redir[0]);
+	if (*redir[1] > 0)
+		close(*redir[1]);
+	free(*redir);
 	return (ft_pipe_check(args));
 }
 
@@ -51,15 +52,21 @@ static int	*ms_fork_init(const int *fd_in, int pip_end[2], char **args, pid_t \
 {
 	int	pip_rec;
 	int	*redir;
+	int i;
 
 	redir = malloc(2*sizeof(int));
+	if (!redir)
+	{
+		ft_println_red("Error > An error has occured while malloc creation");
+		return (NULL);
+	}
+	ms_red_in_out(args, redir);
 	*fork_id = fork();
-	if (*fork_id < 0 || !redir)
+	if (*fork_id < 0)
 	{
 		ft_println_red("Error > An error has occured while fork creation");
 		return (NULL);
 	}
-	ms_red_in_out(args, redir);
 	if (*fork_id == 0)
 	{
 		pip_rec = ft_pipe_check(args);
@@ -67,10 +74,12 @@ static int	*ms_fork_init(const int *fd_in, int pip_end[2], char **args, pid_t \
 			dup2(redir[0], 0);
 		else
 			dup2(*fd_in, 0);
-		if (pip_rec > 0 && redir[1] == 0)
-			dup2(pip_end[1], 1);
+		if (redir[1] > 0)
+			close(pip_end[1]);
 		if (redir[1] > 0)
 			dup2(redir[1], 1);
+		else if (pip_rec > 0)
+			dup2(pip_end[1], 1);
 		close(pip_end[0]);
 	}
 	return (redir);
@@ -94,7 +103,7 @@ void	ms_fork(t_master *master, char *command, char **args)
 			ms_child(master, command, args);
 		else
 		{
-			pip_rec = ms_wait_fork(fork_id, args, redir);
+			pip_rec = ms_wait_fork(fork_id, args, &redir);
 			if (pip_rec > 0)
 				command = ms_next_fork(pip_rec, pip_end, &fd_in, &args);
 		}
