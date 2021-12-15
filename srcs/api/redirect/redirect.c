@@ -1,6 +1,14 @@
-//
-// Created by Maximilien Rozniecki on 12/14/21.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrozniec <mrozniec@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/15 13:08:32 by mrozniec          #+#    #+#             */
+/*   Updated: 2021/12/15 13:08:32 by mrozniec         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -33,7 +41,7 @@ static int	ft_red_in_check(char **args)
 
 static void	ms_red_in(char **args, int *fd_red_in)
 {
-	int pos;
+	int	pos;
 
 	pos = ft_red_in_check(args);
 	if (pos > 0)
@@ -91,7 +99,7 @@ static int	ft_red_out_check(char **args)
 
 static void	ms_red_out(char **args, int *fd_red_out)
 {
-	int pos;
+	int	pos;
 
 	pos = ft_red_out_check(args);
 	if (pos > 0)

@@ -52,9 +52,8 @@ static int	*ms_fork_init(const int *fd_in, int pip_end[2], char **args, pid_t \
 {
 	int	pip_rec;
 	int	*redir;
-	int i;
 
-	redir = malloc(2*sizeof(int));
+	redir = malloc(2 * sizeof(int));
 	if (!redir)
 	{
 		ft_println_red("Error > An error has occured while malloc creation");

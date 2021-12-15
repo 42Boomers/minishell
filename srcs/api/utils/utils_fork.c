@@ -1,6 +1,14 @@
-//
-// Created by Maximilien Rozniecki on 12/14/21.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_fork.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrozniec <mrozniec@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/15 13:04:22 by mrozniec          #+#    #+#             */
+/*   Updated: 2021/12/15 13:04:22 by mrozniec         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -16,7 +24,7 @@ int	ms_error_pipe(int pip_end[2])
 
 void	ms_check_redir(char **command, char **args)
 {
-	char *temp;
+	char	*temp;
 
 	temp = NULL;
 	if ((ft_strcmp(*command, "<") == 0) || (ft_strcmp(*command, "<<") == 0) || \
