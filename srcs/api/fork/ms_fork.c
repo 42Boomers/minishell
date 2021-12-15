@@ -21,17 +21,17 @@ static void	ms_child(t_master *master, char *command, char **args)
 	}
 }
 
-static int	ms_wait_fork(pid_t fork_id, char **args, int **redir)
+static int	ms_wait_fork(pid_t fork_id, char **args, int *redir)
 {
 	int	*status;
 
 	status = NULL;
 	waitpid(fork_id, status, 0);
-	if (*redir[0] > 0)
-		close(*redir[0]);
-	if (*redir[1] > 0)
-		close(*redir[1]);
-	free(*redir);
+	if (redir[0] > 0)
+		close(redir[0]);
+	if (redir[1] > 0)
+		close(redir[1]);
+	free(redir);
 	return (ft_pipe_check(args));
 }
 
@@ -103,7 +103,7 @@ void	ms_fork(t_master *master, char *command, char **args)
 			ms_child(master, command, args);
 		else
 		{
-			pip_rec = ms_wait_fork(fork_id, args, &redir);
+			pip_rec = ms_wait_fork(fork_id, args, redir);
 			if (pip_rec > 0)
 				command = ms_next_fork(pip_rec, pip_end, &fd_in, &args);
 		}
