@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:00:00 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/13 17:49:52 by mrozniec         ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 16:47:33 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,19 @@ static t_ms_input	*ms_cmd_input(t_ms_command *cmd, char **args, int args_size)
 	return (input);
 }
 
+static t_bool	ms_cmd_execute2(t_ms_input *input, t_bool cmd_result)
+{
+	if (input->cmd->print)
+	{
+		cmd_result = input->cmd->print(input);
+		if (cmd_result == -1)
+			ft_println_red("Error > An error has occured while print cmd");
+		else if (cmd_result != 1)
+			return (FALSE);
+	}
+	return (TRUE);
+}
+
 static t_bool	ms_cmd_execute(t_ms_input *input)
 {
 	t_bool	cmd_result;
@@ -57,15 +70,7 @@ static t_bool	ms_cmd_execute(t_ms_input *input)
 		else if (cmd_result != 1)
 			return (FALSE);
 	}
-	if (input->cmd->print)
-	{
-		cmd_result = input->cmd->print(input);
-		if (cmd_result == -1)
-			ft_println_red("Error > An error has occured while print cmd");
-		else if (cmd_result != 1)
-			return (FALSE);
-	}
-	return (TRUE);
+	return (ms_cmd_execute2(input, cmd_result));
 }
 
 t_ms_command	*ms_cmd_launch(t_master *master, char *command,
@@ -73,7 +78,6 @@ t_ms_command	*ms_cmd_launch(t_master *master, char *command,
 {
 	t_ms_command	*cmd;
 	t_ms_input		*input;
-
 
 	cmd = ft_lstget(master->cmds, command, ms_cmd_get_key);
 	if (!cmd)
@@ -83,7 +87,7 @@ t_ms_command	*ms_cmd_launch(t_master *master, char *command,
 		return (NULL);
 	}
 	input = ms_cmd_input(cmd, args, args_size);
-	mv_set_status(master, ms_cmd_execute(input));
+	ms_set_status(master, ms_cmd_execute(input));
 	ms_garbage_free(&input->garbage);
 	free(input);
 	return (cmd);

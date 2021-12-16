@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 16:12:54 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 16:46:01 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct s_ms_input
 	void					*data;
 	struct s_ms_command		*cmd;
 	t_list					*garbage;
-}	t_ms_input; // syl : rename en t_ms_cmd_input ?
+}	t_ms_input;
 
 /*-----------------------------{ COMMAND }-----------------------------*/
 typedef struct s_ms_command
@@ -92,7 +92,7 @@ typedef struct s_ms_command
 	char		*description;
 	char		**default_args;
 	int			default_args_size;
-	t_bool		(*analyze)(t_ms_input *); // syl : peux-tu m'expliquer (*analyze). Need grosse explication irl mdr (voir notes_sylducam)
+	t_bool		(*analyze)(t_ms_input *);
 	t_bool		(*execute)(t_ms_input *);
 	t_bool		(*print)(t_ms_input *);
 	t_master	*master;
@@ -120,18 +120,24 @@ void			ms_env_destroy(t_master *master);
 char			**ms_env_path_get(t_master *master);
 char			**ms_env_path_refresh(t_master *master);
 t_bool			ms_env_add_raw(t_master *master, char *env);
+t_env			*ms_env_get_struct(t_master *master, char *key);
+void			ms_env_free(void *arg);
+char			*ms_env_key_get(void *arg);
+t_env			*ms_env_create(char *raw_envs);
+t_env			*ms_env_create_basic(char *key, char *value);
 char			*ms_pwd(t_master *master);
 void			ms_write(char **array, int size);
 void			ms_fork(t_master *master, char *command, char **args);
 void			ms_red_in_out(char **args, int *redir);
 void			ms_check_redir(char **command, char **args);
 void			ms_del_red(char **args, int pos);
-void			ms_fork_init2(char **args, int *redir, int pip_end[2], int *fd_in);
+void			ms_fork_init2(char **args, int *redir, int pip_end[2],
+					int *fd_in);
 int				ms_error_pipe(int pip_end[2]);
 void			ms_heredoc(int fd, char *s_eof);
 t_bool			ms_file_can_use(char *fname);
 t_bool			ms_file_is_dir(char *dname);
-void			mv_set_status(t_master *master, int status);
+void			ms_set_status(t_master *master, int status);
 void			ms_pwd_set(t_master *master, char *new_pwd);
 char			**ft_split_ultimate(char const *s, char c);
 int				ft_pipe_check(char **args);
@@ -146,8 +152,8 @@ t_bool			ms_cmd_os(t_master *master, char *command,
 					char **args);
 void			ms_cmd_os_run(char *command, char **argv, char **env);
 t_bool			ms_launch_at_start(t_master *master);
-t_bool			mv_history_read(t_master *master);
-t_bool			mv_history_write(t_master *master, char *command);
+t_bool			ms_history_read(t_master *master);
+t_bool			ms_history_write(t_master *master, char *command);
 void			ms_cmd_register_default_args(t_ms_command *cmd,
 					char **default_args, int default_args_size);
 

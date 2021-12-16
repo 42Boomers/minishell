@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:11:17 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/11 01:29:58 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 16:49:36 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
  */
 static t_bool	ms_env_print(t_ms_input *input)
 {
-	ms_write(ms_env_format(input->cmd->master), ft_lstsize(input->cmd->master->envs));
+	ms_write(ms_env_format(input->cmd->master),
+		ft_lstsize(input->cmd->master->envs));
 	return (TRUE);
 }
 

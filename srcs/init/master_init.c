@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   master_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:35:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/13 17:54:39 by mrozniec         ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 16:46:01 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_master	*ms_init_master(int ac, char **av, char **evs)
 	master->last_status = 0;
 	master->hist_file = ".ms_history";
 	ms_env_init(master, evs);
-	mv_history_read(master);
+	ms_history_read(master);
 	return (master);
 }
 
