@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 22:08:46 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 22:40:13 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,15 @@ void			ms_free_master(t_master	*master);
 t_bool			ms_test_cmd(t_master *master);
 t_bool			ms_readline(t_master *master);
 void			ms_register_signals(t_master *master);
+int				ft_pipe_check(char **args);
+void			ms_fork(t_master *master, char *command, char **args);
+void			ms_red_in_out(char **args, int *redir);
+void			ms_check_redir(char **command, char **args);
+void			ms_del_red(char **args, int pos);
+void			ms_fork_init2(char **args, int *redir, int pip_end[2],
+					int *fd_in);
+int				ms_error_pipe(int pip_end[2]);
+void			ms_heredoc(int fd, char *s_eof);
 
 /*-------------------------------{ API }-------------------------------*/
 void			ft_println(char *str);
@@ -126,20 +135,12 @@ t_env			*ms_env_create(char *raw_envs);
 t_env			*ms_env_create_basic(char *key, char *value);
 char			*ms_pwd(t_master *master);
 void			ms_write(char **array, int size);
-void			ms_fork(t_master *master, char *command, char **args);
-void			ms_red_in_out(char **args, int *redir);
-void			ms_check_redir(char **command, char **args);
-void			ms_del_red(char **args, int pos);
-void			ms_fork_init2(char **args, int *redir, int pip_end[2],
-					int *fd_in);
-int				ms_error_pipe(int pip_end[2]);
-void			ms_heredoc(int fd, char *s_eof);
 t_bool			ms_file_can_use(char *fname);
 t_bool			ms_file_is_dir(char *dname);
 void			ms_set_status(t_master *master, int status);
 void			ms_pwd_set(t_master *master, char *new_pwd);
 char			**ft_split_ultimate(char const *s, char c);
-int				ft_pipe_check(char **args);
+char			*ms_prefix_get(t_master *master);
 
 /*----------------------------{ API CMDS }-----------------------------*/
 t_ms_command	*ms_cmd_register(char *name, char *description,

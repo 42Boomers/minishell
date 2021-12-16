@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:18:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 16:48:47 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 22:40:46 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,11 @@ t_bool	ms_readline_two(t_master *master, char *input)
 
 int	ms_readline_check(t_master *master, char **input)
 {
-	*input = readline("\e[36mminishell > \e[96m");
+	char	*prefix;
+
+	prefix = ms_prefix_get(master);
+	*input = readline(prefix);
+	free(prefix);
 	if (!*input)
 	{
 		ft_putstr("\e[0m\n");

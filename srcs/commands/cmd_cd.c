@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 22:18:02 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 22:34:11 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static char	*ms_change_pwd(int buff_size)
 {
 	char	*buff;
-	char	*str;
 
 	buff = malloc(sizeof(char) * buff_size);
 	if (!buff)
@@ -36,9 +35,7 @@ static t_bool	ms_cd_execute(t_ms_input *input)
 	char	*new_pwd;
 
 	if (input->args_size == 0)
-	{
 		return (FALSE);
-	}
 	new_pwd = input->args[0];
 	if (ms_file_is_dir(new_pwd) != 1)
 	{

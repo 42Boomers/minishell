@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:39:53 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 22:09:02 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 22:28:48 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,10 @@ t_bool	ms_file_is_dir(char *dname)
 	DIR		*dir;
 
 	dir = opendir(dname);
-	if (dir)
-	{
-		closedir(dir);
-		return (TRUE);
-	}
-	else
+	if (!dir)
 		return (FALSE);
+	closedir(dir);
+	return (TRUE);
 }
 
 char	*ms_pwd(t_master *master)
@@ -44,7 +41,6 @@ char	*ms_pwd(t_master *master)
 
 void	ms_pwd_set(t_master *master, char *new_pwd)
 {
-	// master->old_pwd = ft_strdup(master->pwd);
 	ms_env_replace(master, "PWD", new_pwd);
 	master->pwd = ms_env_replace(master, "PWD", new_pwd);
 }
