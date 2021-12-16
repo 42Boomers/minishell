@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:00:00 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 16:47:33 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 22:22:23 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ static t_bool	ms_cmd_execute2(t_ms_input *input, t_bool cmd_result)
 	if (input->cmd->print)
 	{
 		cmd_result = input->cmd->print(input);
-		if (cmd_result == -1)
-			ft_println_red("Error > An error has occured while print cmd");
-		else if (cmd_result != 1)
+		if (cmd_result != 1)
 			return (FALSE);
 	}
 	return (TRUE);
@@ -57,17 +55,13 @@ static t_bool	ms_cmd_execute(t_ms_input *input)
 	if (input->cmd->analyze)
 	{
 		cmd_result = input->cmd->analyze(input);
-		if (cmd_result == -1)
-			ft_println_red("Error > An error has occured while analyze cmd");
-		else if (cmd_result != 1)
+		if (cmd_result != 1)
 			return (FALSE);
 	}
 	if (input->cmd->execute)
 	{
 		cmd_result = input->cmd->execute(input);
-		if (cmd_result == -1)
-			ft_println_red("Error > An error has occured while execute cmd");
-		else if (cmd_result != 1)
+		if (cmd_result != 1)
 			return (FALSE);
 	}
 	return (ms_cmd_execute2(input, cmd_result));

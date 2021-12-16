@@ -6,16 +6,29 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/11 01:11:32 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 22:18:02 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_bool	ms_cd_analyze(t_ms_input *input)
+static char	*ms_change_pwd(int buff_size)
 {
-	(void)input;
-	return (TRUE);
+	char	*buff;
+	char	*str;
+
+	buff = malloc(sizeof(char) * buff_size);
+	if (!buff)
+		return (NULL);
+	getcwd(buff, buff_size);
+	if (errno == EACCES || errno == EFAULT || errno == EINVAL || errno == ENOENT)
+		return (NULL);
+	else if (errno == ERANGE)
+	{
+		free(buff);
+		return (ms_change_pwd(buff_size * 2));
+	}
+	return (buff);
 }
 
 static t_bool	ms_cd_execute(t_ms_input *input)
@@ -24,7 +37,6 @@ static t_bool	ms_cd_execute(t_ms_input *input)
 
 	if (input->args_size == 0)
 	{
-		printf("cd: cd relative path in dev\n");
 		return (FALSE);
 	}
 	new_pwd = input->args[0];
@@ -34,20 +46,14 @@ static t_bool	ms_cd_execute(t_ms_input *input)
 		return (FALSE);
 	}
 	chdir(new_pwd);
+	new_pwd = ms_change_pwd(128);
 	ms_pwd_set(input->cmd->master, new_pwd);
-	return (TRUE);
-}
-
-static t_bool	ms_cd_print(t_ms_input *input)
-{
-	(void)input;
+	free(new_pwd);
 	return (TRUE);
 }
 
 t_bool	ms_cmd_cd_register(t_ms_command *cmd)
 {
-	cmd->analyze = &ms_cd_analyze;
 	cmd->execute = &ms_cd_execute;
-	cmd->print = &ms_cd_print;
 	return (TRUE);
 }

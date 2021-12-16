@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/08 19:46:55 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 21:55:16 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,9 @@ int	ms_start(int ac, char **av, char **evs)
 int	main(int ac, char **av, char **evs)
 {
 	int		ret;
+	char	*str;
 
 	ret = 0;
 	ret = ms_start(ac, av, evs);
-	// ret = test(av, ag, evs);
-	// execve("/bin/date", ag, evs);
-	// getcwd() -> pour cd
 	return (ret);
 }
