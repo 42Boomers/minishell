@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/11 01:23:50 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 16:15:38 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ static t_bool	env_recreate(t_master *master, int to_skip)
 
 static t_bool	ms_unset_execute(t_ms_input *input)
 {
-	int i;
-	int j;
+	int	j;
 
 	j = 0;
 	while (j < input->args_size)

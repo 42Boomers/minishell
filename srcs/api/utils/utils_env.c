@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:10:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/13 17:49:52 by mrozniec         ###   ########lyon.fr   */
+/*   Updated: 2021/12/15 23:27:10 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ t_bool	ms_env_remove(t_master *master, char *key)
 
 t_bool	ms_env_add_raw(t_master *master, char *env)
 {
+	// TODO add check if env is already in
 	ft_lstadd_back(&master->envs,
 		ft_lstnew(ms_env_create(env)));
 	return (TRUE);
