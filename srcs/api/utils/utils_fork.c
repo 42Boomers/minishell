@@ -65,3 +65,18 @@ void	ms_fork_init2(char **args, int *redir, int pip_end[2], int *fd_in)
 		dup2(pip_end[1], 1);
 	close(pip_end[0]);
 }
+
+void	ms_heredoc(int fd, char *s_eof)
+{
+	char	*line;
+
+	line = readline(">");
+	while (ft_strcmp(line, s_eof) != 0)
+	{
+		write(fd, line, ft_strlen(line));
+		write(fd, "\n", 1);
+		free(line);
+		line = readline(">");
+	}
+	free(line);
+}

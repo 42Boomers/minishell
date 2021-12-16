@@ -1,3 +1,7 @@
 Le CTRL + C doit faire comme bash 
 - Afficher "^C" (FAIT)
 - Supprimer le message en cours
+
+- mrozniec: modifier le split ultimate
+pour que	">filename"		| ">>filename"		| "<filename"
+donne		">" "filename"	| ">>" "filename"	| "<" "filename"
