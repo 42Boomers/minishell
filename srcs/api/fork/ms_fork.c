@@ -20,6 +20,7 @@ static void	ms_child(t_master *master, char *command, char **args, int *pip_rec)
 		printf("\e[31mminishell: %s: command not found\n\e[0m", command);
 	}
 	*pip_rec = 0;
+	exit(-1);
 }
 
 static int	ms_wait_fork(pid_t fork_id, char **args, int *redir)
@@ -92,7 +93,6 @@ void	ms_fork(t_master *master, char *command, char **args)
 			pip_rec = ms_wait_fork(fork_id, args, redir);
 			if (pip_rec > 0)
 				command = ms_next_fork(pip_rec, pip_end, &fd_in, &args);
-			printf("pip_rec=%d\n", pip_rec);
 		}
 	}
 }
