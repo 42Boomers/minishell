@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   commands_register.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 19:30:05 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/12 21:56:00 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/16 16:48:21 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_ms_command	*ms_cmd_register(char *name, char *description, 
+t_ms_command	*ms_cmd_register(char *name, char *description,
 				t_master *master, t_bool (*reg) (t_ms_command *))
 {
 	t_ms_command	*cmd;
@@ -52,11 +52,11 @@ void	ms_cmd_register_default_args(t_ms_command *cmd,
 void	ms_cmd_register_all(t_master *master)
 {
 	ms_cmd_register("help", "This message",
-		master, ms_cmd_help_register); // syl : pourquoi il n'y a aucun argument a ms_cmp_help_register ?
+		master, ms_cmd_help_register);
 	ms_cmd_register("pwd", "Print current path",
 		master, ms_cmd_pwd_register);
 	ms_cmd_register("env", "Print all environment variables",
-		master, ms_cmd_env_register); // syl : ICI
+		master, ms_cmd_env_register);
 	ms_cmd_register("echo", "Print arguments",
 		master, ms_cmd_echo_register);
 	ms_cmd_register("cd", "Move to other directory",

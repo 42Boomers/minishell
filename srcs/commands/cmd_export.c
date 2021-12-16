@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/11 01:49:40 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 16:28:49 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_bool	ms_export_analyze(t_ms_input *input)
 
 static t_bool	ms_export_execute(t_ms_input *input)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (input->args_size > i)

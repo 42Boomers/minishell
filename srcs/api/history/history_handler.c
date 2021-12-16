@@ -6,13 +6,13 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:51:11 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/08 19:43:05 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 16:48:02 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_bool	mv_history_read(t_master *master)
+t_bool	ms_history_read(t_master *master)
 {
 	char	*line;
 	int		fd;
@@ -33,17 +33,14 @@ t_bool	mv_history_read(t_master *master)
 			free(line);
 			continue ;
 		}
-		// if (master->verbose)
-		// 	printf("ADDED TO HISTORY: %s\n", line);
 		add_history(line);
 		free(line);
-		// ms_garbage_master_add(master, &line, free);
 	}
 	close(fd);
 	return (TRUE);
 }
 
-t_bool	mv_history_write(t_master *master, char *command)
+t_bool	ms_history_write(t_master *master, char *command)
 {
 	int		fd;
 

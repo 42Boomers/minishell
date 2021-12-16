@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:18:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/13 17:49:52 by mrozniec         ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 16:48:47 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_bool	ms_readline_two(t_master *master, char *input)
 {
 	char	**raw_args;
 	int		i;
+
 	raw_args = ft_split_ultimate(input, ' ');
 	if (raw_args && raw_args[0])
 	{
@@ -69,7 +70,7 @@ int	ms_readline_check(t_master *master, char **input)
 	}
 	ft_putstr("\e[0m");
 	add_history(*input);
-	mv_history_write(master, *input);
+	ms_history_write(master, *input);
 	return (0);
 }
 
