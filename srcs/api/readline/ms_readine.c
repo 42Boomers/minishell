@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:18:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 22:40:46 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 23:54:26 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ t_bool	ms_readline_two(t_master *master, char *input)
 	if (raw_args && raw_args[0])
 	{
 		ms_garbage_master_add(master, raw_args, free);
+		if (ft_isequals("exit", raw_args[0]))
+		{
+			printf("exit\n");
+			return (FALSE);
+		}
 		i = 0;
 		while (raw_args[i])
 			ms_garbage_master_add(master, raw_args[i++], free);
@@ -47,9 +52,13 @@ t_bool	ms_readline_two(t_master *master, char *input)
 	}
 	else
 	{
+		// tglory : je me souviens pourquoi j'ai fais, ça devrais jamais arriver.
+		printf("DEBUG : this happend. Don't delete me pls\n");
+		/*
 		ms_cmd_launch(master, input, NULL, 0);
 		if (raw_args)
-			free(raw_args);
+			free(raw_args)
+		*/
 	}
 	free(input);
 	return (TRUE);
@@ -67,7 +76,7 @@ int	ms_readline_check(t_master *master, char **input)
 		ft_putstr("\e[0m\n");
 		return (1);
 	}
-	if (!**input)
+	if (!**input || ft_isblank(*input))
 	{
 		free(*input);
 		return (2);
@@ -91,12 +100,8 @@ t_bool	ms_readline_one(t_master *master)
 			break ;
 		else if (i == 2)
 			continue ;
-		if (ft_isequals_ignore("exit", input))
-		{
-			printf("\e[42mBye\e[0m\n");
+		if (!ms_readline_two(master, input))
 			break ;
-		}
-		ms_readline_two(master, input);
 	}
 	if (input)
 		free(input);
