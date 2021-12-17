@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 02:48:55 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/10 23:50:00 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/17 07:47:41 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	ms_test_cmd_execute(void *arg)
 
 t_bool	ms_test_cmd(t_master *master)
 {
-	ft_lstiter(master->cmds, ms_test_cmd_execute);
+	ft_lstiter(master->cmds, &ms_test_cmd_execute);
 	return (TRUE);
 }

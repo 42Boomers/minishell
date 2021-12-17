@@ -12,4 +12,4 @@ jobs:
       - name: Norminette
         uses: alexandregv/norminette-action@v3
         with:
-          flags: 'includes srcs -R WRONG_SCOPE_COMMENT LINE_TOO_LONG'
+          flags: 'includes srcs'

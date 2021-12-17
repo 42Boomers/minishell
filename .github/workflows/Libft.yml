@@ -1,4 +1,4 @@
-name: Libft_Check
+name: Libft Check
 
 on: [push, pull_request]
 

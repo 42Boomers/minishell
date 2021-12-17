@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 22:41:23 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/17 07:49:13 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	ms_start(int ac, char **av, char **evs)
 	t_master	*master;
 
 	master = ms_init_master(ac, av, evs);
-	ms_register_signals(master);
 	if (!master)
 		return (1);
+	ms_register_signals(master);
 	ms_cmd_register_all(master);
 	if (ac > 1)
 	{

@@ -1,0 +1,29 @@
+name: Launch Test MacOS
+
+on: [push, pull_request]
+
+jobs:
+  launch_macos:
+    runs-on: macos-latest
+    name: Launch Main Executable on macOS
+    steps:
+      - name: Checkout repo & Libft
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Print Informations for Segfault
+        run: |
+          make re CFLAGS='-Wall -Wextra -g3 -fsanitize=address' > /dev/null
+          ./minishell test
+        continue-on-error: true
+      - name: Make
+        run: make re
+      - name: Launch
+        run: ./minishell test
+      - name: Copy libLeaksAtExit.dylib
+        run: |
+          cd /usr/local/lib
+          sudo ln -s /Applications/Xcode.app/Contents/Developer/usr/lib/libLeaksAtExit.dylib
+      - name: Leaks - Leak Checker
+        run: leaks -atExit -- ./minishell test
+        shell: bash
