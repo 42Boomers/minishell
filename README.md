@@ -7,6 +7,8 @@ pwd
 env
 echo [-n]
 cd
+unset
+export
 ```
 [![Norminette](https://github.com/42Boomers/minishell/actions/workflows/Nominette.yml/badge.svg)](https://github.com/42Boomers/minishell/actions/workflows/Nominette.yml)
 [![Libft](https://github.com/42Boomers/minishell/actions/workflows/Libft.yml/badge.svg)](https://github.com/42Boomers/minishell/actions/workflows/Libft.yml)

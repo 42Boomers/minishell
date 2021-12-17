@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:35:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 16:14:42 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 23:58:43 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	ms_cmd_os_start(t_master *master,
 {
 	args--;
 	args[0] = command;
-	ms_cmd_os_run(command, args, ms_env_format(master));
+	ms_cmd_os_run(master, command, args, ms_env_format(master));
 }
 
 static t_bool	ms_cmd_os_search(t_master *master,

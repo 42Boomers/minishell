@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:37:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 16:41:11 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/17 00:56:18 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,7 @@ char	**ms_env_replace(t_master *master, char *key, char *value)
 	if (!env->value)
 		return (NULL);
 	free(tmp);
+	if (ft_isequals(env->key, "PATH"))
+		ms_env_path_refresh(master);
 	return (&env->value);
 }

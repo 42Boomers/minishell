@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:41:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 16:41:39 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/17 00:56:53 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ void	ms_env_destroy(t_master *master)
 
 t_bool	ms_env_remove(t_master *master, char *key)
 {
-	if (ft_lstremove(master->envs, key, ms_env_key_get, ms_env_free))
+	if (!ft_lstremove(master->envs, key, ms_env_key_get, ms_env_free))
 		return (FALSE);
+	if (ft_isequals(key, "PATH"))
+		ms_env_path_refresh(master);
 	return (TRUE);
 }
 
@@ -37,5 +39,7 @@ t_bool	ms_env_add_raw(t_master *master, char *raw_env)
 	}
 	ft_lstadd_back(&master->envs,
 		ft_lstnew(env));
+	if (ft_isequals(env->key, "PATH"))
+		ms_env_path_refresh(master);
 	return (TRUE);
 }

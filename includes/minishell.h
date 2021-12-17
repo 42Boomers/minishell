@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 22:40:13 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/16 23:58:21 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,8 @@ t_ms_command	*ms_cmd_launch(t_master *master, char *command,
 					char **args, int args_size);
 t_bool			ms_cmd_os(t_master *master, char *command,
 					char **args);
-void			ms_cmd_os_run(char *command, char **argv, char **env);
+void			ms_cmd_os_run(t_master *master, char *command, char **argv,
+					char **env);
 t_bool			ms_launch_at_start(t_master *master);
 t_bool			ms_history_read(t_master *master);
 t_bool			ms_history_write(t_master *master, char *command);

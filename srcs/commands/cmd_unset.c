@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 23:12:52 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/17 00:14:04 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static t_bool	ms_unset_execute(t_ms_input *input)
 	while (i < input->args_size)
 	{
 		ms_env_remove(input->cmd->master, input->args[i]);
+		if (ft_isequals(input->args[i], "PATH"))
+			ms_env_path_refresh(input->cmd->master);
 		i++;
 	}
 	return (TRUE);
