@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/17 07:49:13 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/17 15:26:19 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ms_start(int ac, char **av, char **evs)
 	master = ms_init_master(ac, av, evs);
 	if (!master)
 		return (1);
-	ms_register_signals(master);
+	// ms_register_signals(0, master);
 	ms_cmd_register_all(master);
 	if (ac > 1)
 	{
