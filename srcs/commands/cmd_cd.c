@@ -35,6 +35,7 @@ static t_bool	ms_cd_execute(t_ms_input *input)
 {
 	char	*new_pwd;
 
+	input->cmd->master->cmd_ret = 0;
 	if (input->args_size == 0)
 		return (FALSE);
 	if (ms_file_is_dir(input->args[0]) != 1)

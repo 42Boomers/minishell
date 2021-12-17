@@ -20,6 +20,7 @@
  */
 static t_bool	ms_env_print(t_ms_input *input)
 {
+	input->cmd->master->cmd_ret = 0;
 	ms_write(ms_env_format(input->cmd->master),
 		ft_lstsize(input->cmd->master->envs));
 	return (TRUE);

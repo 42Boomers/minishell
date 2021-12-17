@@ -20,6 +20,7 @@ static t_bool	ms_pwd_print(t_ms_input *input)
 
 t_bool	ms_cmd_pwd_register(t_ms_command *cmd)
 {
+	cmd->master->cmd_ret = 0;
 	cmd->print = &ms_pwd_print;
 	return (TRUE);
 }

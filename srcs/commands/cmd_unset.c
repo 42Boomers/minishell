@@ -29,6 +29,7 @@ static t_bool	ms_unset_execute(t_ms_input *input)
 
 t_bool	ms_cmd_unset_register(t_ms_command *cmd)
 {
+	cmd->master->cmd_ret = 0;
 	cmd->execute = &ms_unset_execute;
 	return (TRUE);
 }

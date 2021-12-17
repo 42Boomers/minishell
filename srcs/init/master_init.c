@@ -31,6 +31,7 @@ t_master	*ms_init_master(int ac, char **av, char **evs)
 	master->paths = NULL;
 	master->pwd = NULL;
 	master->envs = NULL;
+	master->cmd_ret = 0;
 	master->old_pwd = NULL;
 	master->last_status = 0;
 	ms_env_init(master, evs);
