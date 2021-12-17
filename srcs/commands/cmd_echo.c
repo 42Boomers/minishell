@@ -87,32 +87,38 @@ static char	*ms_env_parse(t_master *master, char *str)
 	return (tmp);
 }
 
+int    n_check(char *first_arg)
+{
+    int    i;
+
+    if (*first_arg == '-')
+    {
+        i = 0;
+        while (first_arg[++i])
+            if (first_arg[i] != 'n')
+                return (FALSE);
+        return (i > 1);
+    }
+    return (FALSE);
+}
+
 static t_bool	ms_echo_print(t_ms_input *input)
 {
-	int		i;
 	int		arg_n;
-	char	*str;
 
-	i = -1;
+	input->cmd->master->cmd_ret = 0;
 	arg_n = 0;
-	while (++i < input->args_size)
+	while (*input->args && n_check(*input->args))
 	{
-		if (ft_isequals_ignore("-n", input->args[i]))
-		{
-			arg_n = 1;
-			continue ;
-		}
-		// ft_putstr(input->args[i]);
-		str = ms_env_parse(input->cmd->master, input->args[i]);
-		if (str)
-		{
-			ft_putstr(str);
-			free(str);
-		}
-		else
-			ft_putstr(input->args[i]);
-		if (i + 1 < input->args_size)
+		arg_n = 1;
+		input->args++;
+	}
+	while (*input->args)
+	{
+		ft_putstr(*input->args);
+		if (*(input->args + 1))
 			ft_putchar(' ');
+		input->args++;
 	}
 	if (!arg_n)
 		ft_putchar('\n');

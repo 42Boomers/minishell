@@ -22,6 +22,7 @@ static t_bool	ms_export_execute(t_ms_input *input)
 {
 	int	i;
 
+	input->cmd->master->cmd_ret = 0;
 	i = 0;
 	while (input->args_size > i)
 	{

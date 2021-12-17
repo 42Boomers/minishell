@@ -22,6 +22,7 @@ static void	ms_help_cmd(void *content)
 
 static t_bool	ms_help_print(t_ms_input *input)
 {
+	input->cmd->master->cmd_ret = 0;
 	ft_lstiter(input->cmd->master->cmds, ms_help_cmd);
 	return (TRUE);
 }

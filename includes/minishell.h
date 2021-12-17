@@ -41,6 +41,7 @@ typedef struct s_master
 {
 	char	**pwd;
 	char	**old_pwd;
+	int		cmd_ret;
 	int		last_status;
 	int		ac;
 	char	**av;
