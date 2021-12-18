@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/18 13:00:54 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/18 15:26:05 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,8 @@ static int	register_handler(int signum)
 	return (sigaction(signum, &sig, NULL));
 }
 
-void	ms_register_signals(int signal, t_master *master)
+void	ms_register_signals(t_master *master)
 {
-	static t_master	*save = NULL;
-
-	signal = 0;
-	dprintf(1, "pid = %d\n", master->pid); // del
-	if (!save)
-		save = master;
-	else
-	{
-		write(1, "\n", 1);
-		if (save->pid == -1)
-		{
-			ft_putstr_fd("pid = -1\n", 2);
-			ft_putstr_fd("minishell -> ", 1);
-		}
-		else if (save->pid)
-		{
-			ft_putstr_fd("positive pid\n", 2);
-			kill(save->pid, SIGINT);
-		}
-		else
-			ft_putstr_fd("pid = 0\n", 2);
-	}
 	// int	i;
 
 	// i = 0;
@@ -66,13 +44,26 @@ void	ms_register_signals(int signal, t_master *master)
 	(void)master;
 }
 
-// void	ms_register_signals(t_master *master)
+// void	ms_register_signals(int signal, t_master *master)
 // {
-// 	// int	i;
+// 	static t_master	*save = NULL;
 
-// 	// i = 0;
-// 	// while (i <= 60)
-// 	// 	register_handler(i++);
-// 	register_handler(2);
-// 	(void)master;
+// 	signal = 0;
+// 	dprintf(1, "pid = %d\n", master->pid); // del
+// 	if (!save)
+// 		save = master;
+// 	else
+// 	{
+// 		write(1, "\n", 1);
+// 		if (save->pid == -1)
+// 		{
+// 			ft_putstr_fd("minishell -> ", 1);
+// 		}
+// 		else if (save->pid)
+// 		{
+// 			kill(save->pid, SIGINT);
+// 		}
+// 	}
 // }
+
+

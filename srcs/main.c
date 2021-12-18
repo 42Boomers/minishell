@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/18 12:59:38 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/18 15:16:43 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	ms_start(int ac, char **av, char **evs)
 	if (!master)
 		return (1);
 	ms_register_signals(0, master);
-	dprintf(1, "pid = %d\n", master->pid); // del
 	ms_cmd_register_all(master);
 	if (ac > 1)
 	{
