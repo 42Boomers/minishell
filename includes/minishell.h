@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 23:58:21 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/18 12:55:34 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef enum s_bool
 /*--------------------------{ MAIN STRUCT }--------------------------*/
 typedef struct s_master
 {
+	pid_t	pid;
 	char	**pwd;
 	char	**old_pwd;
 	int		cmd_ret;
@@ -103,7 +104,7 @@ t_master		*ms_init_master(int ac, char **av, char **evs);
 void			ms_free_master(t_master	*master);
 t_bool			ms_test_cmd(t_master *master);
 t_bool			ms_readline(t_master *master);
-void			ms_register_signals(t_master *master);
+void			ms_register_signals(int signal,t_master *master);
 int				ft_pipe_check(char **args);
 void			ms_fork(t_master *master, char *command, char **args);
 void			ms_red_in_out(char **args, int *redir);

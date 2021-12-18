@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   master_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:35:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 23:25:49 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/18 12:45:00 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_master	*ms_init_master(int ac, char **av, char **evs)
 		ft_println_red("Error > An error has occured while malloc t_master");
 		return (NULL);
 	}
+	master->pid = -1;
 	master->garbage = NULL;
 	master->cmds = NULL;
 	ms_garbage_master_add(master, &(master->cmds), ms_lstclear);

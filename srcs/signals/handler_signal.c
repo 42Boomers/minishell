@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/17 15:22:19 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/18 13:00:54 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ static int	register_handler(int signum)
 	return (sigaction(signum, &sig, NULL));
 }
 
-void	ms_register_signals(int signal, void *content)
+void	ms_register_signals(int signal, t_master *master)
 {
-	static t_content	*save = NULL;
+	static t_master	*save = NULL;
 
 	signal = 0;
+	dprintf(1, "pid = %d\n", master->pid); // del
 	if (!save)
-		save = content;
+		save = master;
 	else
 	{
 		write(1, "\n", 1);

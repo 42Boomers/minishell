@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 22:21:08 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/18 12:54:34 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static void	ms_child(t_master *master, char *command, char **args, int *pip_rec)
 	exit(-1);
 }
 
-static int	ms_wait_fork(pid_t fork_id, char **args, int *redir)
+static int	ms_wait_fork(t_master *master, char **args, int *redir)
 {
 	int	*status;
 
 	status = NULL;
-	waitpid(fork_id, status, 0);
+	waitpid(master->pid, status, 0);
 	if (redir[0] > 0)
 		close(redir[0]);
 	if (redir[1] > 0)
@@ -49,8 +49,8 @@ static char	*ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
 	return (command);
 }
 
-static int	*ms_fork_init(int *fd_in, int pip_end[2], char **args, pid_t \
-*fork_id)
+static int	*ms_fork_init(t_master *master, int *fd_in, int pip_end[2], \
+	char **args)
 {
 	int	*redir;
 
@@ -61,13 +61,13 @@ static int	*ms_fork_init(int *fd_in, int pip_end[2], char **args, pid_t \
 		return (NULL);
 	}
 	ms_red_in_out(args, redir);
-	*fork_id = fork();
-	if (*fork_id < 0)
+	master->pid = fork();
+	if (master->pid < 0)
 	{
 		ft_println_red("Error > An error has occured while fork creation");
 		return (NULL);
 	}
-	if (*fork_id == 0)
+	if (master->pid == 0)
 		ms_fork_init2(args, redir, pip_end, fd_in);
 	return (redir);
 }
@@ -78,19 +78,19 @@ void	ms_fork(t_master *master, char *command, char **args)
 	int		fd_in;
 	int		*redir;
 	int		pip_rec;
-	pid_t	fork_id;
+	// pid_t	fork_id;
 
 	pip_rec = 1;
 	while (pip_rec > 0)
 	{
 		if (ms_error_pipe(pip_end) == -1)
 			return ;
-		redir = ms_fork_init(&fd_in, pip_end, args, &fork_id);
-		if (fork_id == 0)
+		redir = ms_fork_init(master, &fd_in, pip_end, args);
+		if (master->pid == 0)
 			ms_child(master, command, args, &pip_rec);
 		else
 		{
-			pip_rec = ms_wait_fork(fork_id, args, redir);
+			pip_rec = ms_wait_fork(master, args, redir);
 			if (pip_rec > 0)
 				command = ms_next_fork(pip_rec, pip_end, &fd_in, &args);
 		}
