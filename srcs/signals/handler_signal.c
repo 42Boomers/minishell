@@ -17,7 +17,7 @@ static void	handle_signal(int signum, siginfo_t *sig_info, void *ucontext_t)
 	(void)ucontext_t;
 	if (signum == SIGINT)
 	{
-		rl_redisplay(); // etudie la fonction. est elle autoriser?
+		rl_replace_line(); // etudie la fonction. est elle autoriser?
 		printf("\n\e[36mminishell DEBUG > \e[96m");//retour a zero du readline
 	}
 	else

@@ -104,7 +104,7 @@ t_master		*ms_init_master(int ac, char **av, char **evs);
 void			ms_free_master(t_master	*master);
 t_bool			ms_test_cmd(t_master *master);
 t_bool			ms_readline(t_master *master);
-void			ms_register_signals(int signal,t_master *master);
+void			ms_register_signals(t_master *master);
 int				ft_pipe_check(char **args);
 void			ms_fork(t_master *master, char *command, char **args);
 void			ms_red_in_out(char **args, int *redir);

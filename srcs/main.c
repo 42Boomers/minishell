@@ -19,7 +19,7 @@ int	ms_start(int ac, char **av, char **evs)
 	master = ms_init_master(ac, av, evs);
 	if (!master)
 		return (1);
-	ms_register_signals(0, master);
+	ms_register_signals(master);
 	ms_cmd_register_all(master);
 	if (ac > 1)
 	{
