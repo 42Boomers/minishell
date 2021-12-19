@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 22:21:08 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/18 23:41:08 by mrozniec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	ms_child(t_master *master, char *command, char **args, int *pip_rec)
 		ms_set_status(master, FALSE);
 		printf("\e[31mminishell: %s: command not found\n\e[0m", command);
 	}
-	*pip_rec = 0;
 	exit(-1);
 }
 

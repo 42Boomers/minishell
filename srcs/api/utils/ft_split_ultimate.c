@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 18:02:37 by mrozniec          #+#    #+#             */
-/*   Updated: 2021/12/13 17:49:52 by mrozniec         ###   ########lyon.fr   */
+/*   Updated: 2021/12/19 00:08:29 by mrozniec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,15 @@ static char	**ft_ttabcrea(char const *s, char c)
 		if (s[n] != c && s[n] != '\0')
 			line++;
 		n = ft_skip(s, n);
-		while (s[n] != c && s[n] != '\0')
+		while (s[n] != c && s[n] != '\0' && s[n] != '|' && s[n] != '<' && \
+		s[n] != '>')
+			n++;
+		if (s[n] == '|' || s[n] == '<' || s[n] == '>')
+			line++;
+		if (s[n] == '|' || s[n] == '<' || s[n] == '>')
+			n++;
+		if ((s[n] == '<' && s[n - 1] == '<') || (s[n] == '>' && \
+		s[n - 1] == '>'))
 			n++;
 	}
 	strs = malloc(sizeof(char *) * (line + 1));
@@ -71,15 +79,25 @@ static char	*ft_fillstr(char const *s, char c, int n)
 	char	*strs;
 
 	m[0] = n;
-	while (s[n] != '\0' && s[n] != c)
+	if (s[n] != '|' && s[n] != '<' && s[n] != '>')
 	{
-		n = ft_skip(s, n);
-		n++;
+		while (s[n] != '\0' && s[n] != c && s[n] != '|' && s[n] != '<' && \
+			s[n] != '>')
+		{
+			n = ft_skip(s, n);
+			n++;
+		}
+		if (s[n - 1] == '\"' || s[n - 1] == '\'')
+			m[0]++;
+		if (s[n - 1] == '\"' || s[n - 1] == '\'')
+			n--;
 	}
-	if (s[n - 1] == '\"')
-		m[0]++;
-	if (s[n - 1] == '\"')
-		n--;
+	else if (s[n] == '|' || (s[n] == '<' && s[n + 1] != '<') || \
+	(s[n] == '>' && s[n + 1] != '>'))
+		n++;
+	else if ((s[n] == '<' && s[n + 1] == '<') || \
+	(s[n] == '>' && s[n + 1] == '>'))
+		 n += 2;
 	m[0] = n - m[0];
 	strs = malloc(sizeof(char) * (m[0] + 1));
 	if (!strs)
@@ -125,9 +143,21 @@ char	**ft_split_ultimate(char const *s, char c)
 			if (!strs[line - 1])
 				return (ft_free_error(strs, line - 1));
 		}
-		n = ft_skip(s, n);
-		while (s[n] != c && s[n] != '\0')
+		if (s[n] == '|' || s[n] == '<' || s[n] == '>')
+		{
 			n++;
+			if ((s[n] == '<' && s[n - 1] == '<') || (s[n] == '>' && \
+        	s[n - 1] == '>'))
+				n++;
+		}
+		else
+		{
+			n = ft_skip(s, n);
+			while (s[n] != c && s[n] != '\0' && s[n] != '|' && s[n] != '<' && \
+			s[n] != '>')
+				n++;
+		}
+
 	}
 	strs[line] = NULL;
 	return (strs);
