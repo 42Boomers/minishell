@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/18 15:26:05 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/20 15:20:01 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static void	handle_signal(int signum, siginfo_t *sig_info, void *ucontext_t)
 	(void)ucontext_t;
 	if (signum == SIGINT)
 	{
-		rl_replace_line(); // etudie la fonction. est elle autoriser?
-		printf("\n\e[36mminishell DEBUG > \e[96m");//retour a zero du readline
+		printf("\n");
+        rl_on_new_line();
+        rl_replace_line("", 0);
+        rl_redisplay();
 	}
-	else
-		printf("DEBUG SIGNAL %d - from PID %d\n", sig_info->si_signo, sig_info->si_pid);
 }
 
 static int	register_handler(int signum)
