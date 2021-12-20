@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 02:35:52 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/20 07:29:14 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 18:42:20 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,15 @@ t_bool	ms_env_parse_search(t_env_parse *ep)
 			ep->out = ft_strdup("$");
 		else
 			ft_str_add(ep->build, ft_strdup("$"));
+		(ep->str)++;
 		return (FALSE);
 	}
 	while (*(ep->str) && *(ep->str) != '$')
+	{
+		ep->i++;
+		(ep->str)++;
+	}
+	if (*(ep->str) && !*(ep->str + 1))
 	{
 		ep->i++;
 		(ep->str)++;
@@ -78,10 +84,6 @@ t_bool	ms_env_parse_str(t_env_parse *ep)
 	}
 	if (!ep->build)
 		ep->build = ft_str_build_init();
-	// if (*(ep->str) == '$' && !*(ep->str + 1))
-	// {
-	// 	ep->i++;
-	// }
 	if (ep->i != 0)
 	{
 		ep->tmp = malloc(sizeof(char) * (ep->i - ep->k));

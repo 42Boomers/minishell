@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 02:35:52 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/20 07:23:44 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 18:42:29 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static char	*ms_env_parse_build(t_env_parse *ep)
 	tmp = NULL;
 	if (ep->build)
 		tmp = ft_str_build(ep->build);
-	if (!tmp)
-		return (NULL);
 	ft_str_destroy(ep->build);
 	free(ep);
+	if (!tmp)
+		return (NULL);
 	return (tmp);
 }
 

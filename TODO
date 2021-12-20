@@ -6,6 +6,5 @@ Le CTRL + C doit faire comme bash
 pour que	">filename"		| ">>filename"		| "<filename"
 donne		">" "filename"	| ">>" "filename"	| "<" "filename"
 
-- tglory : fix certains cas spéciaux env parse
-  echo $HOME$ doit print le dernier $
+- tglory :
   intégrer le parsing des variables dans les arguments des commandes
