@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/20 15:46:12 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/20 15:49:51 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ static void	handle_signal(int signum, siginfo_t *sig_info, void *ucontext_t)
         rl_replace_line("", 0);
         rl_redisplay();
 	}
-	else
-		printf("DEBUG SIGNAL %d - from PID %d\n", sig_info->si_signo, sig_info->si_pid); // syl : is it usefull now ?
 }
 
 static int	register_handler(int signum)
