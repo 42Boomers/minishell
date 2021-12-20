@@ -7,4 +7,4 @@ pour que	">filename"		| ">>filename"		| "<filename"
 donne		">" "filename"	| ">>" "filename"	| "<" "filename"
 
 - tglory :
-  intégrer le parsing des variables dans les arguments des commandes
+  fix les leaks avec CTRL C puis plusieurs commandes inconnu

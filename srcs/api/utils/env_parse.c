@@ -6,11 +6,23 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 02:35:52 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/20 18:42:29 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 20:48:39 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*ms_env_parse_out(t_env_parse *ep)
+{
+	char	*tmp;
+
+	tmp = ft_strdup(ep->out);
+	if (ep->build)
+		ft_str_destroy(ep->build);
+	free(ep->out);
+	free(ep);
+	return (tmp);
+}
 
 static char	*ms_env_parse_str_check(t_env_parse *ep)
 {
@@ -19,7 +31,7 @@ static char	*ms_env_parse_str_check(t_env_parse *ep)
 		ft_str_destroy(ep->build);
 		return (NULL);
 	}
-	return (ep->out);
+	return (ms_env_parse_out(ep));
 }
 
 static char	*ms_env_parse_build(t_env_parse *ep)
@@ -48,7 +60,7 @@ char	*ms_env_parse(t_master *master, char *str)
 		if (!ms_env_parse_search(ep))
 		{
 			if (!ep->build && ep->out)
-				return (ep->out);
+				return (ms_env_parse_out(ep));
 			continue ;
 		}
 		if (!ms_env_parse_str(ep))

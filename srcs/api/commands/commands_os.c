@@ -6,18 +6,48 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:35:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/17 08:21:25 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 21:26:34 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static char	**ms_cmd_os_args(char *command, char **args)
+{
+	char	**new_args;
+	int		i;
+
+	i = 0;
+	if (*args)
+	{
+		new_args = ms_mallocw(sizeof(char *) * (ft_strlen(*args) + 2),
+				"Cannot malloc");
+		if (!new_args)
+			return (NULL);
+		while (args[i])
+		{
+			new_args[i + 1] = new_args[i];
+			i++;
+		}
+	}
+	else
+	{
+		new_args = ms_mallocw(sizeof(char *) * 2, "Cannot malloc");
+		i++;
+	}
+	new_args[0] = command;
+	new_args[i] = 0;
+	free(args);
+	return (new_args);
+}
+
 static void	ms_cmd_os_start(t_master *master,
 				char *command, char **args)
 {
-	args--;
-	args[0] = command;
-	execve(command, args, ms_env_format(master));
+	// args--;
+	// args[0] = command;
+	execve(command, ms_cmd_os_args(command, args),
+		ms_env_format(master));
 }
 
 static t_bool	ms_cmd_os_search(t_master *master,

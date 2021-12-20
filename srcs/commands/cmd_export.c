@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 16:28:49 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 21:29:16 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,26 @@ static t_bool	ms_export_analyze(t_ms_input *input)
 	return (TRUE);
 }
 
-int    check_export_arg(char *arg)
+int	check_export_arg(char *arg)
 {
-    int        i;
+	int	i;
 
-    if (!ft_isalpha(arg[0]) && arg[0] != '_')
-        return (FALSE);
-    i = 0;
-    while (arg[i])
-    {
-        if (!ft_isalnum(arg[i]) && arg[i] != '_')
-            return (FALSE);
-        i++;
-    }
-    return (TRUE);
+	if (!ft_isalpha(arg[0]) && arg[0] != '_')
+		return (FALSE);
+	i = 0;
+	while (arg[i])
+	{
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
 }
 
 static t_bool	ms_export_execute(t_ms_input *input)
 {
-	int	i;
-	t_env *tmp;
+	int		i;
+	t_env	*tmp;
 
 	input->cmd->master->cmd_ret = 0;
 	i = 0;
@@ -55,6 +55,7 @@ static t_bool	ms_export_execute(t_ms_input *input)
 		}
 		else if (!ms_env_add_raw(input->cmd->master, input->args[i]))
 			printf("Can't add %s\n", input->args[i]);
+		ms_env_free(tmp);
 		i++;
 	}
 	return (TRUE);
