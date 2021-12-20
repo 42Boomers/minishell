@@ -1,3 +1,6 @@
+git submodule update a chaque fois au debut pour mettre a jour les modif que
+tglory a faites a sa libft
+
 Ask tglory :
 Comment les headers sont ajoutes sans le path complet ?
 	-> tristan : d
