@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrozniec <mrozniec@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 13:08:32 by mrozniec          #+#    #+#             */
-/*   Updated: 2021/12/15 13:08:32 by mrozniec         ###   ########.fr       */
+/*   Updated: 2021/12/20 20:38:49 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ static int	ms_red_in(char **args, int *fd_red_in)
 		}
 		else if (pos < 0)
 		{
-			*fd_red_in = open(".ms_herefile", O_CREAT | O_WRONLY | O_TRUNC, \
+			*fd_red_in = open(".ms_heredoc", O_CREAT | O_WRONLY | O_TRUNC, \
 			0641);
 			ms_heredoc(*fd_red_in, args[-pos]);
-			*fd_red_in = open(".ms_herefile", O_RDONLY);
-			unlink(".ms_herefile");
+			*fd_red_in = open(".ms_heredoc", O_RDONLY);
+			unlink(".ms_heredoc");
 			ms_del_red(args, -pos);
 		}
 		pos = ft_red_in_check(args);

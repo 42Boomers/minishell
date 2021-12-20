@@ -23,12 +23,7 @@ quelle commande ? Comment ca se passe dans le code ? rl_??
 il reste des warnings quand on make. Surtout des variables ou fonctions non
 utilisees, donc juste besoin de faire du menage
 
-si on lance un minishell dans un minishell etc. et qu'ensuite on fait exit, ca
-exit tout minishell et non le dernier lance
-
 les codes retour
-
-.md_heredoc ? Besoin qu'on m'explique a nouveau
 
 --------------------------------------------------------------------------------
 SIGNAUX
