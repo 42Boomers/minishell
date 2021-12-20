@@ -39,7 +39,7 @@ static int	ft_red_in_check(char **args)
 	return (0);
 }
 
-static void	ms_red_in(char **args, int *fd_red_in)
+static int	ms_red_in(char **args, int *fd_red_in)
 {
 	int		pos;
 
@@ -52,6 +52,8 @@ static void	ms_red_in(char **args, int *fd_red_in)
 		{
 			*fd_red_in = open(args[pos], O_RDONLY);
 			ms_del_red(args, pos);
+			if (*fd_red_in == -1)
+				return(pos);
 		}
 		else if (pos < 0)
 		{
@@ -66,6 +68,7 @@ static void	ms_red_in(char **args, int *fd_red_in)
 		if (pos != 0)
 			close(*fd_red_in);
 	}
+	return (0);
 }
 
 static int	ft_red_out_check(char **args)
@@ -122,8 +125,17 @@ static void	ms_red_out(char **args, int *fd_red_out)
 	}
 }
 
-void	ms_red_in_out(char **args, int *redir)
+int	ms_red_in_out(char **args, int *redir)
 {
-	ms_red_in(args, redir);
+	int	ret;
+
+	ret = ms_red_in(args, redir);
+	if (ret != 0)
+	{
+		printf("\e[31mminishell: %s: No such file or directory\n\e[0m"\
+				, args[ret]);
+		return (-1);
+	}
 	ms_red_out(args, redir);
+	return (0);
 }

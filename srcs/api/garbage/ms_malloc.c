@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:24:38 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/09 01:46:40 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 06:32:16 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,25 @@ void	ms_lstclear(void *arg)
 	ft_lstclear(lst, free);
 }
 
-void	*ms_malloc_custom(t_list **garbage, size_t size,
-		void (*free_func) (void *))
+void	*ms_mallocw(size_t size, char *warning_message)
 {
 	void	*ptr;
 
 	ptr = malloc(size);
 	if (!ptr)
 	{
-		ft_println_red("Error > cannot malloc");
+		ft_println_red(warning_message);
 		return (NULL);
 	}
+	return (ptr);
+}
+
+void	*ms_malloc_custom(t_list **garbage, size_t size,
+		void (*free_func) (void *))
+{
+	void	*ptr;
+
+	ptr = ms_mallocw(size, "Error > cannot malloc");
 	ms_garbage_add(garbage, ptr, free_func);
 	return (ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 22:21:08 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 02:32:15 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 static void	ms_child(t_master *master, char *command, char **args, int *pip_rec)
 {
+	if (ft_isequals(command, "exit"))
+		exit(0);
 	if (!ms_cmd_os(master, command, args))
 	{
 		ms_set_status(master, FALSE);
 		printf("\e[31mminishell: %s: command not found\n\e[0m", command);
 	}
-	*pip_rec = 0;
 	exit(-1);
 }
 
@@ -28,12 +29,15 @@ static int	ms_wait_fork(pid_t fork_id, char **args, int *redir)
 	int	*status;
 
 	status = NULL;
-	waitpid(fork_id, status, 0);
-	if (redir[0] > 0)
-		close(redir[0]);
-	if (redir[1] > 0)
-		close(redir[1]);
-	free(redir);
+	if (redir)
+	{
+		waitpid(fork_id, status, 0);
+		if (redir[0] > 0)
+			close(redir[0]);
+		if (redir[1] > 0)
+			close(redir[1]);
+		free(redir);
+	}
 	return (ft_pipe_check(args));
 }
 
@@ -60,7 +64,11 @@ static int	*ms_fork_init(int *fd_in, int pip_end[2], char **args, pid_t \
 		ft_println_red("Error > An error has occured while malloc creation");
 		return (NULL);
 	}
-	ms_red_in_out(args, redir);
+	if (ms_red_in_out(args, redir))
+	{
+		free(redir);
+		return (NULL);
+	}
 	*fork_id = fork();
 	if (*fork_id < 0)
 	{

@@ -6,13 +6,13 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 16:51:31 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 07:06:09 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ms_env_parse(t_master *master, char *str)
+static char	*ms_env_parse_old(t_master *master, char *str)
 {
 	char	*tmp;
 	char	*str2;
@@ -29,13 +29,21 @@ static char	*ms_env_parse(t_master *master, char *str)
 	str2 = str;
 	while (*str)
 	{
+		if (*str == '$' && !(*(str + 1)))
+		{
+			if (!build)
+				return (ft_strdup("$"));
+			else
+				ft_str_add(build, ft_strdup("$"));
+			break;
+		}
 		while (*str && *str != '$')
 		{
 			i++;
 			str++;
 		}
-		if (!*str && !build)
-			return (NULL);
+		if (i == 0 && !*str)
+			return (ft_strdup(str));
 		if (!build)
 			build = ft_str_build_init();
 		if (i != 0)
@@ -47,8 +55,6 @@ static char	*ms_env_parse(t_master *master, char *str)
 			ft_str_add(build, tmp);
 		}
 		j = i++;
-		if (!*str || !(*str + 1))
-			break ;
 		str++;
 		if (*str == '?')
 		{
@@ -58,22 +64,16 @@ static char	*ms_env_parse(t_master *master, char *str)
 		}
 		else
 		{
-			while (*str && (ft_isalnum(*str)))
+			while (*str && (ft_isalnum(*str) || *str == '_'))
 			{
 				str++;
 				i++;
-			}
-			if (i == j)
-			{
-				ft_str_destroy(build);
-				return (NULL); // arg is only $
 			}
 			tmp = malloc(sizeof(char) * (i - j));
 			l = 0;
 			while (i - 1 > j)
 				tmp[l++] = str2[++j - (k + 1)];
 			tmp[l] = 0;
-			// env = getenv(tmp);
 			env = ms_env_get(master, tmp);
 			free(tmp);
 			if (env)
@@ -87,22 +87,22 @@ static char	*ms_env_parse(t_master *master, char *str)
 	return (tmp);
 }
 
-int    n_check(char *first_arg)
+int	n_check(char *first_arg)
 {
-    int    i;
+	int	i;
 
-    if (*first_arg == '-')
-    {
-        i = 0;
-        while (first_arg[++i])
-            if (first_arg[i] != 'n')
-                return (FALSE);
-        return (i > 1);
-    }
-    return (FALSE);
+	if (*first_arg == '-')
+	{
+		i = 0;
+		while (first_arg[++i])
+			if (first_arg[i] != 'n')
+				return (FALSE);
+		return (i > 1);
+	}
+	return (FALSE);
 }
 
-static t_bool	ms_echo_print(t_ms_input *input)
+static t_bool	ms_echo_print_new(t_ms_input *input)
 {
 	int		arg_n;
 
@@ -122,6 +122,57 @@ static t_bool	ms_echo_print(t_ms_input *input)
 	}
 	if (!arg_n)
 		ft_putchar('\n');
+	return (TRUE);
+}
+
+static char	*ms_echo_arg(t_ms_input *input, char *arg, int *arg_n, int i)
+{
+	if (!arg || !arg[0])
+	{
+		*arg_n = 0;
+		return (NULL);
+	}
+	if (arg[0] == '-' && ft_strisfullof(arg + 1, 'n'))
+	{
+		*arg_n = 1;
+		return (NULL);
+	}
+	return (ms_env_parse(input->cmd->master, arg));
+}
+
+static t_bool	ms_echo_print(t_ms_input *input)
+{
+	int			i;
+	int			arg_n;
+	char		*str;
+	t_str_build	*build;
+
+	i = -1;
+	arg_n = 0;
+	build = ft_str_build_init();
+	if (!build)
+		return (FALSE);
+	build->separator = ft_strdup(" ");
+	while (++i < input->args_size)
+	{
+		if (!input->args[i][0])
+			continue ;
+		if (input->args[i][0] == '-' && ft_strisfullof(input->args[i] + 1, 'n'))
+		{
+			arg_n = 1;
+			continue ;
+		}
+		str = ms_env_parse(input->cmd->master, input->args[i]);
+		if (!str)
+			continue ;
+		ft_str_add(build, str);
+	}
+	if (!arg_n)
+		ft_str_add(build, ft_strdup("\n"));
+	str = ft_str_build(build);
+	printf(str);
+	free(str);
+	ft_str_destroy(build);
 	return (TRUE);
 }
 
