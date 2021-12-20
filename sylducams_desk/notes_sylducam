@@ -23,6 +23,10 @@ utilisees, donc juste besoin de faire du menage
 si on lance un minishell dans un minishell etc. et qu'ensuite on fait exit, ca
 exit tout minishell et non le dernier lance
 
+les codes retour
+
+.md_heredoc ? Besoin qu'on m'explique a nouveau
+
 --------------------------------------------------------------------------------
 SIGNAUX
 https://man7.org/linux/man-pages/man2/sigaction.2.html
