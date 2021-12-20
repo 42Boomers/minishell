@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:18:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 23:54:26 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 02:07:56 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,11 @@ t_bool	ms_readline_two(t_master *master, char *input)
 	}
 	else
 	{
-		// tglory : je me souviens pourquoi j'ai fais, ça devrais jamais arriver.
+		// tglory : je me souviens pourquoi j'ai fais sa, ça devrais jamais arriver.
 		printf("DEBUG : this happend. Don't delete me pls\n");
-		/*
 		ms_cmd_launch(master, input, NULL, 0);
 		if (raw_args)
-			free(raw_args)
-		*/
+			free(raw_args);
 	}
 	free(input);
 	return (TRUE);
