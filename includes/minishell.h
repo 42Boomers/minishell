@@ -122,7 +122,7 @@ t_bool			ms_readline(t_master *master);
 void			ms_register_signals(t_master *master);
 int				ft_pipe_check(char **args);
 void			ms_fork(t_master *master, char *command, char **args);
-void			ms_red_in_out(char **args, int *redir);
+int 			ms_red_in_out(char **args, int *redir);
 void			ms_check_redir(char **command, char **args);
 void			ms_del_red(char **args, int pos);
 void			ms_fork_init2(char **args, int *redir, int pip_end[2],
