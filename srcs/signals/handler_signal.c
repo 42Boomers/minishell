@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_signal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 02:51:43 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 14:13:08 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ static void	handle_signal(int signum, siginfo_t *sig_info, void *ucontext_t)
 {
 	(void)sig_info;
 	(void)ucontext_t;
-	if (signum == 2)
+	if (signum == SIGINT)
 	{
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		rl_redisplay();
+		if (g_ctrl_c != 2)
+			rl_redisplay();
 	}
 }
 
@@ -36,14 +37,14 @@ static int	register_handler(int signum)
 
 void	ms_register_signals(t_master *master)
 {
-	int	fd;
-
-	fd = open(".ms_heredoc", O_RDONLY);
-	if (fd != -1)
-	{
-		unlink(".ms_heredoc");
-		close(fd);
+	int	fd;								//
+										//
+	fd = open(".ms_heredoc", O_RDONLY); // syl:toute cette partie sur ms_heredoc
+	if (fd != -1)						// est a revoir, Max dit qu'elle n'est
+	{									// pas bonne. Voir avec lui.
+		unlink(".ms_heredoc");			//
+		close(fd);						//
 	}
-	register_handler(2);
+	register_handler(SIGINT);
 	(void)master;
 }

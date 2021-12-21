@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/20 22:53:35 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 14:31:15 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,9 @@ typedef struct s_ms_command
 	t_bool		(*print)(t_ms_input *);
 	t_master	*master;
 }	t_ms_command;
+
+/*----------------------------{ GLOBAL VARIABLE }----------------------*/
+static	int	g_ctrl_c = 0;
 
 /*----------------------------{ MINISHELL }----------------------------*/
 t_master		*ms_init_master(int ac, char **av, char **evs);

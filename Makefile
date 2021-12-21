@@ -17,12 +17,12 @@ all : $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(INCLUDES)
 # $(OBJS): $(SRCS) $(INCLUDES)
-	mkdir -p $(dir $@) && $(CC) -c $(LIBS_INCLUDES_DIR) $(CFLAGS) -o $@ $<
+	mkdir -p $(dir $@) && $(CC) -c $(LIBS_INCLUDES_DIR) $(CFLAGS) -o $@ $< -I/Users/$(USER)/.brew/opt/readline/include
 
 # $(NAME) : $(shell mkdir $(OBJS_DIR)) $(OBJS)
 $(NAME) : $(OBJS)
 	make -C libft full
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS_PATH) $(LIBS_FLAG) -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include 
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS_PATH) $(LIBS_FLAG) -L /Users/$(USER)/.brew/opt/readline/lib
 
 clean:
 	rm -f $(OBJS)
