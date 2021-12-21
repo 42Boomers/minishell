@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 14:54:41 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/21 14:57:08 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	ms_child(t_master *master, char *command, char **args)
 	exit(-1);
 }
 
-static int	ms_wait_fork(t_master *master, char **args, int *redir)
+static int	ms_wait_fork(pid_t fork_id, char **args, int *redir)
 {
 	int	*status;
 
@@ -58,8 +58,8 @@ static char	*ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
 	return (command);
 }
 
-static int	*ms_fork_init(t_master *master, int *fd_in, int pip_end[2], \
-	char **args)
+static int	*ms_fork_init(int *fd_in, int pip_end[2], char **args, pid_t \
+*fork_id)
 {
 	int	*redir;
 
@@ -80,7 +80,7 @@ static int	*ms_fork_init(t_master *master, int *fd_in, int pip_end[2], \
 		ft_println_red("Error > An error has occured while fork creation");
 		return (NULL);
 	}
-	if (master->pid == 0)
+	if (*fork_id == 0)
 		ms_fork_init2(args, redir, pip_end, fd_in);
 	return (redir);
 }
@@ -91,7 +91,7 @@ void	ms_fork(t_master *master, char *command, char **args)
 	int		fd_in;
 	int		*redir;
 	int		pip_rec;
-	// pid_t	fork_id;
+	pid_t	fork_id;
 
 	pip_rec = 1;
 	while (pip_rec > 0)
@@ -103,7 +103,7 @@ void	ms_fork(t_master *master, char *command, char **args)
 			ms_child(master, command, args);
 		else
 		{
-			pip_rec = ms_wait_fork(master, args, redir);
+			pip_rec = ms_wait_fork(fork_id, args, redir);
 			if (pip_rec > 0)
 				command = ms_next_fork(pip_rec, pip_end, &fd_in, &args);
 		}
