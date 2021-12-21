@@ -1,4 +1,4 @@
-name: Launch Tester
+name: Units Tests
 
 on: [push, pull_request]
 
