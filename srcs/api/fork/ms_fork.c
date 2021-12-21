@@ -12,15 +12,18 @@
 
 #include "minishell.h"
 
-static void	ms_child(t_master *master, char *command, char **args, int *pip_rec)
+static void	ms_child(t_master *master, char *command, char **args)
 {
-	(void)pip_rec;
+	char	*error;
+
 	if (ft_isequals(command, "exit"))
 		exit(0);
 	if (!ms_cmd_os(master, command, args))
 	{
 		ms_set_status(master, FALSE);
-		fprintf(stderr, "\e[31mminishell: %s: command not found\n\e[0m", command);
+		error = ft_strjoin("minishell: ", command);
+		perror(error);
+		free(error);
 	}
 	exit(-1);
 }
@@ -96,7 +99,7 @@ void	ms_fork(t_master *master, char *command, char **args)
 			return ;
 		redir = ms_fork_init(&fd_in, pip_end, args, &fork_id);
 		if (fork_id == 0)
-			ms_child(master, command, args, &pip_rec);
+			ms_child(master, command, args);
 		else
 		{
 			pip_rec = ms_wait_fork(fork_id, args, redir);

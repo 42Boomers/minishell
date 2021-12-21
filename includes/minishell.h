@@ -28,6 +28,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <dirent.h>
+# include <string.h>
 
 /*-----------------------------{ BOOLEAN }-----------------------------*/
 typedef enum s_bool
