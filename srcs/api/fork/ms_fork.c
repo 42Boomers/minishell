@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 21:50:54 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 22:44:43 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ static void	ms_child(t_master *master, char *command, char **args)
 	{
 		// ms_set_status(master, FALSE);
 		master->last_status = 127;
-		ms_print_error(master->name, command);
+		if (errno == ENOENT)
+			fprintf(stderr, "%s: %s: command not found\n",
+				master->name, command);
+		else
+			ms_print_error(master->name, command);
 	}
 	exit(-1);
 }
