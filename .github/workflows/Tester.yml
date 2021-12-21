@@ -19,12 +19,12 @@ jobs:
           python3 -m pip install --upgrade pip setuptools
           python3 -m pip install norminette
       - name: Check Compatibility Tester
-        run: cd minishell_tester && bash test.sh compatibility
+        run: cd tester && bash test.sh compatibility
       - name: Launch Tester
-        run: cd minishell_tester && bash test.sh all
+        run: cd tester && bash test.sh all
         shell: bash
       - name: Commands to fix
-        run: cat minishell_tester/tofix/tofix_tests.txt
+        run: cat tester/tofix/tofix_tests.txt
   launch_tester_macos:
     runs-on: macos-latest
     name: Tester MacOS
@@ -48,9 +48,9 @@ jobs:
           python3 -m pip install norminette
         continue-on-error: true
       - name: Check Compatibility Tester
-        run: cd minishell_tester && bash test.sh compatibility
+        run: cd tester && bash test.sh compatibility
       - name: Launch Tester
-        run: cd minishell_tester && bash test.sh all
+        run: cd tester && bash test.sh all
         shell: bash
       - name: Commands to fix
-        run: cat minishell_tester/tofix/tofix_tests.txt
+        run: cat tester/tofix/tofix_tests.txt

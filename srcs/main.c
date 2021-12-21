@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 14:33:23 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/21 15:27:14 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ms_start(int ac, char **av, char **evs)
 	ms_cmd_register_all(master);
 	if (ac > 1)
 	{
-		if (ft_isequals_ignore("test", av[1]))
+		if (ft_isequals_ignore("-t", av[1]))
 			ms_test_cmd(master);
 		else
 			ms_launch_at_start(master);
