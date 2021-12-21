@@ -27,19 +27,26 @@ jobs:
         run: cat minishell_tester/tofix/tofix_tests.txt
   launch_tester_macos:
     runs-on: macos-latest
-    name: Tester Linux
+    name: Tester MacOS
     steps:
       - name: Checkout repo, Libft & Tester
         uses: actions/checkout@v2
         with:
           submodules: true
         continue-on-error: true
+      - name: Install Homebrew & pyenv
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          /usr/local/bin/brew install pyenv readline
+          pyenv init
+        continue-on-error: true
       - name: Install Progs for Tester
         run: |
-          sudo apt update
-          sudo apt-get install -y bash diffutils python3 pip gcc clang build-essential valgrind apt-utils libreadline-dev
+          pyenv install 3.7.9
+          pyenv global 3.7.9
           python3 -m pip install --upgrade pip setuptools
           python3 -m pip install norminette
+        continue-on-error: true
       - name: Check Compatibility Tester
         run: cd minishell_tester && bash test.sh compatibility
       - name: Launch Tester
