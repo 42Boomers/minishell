@@ -26,6 +26,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: true
+      - name: Install Homebrew & pyenv
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          /usr/local/bin/brew install readline
+        continue-on-error: true
       - name: Make
         run: make
       - name: Clean
