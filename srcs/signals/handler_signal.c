@@ -6,12 +6,29 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 14:53:01 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/21 15:28:54 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
+
 #include "minishell.h"
+
+static void	ctrl_c_fork(void)
+{
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	g_ctrl_c = 0;
+}
+
+static void	ctrl_c_normal(void)
+{
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
 
 static void	handle_signal(int signum, siginfo_t *sig_info, void *ucontext_t)
 {
@@ -19,11 +36,10 @@ static void	handle_signal(int signum, siginfo_t *sig_info, void *ucontext_t)
 	(void)ucontext_t;
 	if (signum == SIGINT)
 	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		if (g_ctrl_c != 2)
-			rl_redisplay();
+		if (g_ctrl_c == 0)
+			ctrl_c_normal();
+		if (g_ctrl_c == 1)
+			ctrl_c_fork();
 	}
 }
 
