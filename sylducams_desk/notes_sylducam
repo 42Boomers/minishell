@@ -17,6 +17,7 @@ minishell.h:95   Alors, on a un enum booleen, qui renvoie -1, 0 ou pas 0 (deja,
 				 dereference quoi avec ce (*nom), ou alors c'est un cast ? Mais
 				 un cast de quoi ? Je comprends rien T_T
 
+
 qu'est-ce qu'il se passe quand j'appuie sur enter ou que je lance n'importe
 quelle commande ? Comment ca se passe dans le code ? rl_??
 
