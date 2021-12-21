@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:37:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 12:50:15 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 15:55:14 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ char	**ms_env_replace(t_master *master, char *key, char *value)
 	env = ms_env_get_struct(master, key);
 	if (!env)
 		return (NULL);
-	printf("DEBUG %s env key find\n", env->key);
 	tmp = env->value;
 	env->value = ft_strdup(value);
 	if (!env->value)
