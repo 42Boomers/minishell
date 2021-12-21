@@ -5,13 +5,19 @@ on: [push, pull_request]
 jobs:
   launch:
     runs-on: ubuntu-latest
-    name: Launch Main Executable
+    name: Tester Linux
     steps:
       - name: Checkout repo, Libft & Tester
         uses: actions/checkout@v2
         with:
           submodules: true
         continue-on-error: true
+      - name: Install Progs for Tester
+        run: |
+          sudo apt update
+          sudo apt-get install -y bash diffutils python3 pip gcc clang build-essential valgrind
+          python3 -m pip install --upgrade pip setuptools
+          python3 -m pip install norminette
       - name: Launch Tester
         run: cd minishell_tester && bash test.sh all
         shell: bash
