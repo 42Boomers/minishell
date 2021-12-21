@@ -24,11 +24,7 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(INCLUDES)
 # $(NAME) : $(shell mkdir $(OBJS_DIR)) $(OBJS)
 $(NAME) : $(OBJS)
 	make -C libft full
-<<<<<<< HEAD
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS_PATH) $(LIBS_FLAG) -L /Users/$(USER)/.brew/opt/readline/lib
-=======
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS_PATH) $(LIBS_FLAG)
->>>>>>> 3ea9e75e5275026d1d452d54ffbe31d57a29f107
 
 clean:
 	rm -f $(OBJS)
