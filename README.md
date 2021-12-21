@@ -15,3 +15,4 @@ export
 [![Build](https://github.com/42Boomers/minishell/actions/workflows/Build.yml/badge.svg)](https://github.com/42Boomers/minishell/actions/workflows/Build.yml)
 [![Launch Test Linux](https://github.com/42Boomers/minishell/actions/workflows/Launch_Linux.yml/badge.svg)](https://github.com/42Boomers/minishell/actions/workflows/Launch_Linux.yml)
 [![Launch Test MacOS](https://github.com/42Boomers/minishell/actions/workflows/Launch_MacOS.yml/badge.svg)](https://github.com/42Boomers/minishell/actions/workflows/Launch_MacOS.yml)
+[![Launch Tester Linux](https://github.com/42Boomers/minishell/actions/workflows/Tester_Linux.yml/badge.svg)](https://github.com/42Boomers/minishell/actions/workflows/Tester_Linux.yml)
