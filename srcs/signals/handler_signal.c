@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 15:28:54 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/21 15:50:01 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,52 @@
 
 #include "minishell.h"
 
-static void	ctrl_c_fork(void)
-{
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	g_ctrl_c = 0;
-}
+// static void	ctrl_c_fork(void)
+// {
+// }
 
-static void	ctrl_c_normal(void)
-{
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+// static void	ctrl_c_normal(void)
+// {
+// }
 
 static void	handle_signal(int signum, siginfo_t *sig_info, void *ucontext_t)
 {
 	(void)sig_info;
 	(void)ucontext_t;
+/* understand diffrent behaviours of ctrl-c depending on minishell being in
+- "normal" mode
+- having created a fork but not being in it
+- being inside a fork
+>>> try all the different functions (rl_on_new_line, rl_replace_line and
+rl_redisplay) but forsti of all, try and understand theoritically, what's
+minishell in a minishell is supposed to do.
+What to do after the whole action of ctrl-c had been performed ?
+Should I change the value of g_ctrl_c ?
+*/
 	if (signum == SIGINT)
 	{
 		if (g_ctrl_c == 0)
-			ctrl_c_normal();
-		if (g_ctrl_c == 1)
-			ctrl_c_fork();
+		{
+			// ctrl_c_normal();
+			printf("\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			rl_redisplay();
+		}
+		else if (g_ctrl_c == 1)
+		{
+			// ctrl_c_fork();
+			printf("\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			g_ctrl_c = 0;
+		}
+		else if (g_ctrl_c == 2)
+		{
+			printf("\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+		}
 	}
 }
 
