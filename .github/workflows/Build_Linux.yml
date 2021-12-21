@@ -1,0 +1,39 @@
+name: Build Linux
+
+on: [push, pull_request]
+
+jobs:
+  build_linux:
+    runs-on: ubuntu-latest
+    name: Build Executable on Linux
+    steps:
+      - name: Checkout repo & libft
+        uses: actions/checkout@v2
+        with:
+          # token: ${{ secrets.CI_TOKEN }}
+          submodules: true
+      - name: Make
+        run: make
+      - name: Clean
+        run: |
+            make clean
+            make fclean
+  build_macos:
+    runs-on: macos-latest
+    name: Build Executable on macOS
+    steps:
+      - name: Checkout repo & libft
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Install Homebrew & pyenv
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          /usr/local/bin/brew install readline
+        continue-on-error: true
+      - name: Make
+        run: make
+      - name: Clean
+        run: |
+            make clean
+            make fclean

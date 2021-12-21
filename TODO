@@ -5,4 +5,4 @@ Le CTRL + C doit faire comme bash
 - tglory :
   fix les leaks avec CTRL C puis plusieurs commandes inconnu
   fix: unset OLDPWD && cd .. && exit -> free(): invalid pointer
-  TODO add mechanic: echo '$USER' should print $USER and not tglory
+  TODO add mechanic: echo '$USER' should print $USER and not tglory (idea: replace '$USER' with '\$USER' in ft_split_ultime)
