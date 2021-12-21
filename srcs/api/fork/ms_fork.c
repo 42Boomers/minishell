@@ -6,22 +6,25 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 12:01:22 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 13:43:00 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ms_child(t_master *master, char *command, char **args, int *pip_rec)
+static void	ms_child(t_master *master, char *command, char **args)
 {
-	(void)pip_rec;
+	char	*error;
+
 	if (ft_isequals(command, "exit"))
 		exit(0);
 	if (!ms_cmd_os(master, command, args))
 	{
 		// ms_set_status(master, FALSE);
 		master->last_status = 127;
-		fprintf(stderr, "\e[31mminishell: %s: command not found\n\e[0m", command);
+		error = ft_strjoin("minishell: ", command);
+		perror(error);
+		free(error);
 	}
 	exit(-1);
 }
@@ -97,7 +100,7 @@ void	ms_fork(t_master *master, char *command, char **args)
 			return ;
 		redir = ms_fork_init(&fd_in, pip_end, args, &fork_id);
 		if (fork_id == 0)
-			ms_child(master, command, args, &pip_rec);
+			ms_child(master, command, args);
 		else
 		{
 			pip_rec = ms_wait_fork(fork_id, args, redir);

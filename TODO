@@ -2,10 +2,6 @@ Le CTRL + C doit faire comme bash
 - Afficher "^C" (FAIT)
 - Supprimer le message en cours
 
-- mrozniec: modifier le split ultimate
-pour que	">filename"		| ">>filename"		| "<filename"
-donne		">" "filename"	| ">>" "filename"	| "<" "filename"
-
 - tglory :
   fix les leaks avec CTRL C puis plusieurs commandes inconnu
   fix: unset OLDPWD && cd .. && exit -> free(): invalid pointer
