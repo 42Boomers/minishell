@@ -14,5 +14,6 @@ jobs:
         continue-on-error: true
       - name: Launch Tester
         run: ./scripts/tester.sh
+        shell: bash
       - name: Commands to fix
         run: cat minishell_tester/tofix/tofix_tests.txt
