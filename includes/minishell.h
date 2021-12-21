@@ -6,9 +6,10 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/18 12:55:34 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/21 14:55:18 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -28,6 +29,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <dirent.h>
+# include <string.h>
 
 /*-----------------------------{ BOOLEAN }-----------------------------*/
 typedef enum s_bool
@@ -76,6 +78,22 @@ typedef struct s_str_build
 	char	*separator;
 }	t_str_build;
 
+/*--------------------------{ ENV PARSE }--------------------------*/
+typedef struct s_env_parse
+{
+	t_master	*master;
+	t_str_build	*build;
+	char		*tmp;
+	char		*str;
+	char		*str2;
+	char		*env;
+	char		*out;
+	int			i;
+	int			j;
+	int			k;
+	int			l;
+}	t_env_parse;
+
 /*--------------------------{ COMMAND INPUT }--------------------------*/
 typedef struct s_ms_input
 {
@@ -99,6 +117,9 @@ typedef struct s_ms_command
 	t_master	*master;
 }	t_ms_command;
 
+/*----------------------------{ GLOBAL VARIABLE }----------------------*/
+static	int	g_ctrl_c = 0;
+
 /*----------------------------{ MINISHELL }----------------------------*/
 t_master		*ms_init_master(int ac, char **av, char **evs);
 void			ms_free_master(t_master	*master);
@@ -107,7 +128,7 @@ t_bool			ms_readline(t_master *master);
 void			ms_register_signals(t_master *master);
 int				ft_pipe_check(char **args);
 void			ms_fork(t_master *master, char *command, char **args);
-void			ms_red_in_out(char **args, int *redir);
+int				ms_red_in_out(char **args, int *redir);
 void			ms_check_redir(char **command, char **args);
 void			ms_del_red(char **args, int pos);
 void			ms_fork_init2(char **args, int *redir, int pip_end[2],
@@ -135,6 +156,12 @@ void			ms_env_free(void *arg);
 char			*ms_env_key_get(void *arg);
 t_env			*ms_env_create(char *raw_envs);
 t_env			*ms_env_create_basic(char *key, char *value);
+char			*ms_env_parse(t_master *master, char *str);
+t_env_parse		*ms_env_parse_create(t_master *master, char *str);
+t_bool			ms_env_parse_str(t_env_parse *ep);
+t_bool			ms_env_parse_search(t_env_parse *ep);
+t_bool			ms_env_parse_var(t_env_parse *ep);
+t_bool			ms_env_add(t_master *master, char *key, char *value);
 char			*ms_pwd(t_master *master);
 void			ms_write(char **array, int size);
 t_bool			ms_file_can_use(char *fname);
@@ -166,6 +193,7 @@ void			ft_str_destroy(t_str_build *builder);
 char			*ft_str_build(t_str_build *builder);
 void			ft_str_add(t_str_build *builder, char *str);
 char			**ft_str_array_build(t_str_build *builder);
+t_bool			ft_strisfullof(char *str, char c);
 
 /*------------------------------{ CMDS }-------------------------------*/
 t_bool			ms_cmd_env_register(t_ms_command *cmd);
@@ -177,6 +205,7 @@ t_bool			ms_cmd_unset_register(t_ms_command *cmd);
 t_bool			ms_cmd_export_register(t_ms_command *cmd);
 
 /*-----------------------------{ GARBAGE }-----------------------------*/
+void			*ms_mallocw(size_t size, char *warning_message);
 void			*ms_malloc(t_list **garbage, size_t size);
 void			*ms_malloc_custom(t_list **garbage, size_t size,
 					void (*free_func) (void *));

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:18:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 23:54:26 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 18:37:26 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,25 @@ t_bool	ms_readline_two(t_master *master, char *input)
 	raw_args = ft_split_ultimate(input, ' ');
 	if (raw_args && raw_args[0])
 	{
+		i = 0;
+		while (raw_args[i])
+			ms_garbage_master_add(master, raw_args[i++], free);
 		ms_garbage_master_add(master, raw_args, free);
 		if (ft_isequals("exit", raw_args[0]))
 		{
 			printf("exit\n");
 			return (FALSE);
 		}
-		i = 0;
-		while (raw_args[i])
-			ms_garbage_master_add(master, raw_args[i++], free);
 		ms_cmd_launch(master, raw_args[0], raw_args + 1, i - 1);
-		raw_args++;
+		// raw_args++;
 	}
 	else
 	{
-		// tglory : je me souviens pourquoi j'ai fais, ça devrais jamais arriver.
+		// tglory : je me souviens pourquoi j'ai fais sa, ça devrais jamais arriver.
 		printf("DEBUG : this happend. Don't delete me pls\n");
-		/*
 		ms_cmd_launch(master, input, NULL, 0);
 		if (raw_args)
-			free(raw_args)
-		*/
+			free(raw_args);
 	}
 	free(input);
 	return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:39:53 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 22:28:48 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 12:35:51 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	*ms_pwd(t_master *master)
 
 void	ms_pwd_set(t_master *master, char *new_pwd)
 {
-	ms_env_replace(master, "PWD", new_pwd);
-	master->pwd = ms_env_replace(master, "PWD", new_pwd);
+	ms_env_add(master, "OLDPWD", ms_pwd(master));
+	ms_env_add(master, "PWD", new_pwd);
+	ms_pwd(master);
 }

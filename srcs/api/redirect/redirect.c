@@ -6,7 +6,7 @@
 /*   By: mrozniec <mrozniec@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 13:08:32 by mrozniec          #+#    #+#             */
-/*   Updated: 2021/12/15 13:08:32 by mrozniec         ###   ########.fr       */
+/*   Updated: 2021/12/21 02:20:25 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ft_red_in_check(char **args)
 	return (0);
 }
 
-static void	ms_red_in(char **args, int *fd_red_in)
+static int	ms_red_in(char **args, int *fd_red_in)
 {
 	int		pos;
 
@@ -51,21 +51,29 @@ static void	ms_red_in(char **args, int *fd_red_in)
 		if (pos > 0)
 		{
 			*fd_red_in = open(args[pos], O_RDONLY);
+			if (*fd_red_in == -1)
+				return (pos);
 			ms_del_red(args, pos);
 		}
 		else if (pos < 0)
 		{
-			*fd_red_in = open(".ms_herefile", O_CREAT | O_WRONLY | O_TRUNC, \
+			*fd_red_in = open(".ms_heredoc", O_CREAT | O_WRONLY | O_TRUNC, \
 			0641);
+			if (*fd_red_in == -1)
+				return (-1);
 			ms_heredoc(*fd_red_in, args[-pos]);
-			*fd_red_in = open(".ms_herefile", O_RDONLY);
-			unlink(".ms_herefile");
+			*fd_red_in = open(".ms_heredoc", O_RDONLY);
+			if (*fd_red_in == -1)
+				return (-1);
+			unlink(".ms_heredoc");
 			ms_del_red(args, -pos);
 		}
 		pos = ft_red_in_check(args);
 		if (pos != 0)
-			close(*fd_red_in);
+			if (close(*fd_red_in) == -1)
+				return (-1);
 	}
+	return (0);
 }
 
 static int	ft_red_out_check(char **args)
@@ -95,7 +103,7 @@ static int	ft_red_out_check(char **args)
 	return (0);
 }
 
-static void	ms_red_out(char **args, int *fd_red_out)
+static int	ms_red_out(char **args, int *fd_red_out)
 {
 	int	pos;
 
@@ -107,23 +115,56 @@ static void	ms_red_out(char **args, int *fd_red_out)
 		if (pos > 0)
 		{
 			fd_red_out[1] = open(args[pos], O_CREAT | O_WRONLY | O_TRUNC, 0641);
+			if (fd_red_out[1] == -1)
+				return (pos);
 			ms_del_red(args, pos);
 		}
 		else if (pos < 0)
 		{
-			pos = -pos;
-			fd_red_out[1] = open(args[pos], O_CREAT | O_WRONLY | O_APPEND, \
+			fd_red_out[1] = open(args[-pos], O_CREAT | O_WRONLY | O_APPEND, \
 			0641);
-			ms_del_red(args, pos);
+			if (fd_red_out[1] == -1)
+				return (-pos);
+			ms_del_red(args, -pos);
 		}
 		pos = ft_red_out_check(args);
 		if (pos != 0)
-			close(fd_red_out[1]);
+			if (close(fd_red_out[1]) == -1)
+				return (-1);
 	}
+	return (0);
 }
 
-void	ms_red_in_out(char **args, int *redir)
+int	ms_red_in_out(char **args, int *redir)
 {
-	ms_red_in(args, redir);
-	ms_red_out(args, redir);
+	int		ret;
+	char	*strer;
+
+	ret = ms_red_in(args, redir);
+	if (ret != 0)
+	{
+		if (ret > 0)
+		{
+			strer = ft_strjoin("minishell: ", args[ret]);
+			perror(strer);
+			free(strer);
+		}
+		else if (ret < 0)
+			perror("minishell");
+		return (-1);
+	}
+	ret = ms_red_out(args, redir);
+	if (ret != 0)
+	{
+		if (ret > 0)
+		{
+			strer = ft_strjoin("minishell: ", args[ret]);
+			perror(strer);
+			free(strer);
+		}
+		else if (ret < 0)
+			perror("minishell");
+		return (-1);
+	}
+	return (0);
 }

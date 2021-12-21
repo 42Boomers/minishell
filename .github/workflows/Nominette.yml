@@ -3,7 +3,7 @@ name: Norminette
 on: [push, pull_request]
 
 jobs:
-  launch:
+  norminette:
     runs-on: ubuntu-latest
     name: Norminette Sources
     steps:

@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print.c                                         :+:      :+:    :+:   */
+/*   env_parse_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/02 21:49:56 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 02:20:50 by tglory           ###   ########lyon.fr   */
+/*   Created: 2021/12/20 03:40:32 by tglory            #+#    #+#             */
+/*   Updated: 2021/12/20 03:40:53 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_println_red(char *str)
+t_env_parse	*ms_env_parse_create(t_master *master, char *str)
 {
-	fprintf(stderr, "\e[31m%s.\e[0m\n", str);
-}
+	t_env_parse		*env_parse;
 
-void	ft_println_orange(char *str)
-{
-	printf("\e[208m%s.\e[0m\n", str);
-}
-
-void	ft_println(char *str)
-{
-	printf("%s.\n", str);
+	env_parse = malloc(sizeof(*env_parse));
+	if (!env_parse)
+		return (NULL);
+	env_parse->master = master;
+	env_parse->build = NULL;
+	env_parse->str = str;
+	env_parse->str2 = str;
+	env_parse->out = NULL;
+	env_parse->i = 0;
+	env_parse->k = -1;
+	return (env_parse);
 }

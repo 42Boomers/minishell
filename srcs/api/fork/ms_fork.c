@@ -6,20 +6,26 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/18 12:54:34 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/21 14:54:41 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ms_child(t_master *master, char *command, char **args, int *pip_rec)
+static void	ms_child(t_master *master, char *command, char **args)
 {
+	char	*error;
+
+	if (ft_isequals(command, "exit"))
+		exit(0);
 	if (!ms_cmd_os(master, command, args))
 	{
-		ms_set_status(master, FALSE);
-		printf("\e[31mminishell: %s: command not found\n\e[0m", command);
+		// ms_set_status(master, FALSE);
+		master->last_status = 127;
+		error = ft_strjoin("minishell: ", command);
+		perror(error);
+		free(error);
 	}
-	*pip_rec = 0;
 	exit(-1);
 }
 
@@ -28,12 +34,15 @@ static int	ms_wait_fork(t_master *master, char **args, int *redir)
 	int	*status;
 
 	status = NULL;
-	waitpid(master->pid, status, 0);
-	if (redir[0] > 0)
-		close(redir[0]);
-	if (redir[1] > 0)
-		close(redir[1]);
-	free(redir);
+	if (redir)
+	{
+		waitpid(fork_id, status, 0);
+		if (redir[0] > 0)
+			close(redir[0]);
+		if (redir[1] > 0)
+			close(redir[1]);
+		free(redir);
+	}
 	return (ft_pipe_check(args));
 }
 
@@ -60,9 +69,13 @@ static int	*ms_fork_init(t_master *master, int *fd_in, int pip_end[2], \
 		ft_println_red("Error > An error has occured while malloc creation");
 		return (NULL);
 	}
-	ms_red_in_out(args, redir);
-	master->pid = fork();
-	if (master->pid < 0)
+	if (ms_red_in_out(args, redir))
+	{
+		free(redir);
+		return (NULL);
+	}
+	*fork_id = fork();
+	if (*fork_id < 0)
 	{
 		ft_println_red("Error > An error has occured while fork creation");
 		return (NULL);
@@ -85,9 +98,9 @@ void	ms_fork(t_master *master, char *command, char **args)
 	{
 		if (ms_error_pipe(pip_end) == -1)
 			return ;
-		redir = ms_fork_init(master, &fd_in, pip_end, args);
-		if (master->pid == 0)
-			ms_child(master, command, args, &pip_rec);
+		redir = ms_fork_init(&fd_in, pip_end, args, &fork_id);
+		if (fork_id == 0)
+			ms_child(master, command, args);
 		else
 		{
 			pip_rec = ms_wait_fork(master, args, redir);

@@ -1,3 +1,6 @@
+git submodule update a chaque fois au debut pour mettre a jour les modif que
+tglory a faites a sa libft
+
 Ask tglory :
 Comment les headers sont ajoutes sans le path complet ?
 	-> tristan : d
@@ -14,16 +17,22 @@ minishell.h:95   Alors, on a un enum booleen, qui renvoie -1, 0 ou pas 0 (deja,
 				 dereference quoi avec ce (*nom), ou alors c'est un cast ? Mais
 				 un cast de quoi ? Je comprends rien T_T
 
-quand on ./minishell :
-/Users/sylducam/Desktop/com_minishell >
-normal ?
 qu'est-ce qu'il se passe quand j'appuie sur enter ou que je lance n'importe
 quelle commande ? Comment ca se passe dans le code ? rl_??
+
+il reste des warnings quand on make. Surtout des variables ou fonctions non
+utilisees, donc juste besoin de faire du menage
+
+les codes retour
+
+warning rl_replace_line (ajouter stdio.h a la compil ou aller voir encore bperez)
+
+faire mise a la norme
+recherche de leaks
+
 --------------------------------------------------------------------------------
 SIGNAUX
 https://man7.org/linux/man-pages/man2/sigaction.2.html
 
 
 virer les coms
-architecture ajouter dossier commands et sous-dossiers voir cahier
-norme

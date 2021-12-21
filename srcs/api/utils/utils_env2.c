@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:37:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/17 00:56:18 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 12:50:15 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ char	*ms_env_get(t_master *master, char *key)
 {
 	t_env	*env;
 
+	if (!key)
+		return (NULL);
 	env = ms_env_get_struct(master, key);
 	if (!env)
 		return (NULL);
@@ -60,13 +62,15 @@ char	**ms_env_format(t_master *master)
 
 t_bool	ms_env_add(t_master *master, char *key, char *value)
 {
+	if (!value)
+		return (FALSE);
 	if (ms_env_get_struct(master, key))
 	{
 		ms_env_replace(master, key, value);
 		return (TRUE);
 	}
 	ft_lstadd_back(&master->envs,
-		ft_lstnew(ms_env_create_basic(key, value)));
+		ft_lstnew(ms_env_create_basic(key, ft_strdup(value))));
 	return (TRUE);
 }
 
@@ -75,14 +79,18 @@ char	**ms_env_replace(t_master *master, char *key, char *value)
 	t_env	*env;
 	char	*tmp;
 
+	if (!value)
+		return (FALSE);
 	env = ms_env_get_struct(master, key);
 	if (!env)
 		return (NULL);
+	printf("DEBUG %s env key find\n", env->key);
 	tmp = env->value;
 	env->value = ft_strdup(value);
 	if (!env->value)
 		return (NULL);
-	free(tmp);
+	if (tmp)
+		free(tmp);
 	if (ft_isequals(env->key, "PATH"))
 		ms_env_path_refresh(master);
 	return (&env->value);

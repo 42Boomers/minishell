@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:10:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 16:49:25 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 13:14:16 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_env	*ms_env_create_basic(char *key, char *value)
 {
 	t_env	*envs;
 
-	envs = malloc(sizeof(t_env));
+	envs = ms_mallocw(sizeof(t_env), "Can't malloc t_env");
 	if (!envs)
 		return (NULL);
 	envs->key = key;
@@ -30,7 +30,11 @@ t_env	*ms_env_create(char *raw_envs)
 	char	**env_array;
 
 	env_array = ft_strtrunc(raw_envs, '=');
+	if (!env_array)
+		return (NULL);
 	env = ms_env_create_basic(env_array[0], env_array[1]);
+	if (!env)
+		return (NULL);
 	free(env_array);
 	return (env);
 }
@@ -47,10 +51,15 @@ void	ms_env_free(void *arg)
 {
 	t_env	*env;
 
+	if (!arg)
+		return ;
 	env = arg;
-	free(env->key);
-	free(env->value);
-	free(env);
+	if (env->key)
+		free(env->key);
+	if (env->value)
+		free(env->value);
+	if (env)
+		free(env);
 }
 
 t_env	*ms_env_get_struct(t_master *master, char *key)

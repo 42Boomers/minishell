@@ -1,9 +1,9 @@
-name: Launch Test Linux
+name: Launch Linux
 
 on: [push, pull_request]
 
 jobs:
-  launch:
+  launch_linux:
     runs-on: ubuntu-latest
     name: Launch Main Executable
     steps:
