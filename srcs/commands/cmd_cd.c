@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 23:28:21 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 02:19:28 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ static t_bool	ms_cd_execute(t_ms_input *input)
 		return (FALSE);
 	if (ms_file_is_dir(input->args[0]) != 1)
 	{
-		printf("cd: no such directory: %s\n", input->args[0]);
+		fprintf(stderr, "cd: no such directory: %s\n", input->args[0]);
 		return (FALSE);
 	}
 	chdir(input->args[0]);
 	new_pwd = ms_change_pwd(128);
 	if (!new_pwd)
 	{
-		printf("cd: unable to change current dir to %s\n", input->args[0]);
+		fprintf(stderr, "cd: unable to change current dir to %s\n", input->args[0]);
 		return (FALSE);
 	}
 	ms_pwd_set(input->cmd->master, new_pwd);

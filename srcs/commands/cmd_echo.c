@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/20 21:37:58 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 02:21:16 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static t_bool	ms_echo_print(t_ms_input *input)
 	int			i;
 	int			arg_n;
 	char		*str;
+	char		*tmp;
 	t_str_build	*build;
 
 	i = -1;
@@ -82,9 +83,13 @@ static t_bool	ms_echo_print(t_ms_input *input)
 			continue ;
 		ft_str_add(build, ft_strdup(str));
 	}
-	if (!arg_n)
-		ft_str_add(build, ft_strdup("\n"));
 	str = ft_str_build(build);
+	if (!arg_n)
+	{
+		tmp = ft_strjoin(str, "\n");
+		free(str);
+		str = tmp;
+	}
 	printf(str);
 	free(str);
 	ft_str_destroy(build);

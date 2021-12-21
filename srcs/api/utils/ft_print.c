@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:49:56 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/02 22:12:46 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 02:20:50 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_println_red(char *str)
 {
-	printf("\e[31m%s.\e[0m\n", str);
+	fprintf(stderr, "\e[31m%s.\e[0m\n", str);
 }
 
 void	ft_println_orange(char *str)

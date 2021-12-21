@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 13:08:32 by mrozniec          #+#    #+#             */
-/*   Updated: 2021/12/20 20:38:49 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/21 02:20:25 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int	ms_red_in_out(char **args, int *redir)
 	ret = ms_red_in(args, redir);
 	if (ret != 0)
 	{
-		printf("\e[31mminishell: %s: No such file or directory\n\e[0m"\
+		fprintf(stderr, "\e[31mminishell: %s: No such file or directory\n\e[0m"\
 				, args[ret]);
 		return (-1);
 	}

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/20 06:32:30 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/20 22:53:35 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ t_bool			ms_readline(t_master *master);
 void			ms_register_signals(t_master *master);
 int				ft_pipe_check(char **args);
 void			ms_fork(t_master *master, char *command, char **args);
-int 			ms_red_in_out(char **args, int *redir);
+int				ms_red_in_out(char **args, int *redir);
 void			ms_check_redir(char **command, char **args);
 void			ms_del_red(char **args, int pos);
 void			ms_fork_init2(char **args, int *redir, int pip_end[2],

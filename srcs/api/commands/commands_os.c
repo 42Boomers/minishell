@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:35:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/20 21:26:34 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 01:40:44 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@ static char	**ms_cmd_os_args(char *command, char **args)
 {
 	char	**new_args;
 	int		i;
+	int		size;
 
+	size = -1;
+	while (args[++size])
+		;
 	i = 0;
 	if (*args)
 	{
@@ -26,7 +30,7 @@ static char	**ms_cmd_os_args(char *command, char **args)
 			return (NULL);
 		while (args[i])
 		{
-			new_args[i + 1] = new_args[i];
+			new_args[i + 1] = args[i];
 			i++;
 		}
 	}
