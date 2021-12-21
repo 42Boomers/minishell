@@ -6,12 +6,12 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 02:51:24 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 11:30:06 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
+
 int	n_check(char *first_arg)
 {
 	int	i;
@@ -27,7 +27,7 @@ int	n_check(char *first_arg)
 	return (FALSE);
 }
 
-static t_bool	ms_echo_print_new(t_ms_input *input)
+static t_bool	ms_echo_print(t_ms_input *input)
 {
 	int		arg_n;
 
@@ -49,7 +49,7 @@ static t_bool	ms_echo_print_new(t_ms_input *input)
 		ft_putchar('\n');
 	return (TRUE);
 }
-*/
+/*
 static char	*ms_echo_arg(t_ms_input *input, char *arg, int *arg_n, int i)
 {
 	if (!input->args[i][0])
@@ -62,7 +62,7 @@ static char	*ms_echo_arg(t_ms_input *input, char *arg, int *arg_n, int i)
 	return (arg);
 }
 
-static t_bool	ms_echo_print(t_ms_input *input)
+static t_bool	ms_echo_print_old(t_ms_input *input)
 {
 	int			i;
 	int			arg_n;
@@ -70,6 +70,11 @@ static t_bool	ms_echo_print(t_ms_input *input)
 	char		*tmp;
 	t_str_build	*build;
 
+	if (input->args_size == 0)
+	{
+		ft_putchar('\n');
+		return (TRUE);
+	}
 	i = -1;
 	arg_n = 0;
 	build = ft_str_build_init();
@@ -94,7 +99,7 @@ static t_bool	ms_echo_print(t_ms_input *input)
 	free(str);
 	ft_str_destroy(build);
 	return (TRUE);
-}
+}*/
 
 t_bool	ms_cmd_echo_register(t_ms_command *cmd)
 {

@@ -6,7 +6,11 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/12/21 14:31:15 by sylducam         ###   ########.fr       */
+=======
+/*   Updated: 2021/12/21 12:14:04 by tglory           ###   ########lyon.fr   */
+>>>>>>> 3ea9e75e5275026d1d452d54ffbe31d57a29f107
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +163,7 @@ t_env_parse		*ms_env_parse_create(t_master *master, char *str);
 t_bool			ms_env_parse_str(t_env_parse *ep);
 t_bool			ms_env_parse_search(t_env_parse *ep);
 t_bool			ms_env_parse_var(t_env_parse *ep);
+t_bool			ms_env_add(t_master *master, char *key, char *value);
 char			*ms_pwd(t_master *master);
 void			ms_write(char **array, int size);
 t_bool			ms_file_can_use(char *fname);

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:41:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/17 00:56:53 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 13:14:49 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_bool	ms_env_add_raw(t_master *master, char *raw_env)
 {
 	t_env	*env;
 
+	if (!raw_env)
+		return (FALSE);
 	env = ms_env_create(raw_env);
 	if (ms_env_get_struct(master, env->key))
 	{

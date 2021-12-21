@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 02:35:52 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/20 18:42:20 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 11:49:40 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,23 @@ static t_bool	ms_env_parse_exit_status(t_env_parse *ep)
 	return (TRUE);
 }
 
+static void	ms_env_parse_var_2(t_env_parse *ep)
+{
+	if (ms_env_parse_exit_status(ep))
+		return ;
+	if (*(ep->str) && ft_isdigit(*(ep->str)))
+	{
+		(ep->str)++;
+		ep->i++;
+		return ;
+	}
+	while (*(ep->str) && (ft_isalnum(*(ep->str)) || *(ep->str) == '_'))
+	{
+		(ep->str)++;
+		ep->i++;
+	}
+}
+
 t_bool	ms_env_parse_var(t_env_parse *ep)
 {
 	int		j;
@@ -30,13 +47,7 @@ t_bool	ms_env_parse_var(t_env_parse *ep)
 	int		l;
 
 	j = ep->i - 1;
-	if (ms_env_parse_exit_status(ep))
-		return (TRUE);
-	while (*(ep->str) && (ft_isalnum(*(ep->str)) || *(ep->str) == '_'))
-	{
-		(ep->str)++;
-		ep->i++;
-	}
+	ms_env_parse_var_2(ep);
 	tmp = ms_mallocw(sizeof(char) * (ep->i - j), "Error > cannot malloc");
 	if (!tmp)
 		return (FALSE);
