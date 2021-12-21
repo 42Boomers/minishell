@@ -1,4 +1,4 @@
-name: Launch Test MacOS
+name: Launch MacOS
 
 on: [push, pull_request]
 

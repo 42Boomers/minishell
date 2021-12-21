@@ -1,4 +1,4 @@
-name: Launch Test Linux
+name: Launch Linux
 
 on: [push, pull_request]
 

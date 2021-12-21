@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 02:19:28 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 02:52:12 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	ms_child(t_master *master, char *command, char **args, int *pip_rec)
 {
+	(void)pip_rec;
 	if (ft_isequals(command, "exit"))
 		exit(0);
 	if (!ms_cmd_os(master, command, args))

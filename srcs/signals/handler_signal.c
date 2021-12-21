@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_signal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/20 20:48:19 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/21 02:51:43 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	handle_signal(int signum, siginfo_t *sig_info, void *ucontext_t)
 {
+	(void)sig_info;
 	(void)ucontext_t;
 	if (signum == 2)
 	{

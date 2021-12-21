@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 02:21:16 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 02:51:24 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static t_bool	ms_echo_print(t_ms_input *input)
 		free(str);
 		str = tmp;
 	}
-	printf(str);
+	ft_putstr(str);
 	free(str);
 	ft_str_destroy(build);
 	return (TRUE);
