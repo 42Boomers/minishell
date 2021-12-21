@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:35:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 01:40:44 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 12:40:42 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	**ms_cmd_os_args(char *command, char **args)
 	i = 0;
 	if (*args)
 	{
-		new_args = ms_mallocw(sizeof(char *) * (ft_strlen(*args) + 2),
+		new_args = ms_mallocw(sizeof(char *) * (size + 2),
 				"Cannot malloc");
 		if (!new_args)
 			return (NULL);
@@ -35,12 +35,9 @@ static char	**ms_cmd_os_args(char *command, char **args)
 		}
 	}
 	else
-	{
 		new_args = ms_mallocw(sizeof(char *) * 2, "Cannot malloc");
-		i++;
-	}
 	new_args[0] = command;
-	new_args[i] = 0;
+	new_args[i + 1] = 0;
 	free(args);
 	return (new_args);
 }
@@ -48,8 +45,6 @@ static char	**ms_cmd_os_args(char *command, char **args)
 static void	ms_cmd_os_start(t_master *master,
 				char *command, char **args)
 {
-	// args--;
-	// args[0] = command;
 	execve(command, ms_cmd_os_args(command, args),
 		ms_env_format(master));
 }

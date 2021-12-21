@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/20 21:29:16 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 13:14:37 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,24 @@ static t_bool	ms_export_execute(t_ms_input *input)
 	while (input->args_size > i)
 	{
 		tmp = ms_env_create(input->args[i]);
+		if (!tmp)
+		{
+			fprintf(stderr, "minishell: export: `%s`: not a valid identifier",
+				input->args[i]);
+			continue ;
+		}
 		if (!check_export_arg(tmp->key))
 		{
-			ft_putstr_fd("minishell: export: '", 2);
+			ft_putstr_fd("minishell: export: `", 2);
 			if (*tmp->key)
 				ft_putstr_fd(tmp->key, 2);
 			else
 				ft_putstr_fd(input->args[i], 2);
-			ft_putendl_fd("': not a valid identifier", 2);
+			ft_putendl_fd("`: not a valid identifier", 2);
 		}
 		else if (!ms_env_add_raw(input->cmd->master, input->args[i]))
-			printf("Can't add %s\n", input->args[i]);
+			fprintf(stderr, "minishell: export: `%s`: not a valid identifier",
+				input->args[i]);
 		ms_env_free(tmp);
 		i++;
 	}
