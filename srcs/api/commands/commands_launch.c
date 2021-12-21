@@ -6,12 +6,12 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:00:00 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/20 21:34:59 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 15:34:15 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
+
 static char	*ms_cmd_get_key(void *arg)
 {
 	t_ms_command	*cmd;
@@ -66,7 +66,7 @@ static t_bool	ms_cmd_execute(t_ms_input *input)
 	}
 	return (ms_cmd_execute2(input, cmd_result));
 }
-*/
+
 char	**ms_cmd_env_parse(t_master *master, char **args, int *args_size)
 {
 	int		i;
@@ -81,7 +81,6 @@ char	**ms_cmd_env_parse(t_master *master, char **args, int *args_size)
 	while (++i < *args_size)
 	{
 		new_args[j] = ms_env_parse(master, args[i]);
-		// printf("ARG TRANS '%s' -> '%s'\n", args[i], new_args[j]);
 		if (new_args[j])
 			ms_garbage_master_add(master, new_args[j++], free); // TODO add to garbage of cmd
 	}
@@ -94,24 +93,24 @@ char	**ms_cmd_env_parse(t_master *master, char **args, int *args_size)
 t_ms_command	*ms_cmd_launch(t_master *master, char *command,
 		char **args, int args_size)
 {
-	//t_ms_command	*cmd;
-	//t_ms_input		*input;
+	t_ms_command	*cmd;
+	t_ms_input		*input;
 
 	args = ms_cmd_env_parse(master, args, &args_size);
 	if (!args)
 		return (NULL);
-/*	cmd = ft_lstget(master->cmds, command, ms_cmd_get_key);
+	cmd = ft_lstget(master->cmds, command, ms_cmd_get_key);
 	if (!cmd)
 	{
-*/	ms_check_redir(&command, args);
-	ms_fork(master, command, args);
-	free(args);
-	return (NULL);
-/*	}
+		ms_check_redir(&command, args);
+		ms_fork(master, command, args);
+		free(args);
+		return (NULL);
+	}
 	input = ms_cmd_input(cmd, args, args_size);
 	ms_set_status(master, ms_cmd_execute(input));
 	free(args);
 	ms_garbage_free(&input->garbage);
 	free(input);
-	return (cmd);*/
+	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 11:58:41 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 15:55:58 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static t_bool	ms_cd_execute(t_ms_input *input)
 	new_pwd = ms_change_pwd(128);
 	if (!new_pwd)
 	{
-		fprintf(stderr, "minishell: cd: %s: No such file or directory\n",
+		fprintf(stderr, "minishell: cd: %s: error while changing pwd\n",
 			input->args[0]);
 		return (FALSE);
 	}
