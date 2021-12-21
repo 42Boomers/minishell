@@ -9,4 +9,4 @@ donne		">" "filename"	| ">>" "filename"	| "<" "filename"
 - tglory :
   fix les leaks avec CTRL C puis plusieurs commandes inconnu
   fix: unset OLDPWD && cd .. && exit -> free(): invalid pointer
-  TODO echo '$USER' -> $USER and not tglory
+  TODO add mechanic: echo '$USER' should print $USER and not tglory
