@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ms_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 13:43:00 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/22 13:41:07 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ms_child(t_master *master, char *command, char **args)
+static void ms_child(t_master *master, char *command, char **args)
 {
-	char	*error;
+	char *error;
 
+	pid = getpid();								// to delete
+	dprintf(1, "ms_fork.c:20 pid = %d\n", pid); // to delete
 	if (ft_isequals(command, "exit"))
 		exit(0);
 	if (!ms_cmd_os(master, command, args))
@@ -29,14 +31,16 @@ static void	ms_child(t_master *master, char *command, char **args)
 	exit(-1);
 }
 
-static int	ms_wait_fork(pid_t fork_id, char **args, int *redir)
+static int ms_wait_fork(pid_t fork_id, char **args, int *redir)
 {
-	int	*status;
+	int *status;
 
 	status = NULL;
 	if (redir)
 	{
 		waitpid(fork_id, status, 0);
+		pid = getpid();								// to delete
+		// dprintf(1, "ms_fork.c:43 pid = %d\n", pid); // to delete
 		if (redir[0] > 0)
 			close(redir[0]);
 		if (redir[1] > 0)
@@ -46,9 +50,9 @@ static int	ms_wait_fork(pid_t fork_id, char **args, int *redir)
 	return (ft_pipe_check(args));
 }
 
-static char	*ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
+static char *ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
 {
-	char	*command;
+	char *command;
 
 	close(pip_end[1]);
 	*fd_in = pip_end[0];
@@ -58,10 +62,9 @@ static char	*ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
 	return (command);
 }
 
-static int	*ms_fork_init(int *fd_in, int pip_end[2], char **args, pid_t \
-*fork_id)
+static int *ms_fork_init(int *fd_in, int pip_end[2], char **args, pid_t *fork_id)
 {
-	int	*redir;
+	int *redir;
 
 	redir = malloc(2 * sizeof(int));
 	if (!redir)
@@ -85,19 +88,19 @@ static int	*ms_fork_init(int *fd_in, int pip_end[2], char **args, pid_t \
 	return (redir);
 }
 
-void	ms_fork(t_master *master, char *command, char **args)
+void ms_fork(t_master *master, char *command, char **args)
 {
-	int		pip_end[2];
-	int		fd_in;
-	int		*redir;
-	int		pip_rec;
-	pid_t	fork_id;
+	int pip_end[2];
+	int fd_in;
+	int *redir;
+	int pip_rec;
+	pid_t fork_id;
 
 	pip_rec = 1;
 	while (pip_rec > 0)
 	{
 		if (ms_error_pipe(pip_end) == -1)
-			return ;
+			return;
 		redir = ms_fork_init(&fd_in, pip_end, args, &fork_id);
 		if (fork_id == 0)
 			ms_child(master, command, args);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 22:36:30 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 11:20:45 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/22 13:52:59 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ char	*ms_prefix_get(t_master *master)
 	char	*prefix;
 
 	if (!master->last_status)
-		prefix = "\e[0;32m➜ \e[36m";
+		prefix = "\e[0;32m➜ \e[36m"; // syl : whaaaat ? me need explanation on syntax
 	else
 		prefix = "\e[0;31m➜ \e[36m";
-	out = ft_strjoin_plus(prefix, ms_pwd(master), " > \e[0;33m");
+	out = ft_strjoin_plus(prefix, ms_pwd(master), " > \e[0;33m"); // syl : need explanation too
 	return (out);
 }
