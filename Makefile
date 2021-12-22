@@ -3,9 +3,7 @@ NAME				=	minishell
 INCLUDES			=	includes/minishell.h
 LIBS_PATH			=	libft/libft.a
 LIBS_INCLUDES_DIR	=	-Iincludes -Ilibft -Ilibft/gnl -Ilibft/custom
-LIBS_FLAG			=	-lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include
-# LIBS_FLAG			=	-lreadline -L
-# LIBS_FLAG			=	-lreadline -L /usr/local/Homebrew/opt/readline/lib -I/usr/local/Homebrew/opt/readline/include
+LIBS_FLAG			=	-lreadline -L ${HOMEBREW}/opt/readline/lib -I${HOMEBREW}/opt/readline/include
 OBJS_DIR			=	objs
 SRCS_DIR			=	srcs
 SRCS				=	$(shell find $(SRCS_DIR) -name "*.c") # TODO change to brut files names
@@ -19,7 +17,7 @@ all : $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(INCLUDES)
 # $(OBJS): $(SRCS) $(INCLUDES)
-	mkdir -p $(dir $@) && $(CC) -c $(LIBS_INCLUDES_DIR) $(CFLAGS) -o $@ $< -I/Users/$(USER)/.brew/opt/readline/include
+	mkdir -p $(dir $@) && $(CC) -c $(LIBS_INCLUDES_DIR) $(CFLAGS) -o $@ $< -I${HOMEBREW}/opt/readline/include
 
 # $(NAME) : $(shell mkdir $(OBJS_DIR)) $(OBJS)
 $(NAME) : $(OBJS)
