@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 14:14:34 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/22 21:03:01 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_master
 	t_list	*garbage;
 	t_list	*cmds;
 	t_bool	verbose;
-	int		signum; // keep it ?
+	pid_t	pid; // syl : Max mets le pid de ton fork dedans
 }	t_master;
 
 /*------------------------------{ ENVS }------------------------------*/
@@ -118,14 +118,16 @@ typedef struct s_ms_command
 
 /*----------------------------{ GLOBAL VARIABLE }----------------------*/
 static	int	g_ctrl_c = 0; // keep it ?
-static	pid_t pid = 0;  // keep it ?
+static	pid_t pid = 0;  // keep it ? if yes, rename it g_pid for norm
 
 /*----------------------------{ MINISHELL }----------------------------*/
 t_master		*ms_init_master(int ac, char **av, char **evs);
 void			ms_free_master(t_master	*master);
 t_bool			ms_test_cmd(t_master *master);
 t_bool			ms_readline(t_master *master);
-void			ms_register_signals(t_master *master);
+void			ft_sigint(void *master);
+void			ft_sigquit(void *master);
+// void			ms_register_signals(t_master *master);
 int				ft_pipe_check(char **args);
 void			ms_fork(t_master *master, char *command, char **args);
 int				ms_red_in_out(char **args, int *redir);

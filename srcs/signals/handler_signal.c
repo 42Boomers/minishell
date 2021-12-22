@@ -6,11 +6,61 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 14:22:27 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/22 21:37:50 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*------------------------------------------------------------------------------
+version inspired from rlepart
+------------------------------------------------------------------------------*/
+
+void ft_sigquit(void *master)
+{
+	static t_master *save = NULL;
+
+	if (!save)
+		save = master;
+	else if (save->pid > 0)
+	{
+		kill(save->pid, SIGQUIT);
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		ft_putstr_fd("Quit : 3\n", 1);
+	}
+}
+
+void ft_sigint(void *master)
+{
+	static t_master *save = NULL;
+
+	if (!save)
+		save = master;
+	else
+	{
+		if (save->pid == -1)
+		{
+			// dprintf(1, "handler_signal.c:43 pid = %d\n", )
+			printf("\n");
+			// rl_on_new_line();
+			rl_replace_line("", 0);
+			// rl_redisplay();
+			// ms_readline(master);
+			// ft_putstr_fd("minishell -> ", 1);
+		}
+		if (save->pid)
+		{
+			kill(save->pid, SIGINT);
+			printf("\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			rl_redisplay();
+		}
+	}
+}
 
 /*------------------------------------------------------------------------------
 version without segfault
@@ -23,58 +73,57 @@ version without segfault
 // {
 // }
 
-static void	ctrl_c_fork(void)
-{
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	g_ctrl_c = 0;
-}
+// static void	ctrl_c_fork(void)
+// {
+// 	printf("\n");
+// 	rl_on_new_line();
+// 	rl_replace_line("", 0);
+// 	g_ctrl_c = 0;
+// }
 
-static void	ctrl_c_normal(void)
-{
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+// static void	ctrl_c_normal(void)
+// {
+// 	printf("\n");
+// 	rl_on_new_line();
+// 	rl_replace_line("", 0);
+// 	rl_redisplay();
+// }
 
-static void	handle_signal(int signum, siginfo_t *sig_info, void *ucontext_t)
-{
-	(void)sig_info;
-	(void)ucontext_t;
-	if (signum == SIGINT)
-	{
-		if (g_ctrl_c == 0)
-			ctrl_c_normal();
-		if (g_ctrl_c == 1)
-			ctrl_c_fork();
-	}
-}
+// static void	handle_signal(int signum, siginfo_t *sig_info, void *ucontext_t)
+// {
+// 	(void)sig_info;
+// 	(void)ucontext_t;
+// 	if (signum == SIGINT)
+// 	{
+// 		if (g_ctrl_c == 0)
+// 			ctrl_c_normal();
+// 		if (g_ctrl_c == 1)
+// 			ctrl_c_fork();
+// 	}
+// }
 
-static int	register_handler(int signum)
-{
-	struct sigaction	sig;
+// static int	register_handler(int signum)
+// {
+// 	struct sigaction	sig;
 
-	sig.sa_flags = SA_SIGINFO;
-	sig.sa_sigaction = handle_signal;
-	return (sigaction(signum, &sig, NULL));
-}
+// 	sig.sa_flags = SA_SIGINFO;
+// 	sig.sa_sigaction = handle_signal;
+// 	return (sigaction(signum, &sig, NULL));
+// }
 
-void	ms_register_signals(t_master *master)
-{
-	int	fd;								//
-										//
-	fd = open(".ms_heredoc", O_RDONLY); // syl:toute cette partie sur ms_heredoc
-	if (fd != -1)						// est a revoir, Max dit qu'elle n'est
-	{									// pas bonne. Voir avec lui.
-		unlink(".ms_heredoc");			//
-		close(fd);						//
-	}
-	register_handler(SIGINT);
-	(void)master;
-}
-
+// void	ms_register_signals(t_master *master)
+// {
+// 	int	fd;								//
+// 										//
+// 	fd = open(".ms_heredoc", O_RDONLY); // syl:toute cette partie sur ms_heredoc
+// 	if (fd != -1)						// est a revoir, Max dit qu'elle n'est
+// 	{									// pas bonne. Voir avec lui.
+// 		unlink(".ms_heredoc");			//
+// 		close(fd);						//
+// 	}
+// 	register_handler(SIGINT);
+// 	(void)master;
+// }
 
 /*------------------------------------------------------------------------------
 version work in progress
