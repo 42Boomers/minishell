@@ -74,7 +74,7 @@ static char *ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
 	return (command);
 }
 
-static int *ms_fork_init(int *fd_in, int pip_end[2], char **args, pid_t *fork_id)
+static int *ms_fork_init(int *fd_in, int pip_end[2], char **args, t_master *master)
 {
 	int *redir;
 
@@ -89,13 +89,13 @@ static int *ms_fork_init(int *fd_in, int pip_end[2], char **args, pid_t *fork_id
 		free(redir);
 		return (NULL);
 	}
-	*fork_id = fork();
-	if (*fork_id < 0)
+	master->pid = fork();
+	if (master->pid < 0)
 	{
 		ft_println_red("Error > An error has occured while fork creation");
 		return (NULL);
 	}
-	if (*fork_id == 0)
+	if (master->pid == 0)
 		ms_fork_init2(args, redir, pip_end, fd_in);
 	return (redir);
 }
@@ -113,12 +113,12 @@ void	ms_fork(t_master *master, char *command, char **args, int args_size)
 	{
 		if (ms_error_pipe(pip_end) == -1)
 			return;
-		redir = ms_fork_init(&fd_in, pip_end, args, &fork_id);
-		if (fork_id == 0)
+		redir = ms_fork_init(&fd_in, pip_end, args, master);
+		if (master->pid == 0)
 			ms_child(master, command, args, args_size);
 		else
 		{
-			pip_rec = ms_wait_fork(fork_id, args, redir);
+			pip_rec = ms_wait_fork(master->pid, args, redir);
 			if (pip_rec < 0)
 				write(2, \
 				"minishell: syntax error near unexpected token `|'\n", 50);
