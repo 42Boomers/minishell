@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 21:01:01 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/22 22:15:17 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int main(int ac, char **av, char **evs)
 	// pid = getpid();						   // to delete
 	// dprintf(1, "main:47 pid = %d\n", pid); // to delete
 	g_ctrl_c = -1;
-	if (ac >= 3 && !ft_strncmp(av[1], "-c", 3))
+	if (ac >= 3 && !ft_isequals_ignore(av[1], "-c"))
 	{
 		split = ft_split_ultimate(av[2], ' ');
 		size = 0;
