@@ -6,12 +6,14 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 20:03:52 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/22 23:52:12 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+// @jblache
+// exit should check if it's exit is num and how appropriate message
+// and if is num exit the program with this num;
 static void	ms_exit(t_ms_input *input, int status_code)
 {
 	ms_free_master(input->cmd->master);
