@@ -11,6 +11,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: true
+      - name: Install Homebrew & pyenv
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          /usr/local/bin/brew install readline
+          export HOMEBREW=/usr/local/Cellar/
       - name: Print Informations for Segfault
         run: |
           make re CFLAGS='-Wall -Wextra -g3 -fsanitize=address' > /dev/null

@@ -7,7 +7,7 @@ jobs:
     runs-on: macos-latest
     name: Build Executable on macOS
     steps:
-      - name: Checkout repo & libft
+      - name: Checkout repo & Libft
         uses: actions/checkout@v2
         with:
           submodules: true
@@ -15,6 +15,7 @@ jobs:
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           /usr/local/bin/brew install readline
+          export HOMEBREW=/usr/local/Cellar/
         continue-on-error: true
       - name: Make
         run: make
