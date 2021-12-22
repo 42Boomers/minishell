@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_pwd.c                                          :+:      :+:    :+:   */
+/*   utils_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/02 21:11:17 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 21:10:50 by tglory           ###   ########lyon.fr   */
+/*   Created: 2021/12/21 21:27:14 by tglory            #+#    #+#             */
+/*   Updated: 2021/12/21 21:33:10 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_bool	ms_pwd_print(t_ms_input *input)
+void	ms_print_error(char *prog_name, char *cmd_name)
 {
-	char	*pwd;
+	char	*error;
 
-	pwd = ms_pwd(input->cmd->master);
-	if (pwd)
-		ft_putstr(pwd);
-	ft_putchar('\n');
-	return (pwd != NULL);
+	error = ft_strjoin_plus(prog_name, ": ", cmd_name);
+	perror(error);
+	free(error);
 }
 
-t_bool	ms_cmd_pwd_register(t_ms_command *cmd)
+void	ms_print_error_cmd(t_ms_input *input)
 {
-	cmd->master->cmd_ret = 0;
-	cmd->print = &ms_pwd_print;
-	return (TRUE);
+	ms_print_error(input->cmd->master->name, input->cmd->name);
 }

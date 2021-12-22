@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 23:15:06 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/22 23:50:35 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,18 @@ typedef enum s_bool
 /*--------------------------{ MAIN STRUCT }--------------------------*/
 typedef struct s_master
 {
+	t_list	*garbage;
+	t_list	*cmds;
+	t_list	*envs;
 	char	**pwd;
 	char	**old_pwd;
+	char	**av;
+	char	**paths;
+	char	*hist_file;
+	char	*name;
 	int		cmd_ret;
 	int		last_status;
 	int		ac;
-	char	**av;
-	t_list	*envs;
-	char	**paths;
-	char	*hist_file;
-	t_list	*garbage;
-	t_list	*cmds;
 	t_bool	verbose;
 	pid_t	pid; // syl : Max mets le pid de ton fork dedans
 }	t_master;
@@ -176,6 +177,8 @@ void			ms_pwd_set(t_master *master, char *new_pwd);
 char			**ft_split_ultimate(char const *s, char c);
 char			*ms_prefix_get(t_master *master);
 char			**ft_join_chars(char **array1, char **array2);
+void			ms_print_error(char *prog_name, char *cmd_name);
+void			ms_print_error_cmd(t_ms_input *input);
 
 /*----------------------------{ API CMDS }-----------------------------*/
 t_ms_command	*ms_cmd_register(char *name, char *description,
@@ -212,6 +215,7 @@ t_bool			ms_cmd_echo_register(t_ms_command *cmd);
 t_bool			ms_cmd_cd_register(t_ms_command *cmd);
 t_bool			ms_cmd_unset_register(t_ms_command *cmd);
 t_bool			ms_cmd_export_register(t_ms_command *cmd);
+t_bool			ms_cmd_exit_register(t_ms_command *cmd);
 
 /*-----------------------------{ GARBAGE }-----------------------------*/
 void			*ms_mallocw(size_t size, char *warning_message);

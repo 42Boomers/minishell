@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:18:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/20 18:37:26 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/22 23:43:51 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,6 @@ t_bool	ms_readline_two(t_master *master, char *input)
 		while (raw_args[i])
 			ms_garbage_master_add(master, raw_args[i++], free);
 		ms_garbage_master_add(master, raw_args, free);
-		if (ft_isequals("exit", raw_args[0]))
-		{
-			//exit should check if it's exit is num and how appropriate message
-			// and if is num exit the program with this num;
-			printf("exit\n");
-			return (FALSE);
-		}
 		ms_cmd_launch(master, raw_args[0], raw_args + 1, i - 1);
 		// raw_args++;
 	}

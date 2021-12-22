@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 23:35:11 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/22 23:51:13 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 {
-	char	*error;
 	t_ms_command	*cmd;
 	t_ms_input		*input;
 
@@ -36,9 +35,13 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 	}
 	else if (!ms_cmd_os(master, command, args))
 	{
-		error = ft_strjoin("minishell: ", command);
-		perror(error);
-		free(error);
+		// ms_set_status(master, FALSE);
+		master->last_status = 127;
+		if (errno == ENOENT)
+			fprintf(stderr, "%s: %s: command not found\n",
+				master->name, command);
+		else
+			ms_print_error(master->name, command);
 		exit(127);
 	}
 	exit(-1);
