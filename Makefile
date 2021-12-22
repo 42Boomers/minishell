@@ -13,7 +13,6 @@ CFLAGS				=	-Wall -Wextra -g
 #CFLAGS				=	-Wall -Wextra -Werror
 
 all : $(NAME)
-	
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(INCLUDES)
 # $(OBJS): $(SRCS) $(INCLUDES)
