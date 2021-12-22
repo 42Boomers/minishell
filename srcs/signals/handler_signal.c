@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 15:50:01 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/22 12:38:27 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 // static void	ctrl_c_fork(void)
 // {
 // }
-
 // static void	ctrl_c_normal(void)
 // {
 // }
