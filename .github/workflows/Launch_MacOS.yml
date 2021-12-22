@@ -15,9 +15,9 @@ jobs:
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           /usr/local/bin/brew install readline
-          export HOMEBREW=/usr/local/Cellar/
       - name: Print Informations for Segfault
         run: |
+          export HOMEBREW=/usr/local/Cellar/
           make re CFLAGS='-Wall -Wextra -g3 -fsanitize=address' > /dev/null
           ./minishell test
         continue-on-error: true
