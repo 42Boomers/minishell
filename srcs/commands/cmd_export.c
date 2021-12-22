@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 13:14:37 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/22 20:34:55 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_bool	ms_export_execute(t_ms_input *input)
 		if (!tmp)
 		{
 			fprintf(stderr, "minishell: export: `%s`: not a valid identifier",
-				input->args[i]);
+				input->args[i++]);
 			continue ;
 		}
 		if (!check_export_arg(tmp->key))
@@ -60,7 +60,7 @@ static t_bool	ms_export_execute(t_ms_input *input)
 			ft_putendl_fd("`: not a valid identifier", 2);
 		}
 		else if (!ms_env_add_raw(input->cmd->master, input->args[i]))
-			fprintf(stderr, "minishell: export: `%s`: not a valid identifier",
+			fprintf(stderr, "minishell: export: `%s`: not a valid identifier\n",
 				input->args[i]);
 		ms_env_free(tmp);
 		i++;

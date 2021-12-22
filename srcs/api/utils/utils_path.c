@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 22:36:30 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 22:28:43 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/22 18:20:36 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char	*ms_prefix_get_custom(t_master *master)
 	char	*data;
 	char	*pwd;
 	char	*home;
-	int		i;
 
 	data = NULL;
 	pwd = ms_pwd(master);
