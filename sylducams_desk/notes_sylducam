@@ -24,16 +24,15 @@ quelle commande ? Comment ca se passe dans le code ? rl_??
 il reste des warnings quand on make. Surtout des variables ou fonctions non
 utilisees, donc juste besoin de faire du menage
 
-les codes retour
 
-warning rl_replace_line (ajouter stdio.h a la compil ou aller voir encore bperez)
-
-faire mise a la norme
-recherche de leaks
 
 --------------------------------------------------------------------------------
 SIGNAUX
 https://man7.org/linux/man-pages/man2/sigaction.2.html
 
 
+les codes retour
 virer les coms
+recherche de leaks
+mettre la libft a la racine
+faire mise a la norme
