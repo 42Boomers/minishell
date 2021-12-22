@@ -24,6 +24,8 @@ quelle commande ? Comment ca se passe dans le code ? rl_??
 il reste des warnings quand on make. Surtout des variables ou fonctions non
 utilisees, donc juste besoin de faire du menage
 
+.ms_heredoc
+
 
 
 --------------------------------------------------------------------------------
