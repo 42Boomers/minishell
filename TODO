@@ -7,3 +7,6 @@ Le CTRL + C doit faire comme bash
   fix: unset OLDPWD && cd .. && exit -> free(): invalid pointer
   TODO add mechanic: echo '$USER' -> should print -> $USER and not tglory (idea: replace '$USER' with '\$USER' in ft_split_ultime)
   fix echo t"$USER" -> sould print -> ttglory and not "tglory
+
+- mrozniec :
+  gerer les cd ~

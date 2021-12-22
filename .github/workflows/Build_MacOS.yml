@@ -15,11 +15,12 @@ jobs:
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           /usr/local/bin/brew install readline
-          export HOMEBREW=/usr/local/Cellar/
         continue-on-error: true
       - name: Make
-        run: make
+        run: |
+          export HOMEBREW=/usr/local/Cellar
+          make
       - name: Clean
         run: |
-            make clean
-            make fclean
+          make clean
+          make fclean

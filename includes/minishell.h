@@ -129,9 +129,12 @@ void			ft_sigint(void *master);
 void			ft_sigquit(void *master);
 // void			ms_register_signals(t_master *master);
 int				ft_pipe_check(char **args);
-void			ms_fork(t_master *master, char *command, char **args);
+void			ms_fork(t_master *master, char *command, char **args, int args_size);
 int				ms_red_in_out(char **args, int *redir);
+int				ft_check_bad(int pos, char **args);
 void			ms_check_redir(char **command, char **args);
+int				ft_redir_error(int ret, char **args);
+int			ft_pres_red(char **args);
 void			ms_del_red(char **args, int pos);
 void			ms_fork_init2(char **args, int *redir, int pip_end[2],
 					int *fd_in);
@@ -188,6 +191,9 @@ t_bool			ms_history_read(t_master *master);
 t_bool			ms_history_write(t_master *master, char *command);
 void			ms_cmd_register_default_args(t_ms_command *cmd,
 					char **default_args, int default_args_size);
+char			*ms_cmd_get_key(void *arg);
+t_ms_input		*ms_cmd_input(t_ms_command *cmd, char **args, int args_size);
+t_bool			ms_cmd_execute(t_ms_input *input);
 
 /*----------------------------{ API STR }-----------------------------*/
 t_str_build		*ft_str_build_init(void);

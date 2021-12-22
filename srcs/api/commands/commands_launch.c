@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-static char	*ms_cmd_get_key(void *arg)
+
+char	*ms_cmd_get_key(void *arg)
 {
 	t_ms_command	*cmd;
 
@@ -20,7 +20,7 @@ static char	*ms_cmd_get_key(void *arg)
 	return (cmd->name);
 }
 
-static t_ms_input	*ms_cmd_input(t_ms_command *cmd, char **args, int args_size)
+t_ms_input	*ms_cmd_input(t_ms_command *cmd, char **args, int args_size)
 {
 	t_ms_input	*input;
 
@@ -48,7 +48,7 @@ static t_bool	ms_cmd_execute2(t_ms_input *input, t_bool cmd_result)
 	return (TRUE);
 }
 
-static t_bool	ms_cmd_execute(t_ms_input *input)
+t_bool	ms_cmd_execute(t_ms_input *input)
 {
 	t_bool	cmd_result;
 
@@ -66,7 +66,7 @@ static t_bool	ms_cmd_execute(t_ms_input *input)
 	}
 	return (ms_cmd_execute2(input, cmd_result));
 }
-*/
+
 char	**ms_cmd_env_parse(t_master *master, char **args, int *args_size)
 {
 	int		i;
@@ -94,24 +94,11 @@ char	**ms_cmd_env_parse(t_master *master, char **args, int *args_size)
 t_ms_command	*ms_cmd_launch(t_master *master, char *command,
 		char **args, int args_size)
 {
-	//t_ms_command	*cmd;
-	//t_ms_input		*input;
-
 	args = ms_cmd_env_parse(master, args, &args_size);
 	if (!args)
 		return (NULL);
-/*	cmd = ft_lstget(master->cmds, command, ms_cmd_get_key);
-	if (!cmd)
-	{
-*/	ms_check_redir(&command, args);
-	ms_fork(master, command, args);
+	ms_check_redir(&command, args);
+	ms_fork(master, command, args, args_size);
 	free(args);
 	return (NULL);
-/*	}
-	input = ms_cmd_input(cmd, args, args_size);
-	ms_set_status(master, ms_cmd_execute(input));
-	free(args);
-	ms_garbage_free(&input->garbage);
-	free(input);
-	return (cmd);*/
 }
