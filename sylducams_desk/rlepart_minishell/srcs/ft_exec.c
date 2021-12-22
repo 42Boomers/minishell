@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 15:30:46 by rlepart           #+#    #+#             */
-/*   Updated: 2021/12/22 22:44:32 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/22 23:26:09 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int		ft_execve(char *cmd, char **tab, t_content *content)
 	else if (content->pid > 0)
 	{
 		waitpid(content->pid, &status, 0);
-		//master->last_status = WIFEXITED(status);
-		printf("last_status 2 %d\n", WIFEXITED(status));
 		kill(content->pid, SIGTERM);
 		return (0);
 	}

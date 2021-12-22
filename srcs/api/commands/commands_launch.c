@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:00:00 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/20 21:34:59 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/22 23:28:13 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_bool	ms_cmd_execute2(t_ms_input *input, t_bool cmd_result)
 	if (input->cmd->print)
 	{
 		cmd_result = input->cmd->print(input);
-		if (cmd_result != 1)
+		if (cmd_result != TRUE)
 			return (FALSE);
 	}
 	return (TRUE);
@@ -55,13 +55,13 @@ t_bool	ms_cmd_execute(t_ms_input *input)
 	if (input->cmd->analyze)
 	{
 		cmd_result = input->cmd->analyze(input);
-		if (cmd_result != 1)
+		if (cmd_result != TRUE)
 			return (FALSE);
 	}
 	if (input->cmd->execute)
 	{
 		cmd_result = input->cmd->execute(input);
-		if (cmd_result != 1)
+		if (cmd_result != TRUE)
 			return (FALSE);
 	}
 	return (ms_cmd_execute2(input, cmd_result));

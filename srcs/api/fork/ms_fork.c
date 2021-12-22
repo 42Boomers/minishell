@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 23:14:23 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/22 23:35:11 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 	if (cmd)
 	{
 		input = ms_cmd_input(cmd, args, args_siz);
+		// ms_set_status didnt work cause it is override by fork result
+		// We won't need to use fork at this case.
 		ms_set_status(master, ms_cmd_execute(input));
 		free(args);
 		ms_garbage_free(&input->garbage);
@@ -49,8 +51,8 @@ static int ms_wait_fork(t_master *master, char **args, int *redir)
 	if (redir)
 	{
 		waitpid(master->pid, &status, 0);
-		printf("last_status %d\n", WIFEXITED(status));
-		master->last_status = WIFEXITED(status);
+		master->last_status = WEXITSTATUS(status);
+		//printf("FORK last_status %d\n", WEXITSTATUS(status));
 		pid = getpid();								// to delete
 		// dprintf(1, "ms_fork.c:43 pid = %d\n", pid); // to delete
 		if (redir[0] > 0)
