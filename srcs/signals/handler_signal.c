@@ -11,6 +11,15 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+/*------------------------------------------------------------------------------
+version without segfault
+------------------------------------------------------------------------------*/
+
+
+
+/*------------------------------------------------------------------------------
+version work in progress
+------------------------------------------------------------------------------*/
 
 // utilises signal au lieu de sigaction ? Prends exemple sur rlepart, je crois
 // kill toujours pas gere
@@ -31,47 +40,47 @@
 // 	rl_redisplay();
 // }
 
-static void	handle_signal(int signum, siginfo_t *sig_info, void *our_master)
-{
-	(void)sig_info;
-	(void)signum;
-	t_master *master;
+// static void	handle_signal(int signum, siginfo_t *sig_info, void *our_master)
+// {
+// 	(void)sig_info;
+// 	(void)signum;
+// 	t_master *master;
 
-	master = our_master;
-	// if (signum == SIGINT)
-	if (master->signum == SIGINT)
-	{
-		// printf("\n");
-		printf("%s", ms_prefix_get(master));
-		// ms_readline()
-		// if (g_ctrl_c == 0)
-			// ctrl_c_normal();
-		// if (g_ctrl_c == 1)
-			// ctrl_c_fork();
-	}
-}
+// 	master = our_master;
+// 	// if (signum == SIGINT)
+// 	if (master->signum == SIGINT)
+// 	{
+// 		// printf("\n");
+// 		printf("%s", ms_prefix_get(master));
+// 		// ms_readline()
+// 		// if (g_ctrl_c == 0)
+// 			// ctrl_c_normal();
+// 		// if (g_ctrl_c == 1)
+// 			// ctrl_c_fork();
+// 	}
+// }
 
-static int	register_handler(t_master *master)
-{
-	struct sigaction	sig;
+// static int	register_handler(t_master *master)
+// {
+// 	struct sigaction	sig;
 
-	sig.sa_flags = SA_SIGINFO;
-	sig.sa_sigaction = handle_signal;
-	return (sigaction(SIGINT, &sig, master));
-}
+// 	sig.sa_flags = SA_SIGINFO;
+// 	sig.sa_sigaction = handle_signal;
+// 	return (sigaction(SIGINT, &sig, master));
+// }
 
-void	ms_register_signals(t_master *master)
-{
-	int	fd;								//
-										//
-	fd = open(".ms_heredoc", O_RDONLY); // syl:toute cette partie sur ms_heredoc
-	if (fd != -1)						// est a revoir, Max dit qu'elle n'est
-	{									// pas bonne. Voir avec lui.
-		unlink(".ms_heredoc");			//
-		close(fd);						//
-	}
-	register_handler(master);
-	// if (master->signum == SIGINT)
-	// 	printf("%s", ms_prefix_get(master));
-	(void)master;
-}
+// void	ms_register_signals(t_master *master)
+// {
+// 	int	fd;								//
+// 										//
+// 	fd = open(".ms_heredoc", O_RDONLY); // syl:toute cette partie sur ms_heredoc
+// 	if (fd != -1)						// est a revoir, Max dit qu'elle n'est
+// 	{									// pas bonne. Voir avec lui.
+// 		unlink(".ms_heredoc");			//
+// 		close(fd);						//
+// 	}
+// 	register_handler(master);
+// 	// if (master->signum == SIGINT)
+// 	// 	printf("%s", ms_prefix_get(master));
+// 	(void)master;
+// }
