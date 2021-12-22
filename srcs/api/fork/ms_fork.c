@@ -12,13 +12,25 @@
 
 #include "minishell.h"
 
-static void	ms_child(t_master *master, char *command, char **args)
+static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 {
 	char	*error;
+	t_ms_command	*cmd;
+	t_ms_input		*input;
 
 	if (ft_isequals(command, "exit"))
 		exit(0);
-	if (!ms_cmd_os(master, command, args))
+	cmd = ft_lstget(master->cmds, command, ms_cmd_get_key);
+	if (cmd)
+	{
+		input = ms_cmd_input(cmd, args, args_siz);
+		ms_set_status(master, ms_cmd_execute(input));
+		free(args);
+		ms_garbage_free(&input->garbage);
+		free(input);
+		exit(0);
+	}
+	else if (!ms_cmd_os(master, command, args))
 	{
 		// ms_set_status(master, FALSE);
 		master->last_status = 127;
@@ -85,7 +97,7 @@ static int	*ms_fork_init(int *fd_in, int pip_end[2], char **args, pid_t \
 	return (redir);
 }
 
-void	ms_fork(t_master *master, char *command, char **args)
+void	ms_fork(t_master *master, char *command, char **args, int args_size)
 {
 	int		pip_end[2];
 	int		fd_in;
@@ -100,10 +112,13 @@ void	ms_fork(t_master *master, char *command, char **args)
 			return ;
 		redir = ms_fork_init(&fd_in, pip_end, args, &fork_id);
 		if (fork_id == 0)
-			ms_child(master, command, args);
+			ms_child(master, command, args, args_size);
 		else
 		{
 			pip_rec = ms_wait_fork(fork_id, args, redir);
+			if (pip_rec < 0)
+				write(2, \
+				"minishell: syntax error near unexpected token `|'\n", 50);
 			if (pip_rec > 0)
 				command = ms_next_fork(pip_rec, pip_end, &fd_in, &args);
 		}

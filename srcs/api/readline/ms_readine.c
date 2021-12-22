@@ -24,6 +24,8 @@ int	ft_pipe_check(char **args)
 			args[i] = NULL;
 			if (!args[i + 1])
 				return (0);
+			if (ft_strcmp(args[i + 1], "|") == 0)
+				return (-(i + 1));
 			return (i + 1);
 		}
 	}
@@ -44,6 +46,8 @@ t_bool	ms_readline_two(t_master *master, char *input)
 		ms_garbage_master_add(master, raw_args, free);
 		if (ft_isequals("exit", raw_args[0]))
 		{
+			//exit should check if it's exit is num and how appropriate message
+			// and if is num exit the program with this num;
 			printf("exit\n");
 			return (FALSE);
 		}
@@ -108,7 +112,6 @@ t_bool	ms_readline_one(t_master *master)
 
 t_bool	ms_readline(t_master *master)
 {
-	// ms_fork(ms_readline_single, master);
 	ms_readline_one(master);
 	return (TRUE);
 }
