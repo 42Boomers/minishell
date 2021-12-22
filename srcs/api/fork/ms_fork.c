@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 13:41:07 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/22 23:14:23 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,23 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 	}
 	else if (!ms_cmd_os(master, command, args))
 	{
-		// ms_set_status(master, FALSE);
-		master->last_status = 127;
 		error = ft_strjoin("minishell: ", command);
 		perror(error);
 		free(error);
+		exit(127);
 	}
 	exit(-1);
 }
 
-static int ms_wait_fork(pid_t fork_id, char **args, int *redir)
+static int ms_wait_fork(t_master *master, char **args, int *redir)
 {
-	int *status;
+	int status;
 
-	status = NULL;
 	if (redir)
 	{
-		waitpid(fork_id, status, 0);
+		waitpid(master->pid, &status, 0);
+		printf("last_status %d\n", WIFEXITED(status));
+		master->last_status = WIFEXITED(status);
 		pid = getpid();								// to delete
 		// dprintf(1, "ms_fork.c:43 pid = %d\n", pid); // to delete
 		if (redir[0] > 0)
@@ -106,7 +106,6 @@ void	ms_fork(t_master *master, char *command, char **args, int args_size)
 	int fd_in;
 	int *redir;
 	int pip_rec;
-	pid_t fork_id;
 
 	pip_rec = 1;
 	while (pip_rec > 0)
@@ -118,7 +117,7 @@ void	ms_fork(t_master *master, char *command, char **args, int args_size)
 			ms_child(master, command, args, args_size);
 		else
 		{
-			pip_rec = ms_wait_fork(master->pid, args, redir);
+			pip_rec = ms_wait_fork(master, args, redir);
 			if (pip_rec < 0)
 				write(2, \
 				"minishell: syntax error near unexpected token `|'\n", 50);
