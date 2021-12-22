@@ -17,7 +17,7 @@ jobs:
           /usr/local/bin/brew install readline
       - name: Print Informations for Segfault
         run: |
-          export HOMEBREW=/usr/local/Cellar/
+          export HOMEBREW=/usr/local/Cellar
           make re CFLAGS='-Wall -Wextra -g3 -fsanitize=address' > /dev/null
           ./minishell test
         continue-on-error: true
