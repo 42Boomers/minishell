@@ -136,6 +136,7 @@ int				ft_check_bad(int pos, char **args);
 void			ms_check_redir(char **command, char **args);
 int				ft_redir_error(int ret, char **args);
 int			ft_pres_red(char **args);
+int	ft_red_pip_cmd(char **command, char **args);
 void			ms_del_red(char **args, int pos);
 void			ms_fork_init2(char **args, int *redir, int pip_end[2],
 					int *fd_in);
