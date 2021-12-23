@@ -32,6 +32,30 @@ int	ft_pipe_check(char **args)
 	return (0);
 }
 
+void	exiter(t_master *master, char **raw_args)
+{
+	int err_no;
+	char *err_str;
+
+	if (!raw_args[1])
+		exit(0);
+	err_no = ft_atoi(raw_args[1]);
+	err_str = ft_itoa(err_no);
+	if (strcmp(raw_args[1], err_str))
+	{
+		ft_putstr_fd("minishell: exit ", 2);
+		ft_putstr_fd(raw_args[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
+		exit(255);
+	}
+	else if (raw_args[2])
+	{
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		exit(1);
+	}
+	exit(err_no);
+}
+
 t_bool	ms_readline_two(t_master *master, char *input)
 {
 	char	**raw_args;
@@ -46,8 +70,7 @@ t_bool	ms_readline_two(t_master *master, char *input)
 		ms_garbage_master_add(master, raw_args, free);
 		if (ft_isequals("exit", raw_args[0]))
 		{
-			printf("exit (it's not in cmd_exit.c but in ms_readline.c)\n");
-			// cause exit in fork didn't kill parent process.
+			exiter(master, raw_args);
 			return (FALSE);
 		}
 		ms_cmd_launch(master, raw_args[0], raw_args + 1, i - 1);
