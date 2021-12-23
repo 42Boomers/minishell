@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 14:41:22 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 15:42:24 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void ft_sigint(void *master)
 		if (save->pid)
 		{
 			dprintf(1, "\npid > -1\n"); // to delete
+			g_ctrl_c = -1;
 			kill(save->pid, SIGINT);
 			printf("\n");
 			rl_on_new_line();
