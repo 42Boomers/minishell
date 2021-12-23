@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 21:37:50 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 16:24:34 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ void ft_sigquit(void *master)
 
 	if (!save)
 		save = master;
-	else if (save->pid > 0)
+	else if (save->pid > 0 && g_ctrl_c == 0) // keep 2nd condition ? I don't think so
 	{
+		g_ctrl_c = 1; // keep it ?
 		kill(save->pid, SIGQUIT);
 		printf("\n");
-		rl_on_new_line();
+		// rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 		ft_putstr_fd("Quit : 3\n", 1);
@@ -43,8 +44,8 @@ void ft_sigint(void *master)
 	{
 		if (save->pid == -1)
 		{
-			// dprintf(1, "handler_signal.c:43 pid = %d\n", )
 			printf("\n");
+			g_ctrl_c = 1; // keep it ?
 			// rl_on_new_line();
 			rl_replace_line("", 0);
 			// rl_redisplay();
@@ -54,6 +55,7 @@ void ft_sigint(void *master)
 		if (save->pid)
 		{
 			kill(save->pid, SIGINT);
+			g_ctrl_c = 1; // keep it ?
 			printf("\n");
 			rl_on_new_line();
 			rl_replace_line("", 0);

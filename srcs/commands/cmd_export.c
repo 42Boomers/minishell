@@ -34,6 +34,56 @@ int	check_export_arg(char *arg)
 	return (TRUE);
 }
 
+t_list 	*lst_cpy(t_list *lst)
+{
+	t_list *cpy;
+
+	while (lst)
+	{
+		ft_lstadd_back(&cpy, ft_lstnew(lst->content));
+		lst = lst->next;
+	}
+	return (cpy);
+}
+
+static void    map_swap(t_env *arg1, t_env *arg2)
+{
+    t_env    temp;
+
+    temp.key = arg1->key;
+    temp.value = arg1->value;
+    arg1->key = arg2->key;
+    arg1->value = arg2->value;
+    arg2->key = temp.key;
+    arg2->value = temp.value;
+}
+
+void	export_print(t_master *master)
+{
+	t_list *lst;
+	t_list *cpy;
+	t_list *to_print;
+
+	lst = lst_cpy(master->envs);
+	while (lst)
+	{
+		cpy = lst;
+		to_print = lst->next;
+		while (to_print)
+		{
+			if (ft_strcmp(((t_env *)(lst->content))->key, ((t_env *)(to_print->content))->key) > 0)
+				map_swap(lst->content, to_print->content);
+			to_print = to_print->next;
+		}
+		if (((t_env *)(lst->content))->value)
+			printf("declare -x %s=\"%s\"\n", ((t_env *)(lst->content))->key, ((t_env *)(lst->content))->value);
+		else
+			printf("declare -x %s\n", ((t_env *)(lst->content))->key);
+		lst = lst->next;
+		free(cpy);
+	}
+}
+
 static t_bool	ms_export_execute(t_ms_input *input)
 {
 	int		i;
@@ -41,6 +91,8 @@ static t_bool	ms_export_execute(t_ms_input *input)
 
 	input->cmd->master->cmd_ret = 0;
 	i = 0;
+	if (input->args_size == 0)
+		export_print(input->cmd->master);
 	while (input->args_size > i)
 	{
 		tmp = ms_env_create(input->args[i]);
