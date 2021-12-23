@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 22:33:12 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/24 00:26:24 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ char			*ms_prefix_get(t_master *master);
 char			**ft_join_chars(char **array1, char **array2);
 void			ms_print_error(char *prog_name, char *cmd_name);
 void			ms_print_error_cmd(t_ms_input *input);
+t_bool			check_var_arg(char *arg);
 
 /*----------------------------{ API CMDS }-----------------------------*/
 t_ms_command	*ms_cmd_register(char *name, char *description,

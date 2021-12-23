@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 00:25:41 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/24 00:46:02 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,12 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 	else if (!ms_cmd_os(master, command, args))
 	{
 		if (errno == ENOENT)
-			fprintf(stderr, "%s: %s: command not found\n",
-				master->name, command);
+		{
+			ft_putstr_fd(master->name, 2);
+			ft_putstr_fd(": ", 2);
+			ft_putstr_fd(command, 2);
+			ft_putendl_fd(": command not found", 2);
+		}
 		else
 			ms_print_error(master->name, command);
 		exit(127);

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 18:45:29 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 00:47:25 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static t_bool	ms_cd_execute(t_ms_input *input)
 		return (ms_pwd_create(input, ms_env_get(input->cmd->master, "HOME")));
 	if (input->args_size > 1)
 	{
-		fprintf(stderr, "%s: cd: too many arguments\n",
-			input->cmd->master->name);
+		ft_putstr_fd(input->cmd->master->name, 2);
+		ft_putendl_fd(": cd: too many arguments", 2);
 		return (FALSE);
 	}
 	if (!ms_file_is_dir(input->args[0]))

@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_unset.c                                        :+:      :+:    :+:   */
+/*   utils_var_parsing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 00:49:33 by tglory           ###   ########lyon.fr   */
+/*   Created: 2021/12/24 00:24:40 by tglory            #+#    #+#             */
+/*   Updated: 2021/12/24 00:26:15 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_bool	ms_unset_execute(t_ms_input *input)
+t_bool	check_var_arg(char *arg)
 {
 	int	i;
 
+	if (!ft_isalpha(arg[0]) && arg[0] != '_')
+		return (FALSE);
 	i = 0;
-	while (input->args_size > i)
+	while (arg[i])
 	{
-		if (!check_var_arg(input->args[i])
-			|| !ms_env_remove(input->cmd->master, input->args[i]))
-		{
-			ft_putstr_fd("minishell: unset: `", 2);
-			ft_putstr_fd(input->args[i], 2);
-			ft_putendl_fd("`: not a valid identifier", 2);
-		}
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
+			return (FALSE);
 		i++;
 	}
-	return (TRUE);
-}
-
-t_bool	ms_cmd_unset_register(t_ms_command *cmd)
-{
-	cmd->master->cmd_ret = 0;
-	cmd->execute = &ms_unset_execute;
 	return (TRUE);
 }

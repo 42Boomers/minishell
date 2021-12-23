@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:49:56 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 02:20:50 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 00:48:13 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	ft_println_red(char *str)
 {
-	fprintf(stderr, "\e[31m%s.\e[0m\n", str);
+	ft_putstr_fd("\e[31m", 2);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd(".\e[0m", 2);
 }
 
 void	ft_println_orange(char *str)
