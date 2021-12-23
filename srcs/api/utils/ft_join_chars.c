@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_join_chars.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 22:46:20 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 23:13:38 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 00:36:07 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlen_chars(char **array)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (array[i])
@@ -27,7 +27,8 @@ char	**ft_join_chars(char **array1, char **array2)
 	char	**out;
 	int		i;
 
-	out = malloc(sizeof(char *) * (ft_strlen_chars(array1) + ft_strlen_chars(array2) + 1));
+	out = malloc(sizeof(char *) \
+		* (ft_strlen_chars(array1) + ft_strlen_chars(array2) + 1));
 	if (!out)
 		return (NULL);
 	i = 0;

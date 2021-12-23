@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_ultimate.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 18:02:37 by mrozniec          #+#    #+#             */
-/*   Updated: 2021/12/19 00:08:29 by mrozniec         ###   ########.fr       */
+/*   Updated: 2021/12/24 00:37:51 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static char	*ft_fillstr(char const *s, char c, int n)
 		n++;
 	else if ((s[n] == '<' && s[n + 1] == '<') || \
 	(s[n] == '>' && s[n + 1] == '>'))
-		 n += 2;
+	n += 2;
 	m[0] = n - m[0];
 	strs = malloc(sizeof(char) * (m[0] + 1));
 	if (!strs)
@@ -147,7 +147,7 @@ char	**ft_split_ultimate(char const *s, char c)
 		{
 			n++;
 			if ((s[n] == '<' && s[n - 1] == '<') || (s[n] == '>' && \
-        	s[n - 1] == '>'))
+				s[n - 1] == '>'))
 				n++;
 		}
 		else
@@ -157,7 +157,6 @@ char	**ft_split_ultimate(char const *s, char c)
 			s[n] != '>')
 				n++;
 		}
-
 	}
 	strs[line] = NULL;
 	return (strs);

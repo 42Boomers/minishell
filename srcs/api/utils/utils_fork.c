@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_fork.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 13:04:22 by mrozniec          #+#    #+#             */
-/*   Updated: 2021/12/23 22:33:58 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 00:39:26 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	ms_check_redir(char **command, char **args)
 	!ft_isequals(args[1], ">") && !ft_isequals(args[1], ">>") && \
 	!ft_isequals(args[1], "|"))
 	{
-		if ((ft_strcmp(*command, "<") == 0) || (ft_strcmp(*command, "<<") == 0) || \
+		if ((ft_strcmp(*command, "<") == 0) || \
+		(ft_strcmp(*command, "<<") == 0) || \
 		(ft_strcmp(*command, ">") == 0) || (ft_strcmp(*command, ">>") == 0))
 		{
 			temp = *command;

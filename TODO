@@ -16,4 +16,4 @@ Le CTRL + C doit faire comme bash
   .ms_heredoc
   all srcs in Makefile
   finish norming
-    - ms_fork (Max)
+    - ms_fork.c, redirect.c, ft_split_ultimate.c , utils_fork.c, utils_redir.c (Max)
