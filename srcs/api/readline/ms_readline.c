@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_readline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:18:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 16:22:04 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 18:58:15 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ t_bool ms_readline_two(t_master *master, char *input)
 		while (raw_args[i])
 			ms_garbage_master_add(master, raw_args[i++], free);
 		ms_garbage_master_add(master, raw_args, free);
-		if (ft_isequals("exit", raw_args[0]))
+		/*if (ft_isequals("exit", raw_args[0]))
 		{
 			exiter(master, raw_args);
 			return (FALSE);
-		}
+		}*/
 		ms_cmd_launch(master, raw_args[0], raw_args + 1, i - 1);
 		// raw_args++;
 	}

@@ -116,7 +116,7 @@ int	ft_red_pip_cmd(char **command, char **args, t_master *master)
 		free(new);
 	}
 	else if (ft_isequals(*command, "cd") || ft_isequals(*command, "export") || \
-	ft_isequals(*command, "unset"))
+	ft_isequals(*command, "unset") || ft_isequals(*command, "exit"))
 		return (ms_builtin(master, *command, args));
 	return (ret);
 }
