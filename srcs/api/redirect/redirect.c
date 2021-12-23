@@ -147,9 +147,6 @@ int	ms_red_in_out(char **args, int *redir)
 	int		f_red;
 
 	f_red = 1;
-	int i = -1;
-	while (args[++i])
-		printf("args[%d]=%s\n", i, args[i]);
 	while (f_red > 0)
 	{
 		if (f_red == (f_red | 4))

@@ -26,7 +26,6 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 		// ms_set_status didnt work cause it is override by fork result
 		// We won't need to use fork at this case.
 		ms_set_status(master, ms_cmd_execute(input));
-		free(args);
 		ms_garbage_free(&input->garbage);
 		free(input);
 		exit(0);
@@ -111,7 +110,7 @@ void	ms_fork(t_master *master, char *command, char **args, int args_size)
 	pip_rec = 1;
 	while (pip_rec > 0)
 	{
-		pip_rec = ft_red_pip_cmd(&command, args);
+		pip_rec = ft_red_pip_cmd(&command, args, master);
 		if (pip_rec > 0 && ms_error_pipe(pip_end) == -1)
 			return;
 		if (pip_rec > 0)
