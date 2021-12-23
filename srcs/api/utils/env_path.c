@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:32:17 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/08 19:43:05 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/23 17:21:08 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	**ms_env_path_refresh(t_master *master)
 {
 	char	**paths;
 	char	*path;
-	int		i;
 
 	path = ms_env_get(master, "PATH");
 	if (!path)
@@ -24,17 +23,28 @@ char	**ms_env_path_refresh(t_master *master)
 	paths = ft_split(path, ':');
 	if (!paths)
 		return (NULL);
-	i = 0;
-	while (paths[i])
-		ms_garbage_master_add(master, paths[i++], free);
-	ms_garbage_master_add(master, paths, free);
 	if (!paths[0])
 	{
 		free(paths);
 		return (NULL);
 	}
+	if (master->paths)
+		ms_env_path_free(master);
 	master->paths = paths;
 	return (master->paths);
+}
+
+void	ms_env_path_free(t_master *master)
+{
+	int	i;
+
+	i = 0;
+	if (master->paths)
+	{
+		while (master->paths[i])
+			free(master->paths[i++]);
+		free(master->paths);
+	}
 }
 
 char	**ms_env_path_get(t_master *master)
