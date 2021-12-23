@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   handler_signal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 22:10:27 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/23 22:20:38 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	unlink_heredoc(void)
+{
+	int	fd;
+
+	fd = 0;
+	fd = open(".ms_heredoc", O_RDONLY);
+	if (fd)
+		unlink(".ms_heredoc");
+}
 
 static void	ctrl_c_fork(int signum, siginfo_t *sig_info, void *ucontext_t)
 {
@@ -19,6 +29,7 @@ static void	ctrl_c_fork(int signum, siginfo_t *sig_info, void *ucontext_t)
 	(void)signum;
 	printf("\n");
 	rl_replace_line("", 0);
+	unlink_heredoc();
 }
 
 static void	ctrl_c_normal(int signum, siginfo_t *sig_info, void *ucontext_t)
@@ -30,6 +41,7 @@ static void	ctrl_c_normal(int signum, siginfo_t *sig_info, void *ucontext_t)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	unlink_heredoc();
 }
 
 static int	register_handler(int signum, void (f)(int, siginfo_t*, void*))
