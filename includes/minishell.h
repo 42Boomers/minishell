@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 18:33:13 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 19:00:47 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ int				ft_check_bad(int pos, char **args);
 void			ms_check_redir(char **command, char **args);
 int				ft_redir_error(int ret, char **args);
 int				ft_pres_red(char **args);
+int				ft_red_pip_cmd(char **command, char **args, t_master *master);
 void			ms_del_red(char **args, int pos);
 void			ms_fork_init2(char **args, int *redir, int pip_end[2],
 					int *fd_in);
@@ -157,17 +158,18 @@ char			**ms_env_replace(t_master *master, char *key, char *value);
 void			ms_env_destroy(t_master *master);
 char			**ms_env_path_get(t_master *master);
 char			**ms_env_path_refresh(t_master *master);
+char			*ms_env_parse(t_master *master, char *str);
+t_env_parse		*ms_env_parse_create(t_master *master, char *str);
+t_bool			ms_env_parse_str(t_env_parse *ep);
+t_bool			ms_env_parse_search(t_env_parse *ep);
+t_bool			ms_env_parse_var(t_env_parse *ep);
+void			ms_env_path_free(t_master *master);
 t_bool			ms_env_add_raw(t_master *master, char *env);
 t_env			*ms_env_get_struct(t_master *master, char *key);
 void			ms_env_free(void *arg);
 char			*ms_env_key_get(void *arg);
 t_env			*ms_env_create(char *raw_envs);
 t_env			*ms_env_create_basic(char *key, char *value);
-char			*ms_env_parse(t_master *master, char *str);
-t_env_parse		*ms_env_parse_create(t_master *master, char *str);
-t_bool			ms_env_parse_str(t_env_parse *ep);
-t_bool			ms_env_parse_search(t_env_parse *ep);
-t_bool			ms_env_parse_var(t_env_parse *ep);
 t_bool			ms_env_add(t_master *master, char *key, char *value);
 char			*ms_pwd(t_master *master);
 void			ms_write(char **array, int size);

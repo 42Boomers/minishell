@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 18:47:22 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 19:02:18 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 		// ms_set_status didnt work cause it is override by fork result
 		// We won't need to use fork at this case.
 		ms_set_status(master, ms_cmd_execute(input));
-		free(args);
 		ms_garbage_free(&input->garbage);
 		free(input);
 		exit(0);
@@ -117,18 +116,24 @@ void	ms_fork(t_master *master, char *command, char **args, int args_size)
 	// dprintf(1, "ms_fork:113 fork\n"); // to delete
 	while (pip_rec > 0)
 	{
-		// dprintf(1, "ms_fork:117 fork\n"); // to delete
-		if (ms_error_pipe(pip_end) == -1)
+		pip_rec = ft_red_pip_cmd(&command, args, master);
+		if (pip_rec > 0 && ms_error_pipe(pip_end) == -1)
 			return;
-		redir = ms_fork_init(&fd_in, pip_end, args, master);
-		if (master->pid == 0)
+		if (pip_rec > 0)
+			redir = ms_fork_init(&fd_in, pip_end, args, master);
+		if (pip_rec > 0 && master->pid == 0)
 			ms_child(master, command, args, args_size);
 		else
 		{
-			pip_rec = ms_wait_fork(master, args, redir);
-			if (pip_rec < 0)
-				write(2, \
-				"minishell: syntax error near unexpected token `|'\n", 50);
+			if (pip_rec > 0)
+				pip_rec = ms_wait_fork(master, args, redir);
+			else if (pip_rec == 0)
+			{
+				pip_rec = ft_pipe_check(args);
+				if (pip_rec < 0)
+					write(2, \
+					"minishell: syntax error near unexpected token `|'\n", 50);
+			}
 			if (pip_rec > 0)
 				command = ms_next_fork(pip_rec, pip_end, &fd_in, &args);
 		}

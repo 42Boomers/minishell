@@ -6,7 +6,11 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:35:32 by tglory            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/12/23 16:18:10 by sylducam         ###   ########.fr       */
+=======
+/*   Updated: 2021/12/23 17:21:02 by tglory           ###   ########lyon.fr   */
+>>>>>>> b349776bcbe6eb535b265ea4ef25be53dd15eb0e
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +46,7 @@ t_master	*ms_init_master(int ac, char **av, char **evs)
 
 void	ms_free_master(t_master	*master)
 {
+	ms_env_path_free(master);
 	// rl_clear_history();
 	clear_history();
 	ms_env_destroy(master);

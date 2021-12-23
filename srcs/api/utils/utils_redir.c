@@ -68,3 +68,55 @@ int	ft_redir_error(int ret, char **args)
 		perror("minishell");
 	return (-1);
 }
+
+static int	ms_builtin(t_master *master, char *comd, char **args)
+{
+	t_ms_command	*cmd;
+	t_ms_input		*input;
+	char **temp;
+	char *tmp;
+	int i;
+
+	tmp = NULL;
+	temp = ft_join_chars(args, &tmp);
+	ft_pipe_check(temp);
+	i = 0;
+	while (temp[i])
+		i++;
+	cmd = ft_lstget(master->cmds, comd, ms_cmd_get_key);
+	input = ms_cmd_input(cmd, temp, i);
+	// ms_set_status didnt work cause it is override by fork result
+	// We won't need to use fork at this case.
+	ms_set_status(master, ms_cmd_execute(input));
+	ms_garbage_free(&input->garbage);
+	free(temp);
+	free(input);
+	return (0);
+}
+
+int	ft_red_pip_cmd(char **command, char **args, t_master *master)
+{
+	int ret;
+	int redir[2];
+	char **new;
+
+	ret = 1;
+	if (ft_isequals(*command, "|") || ft_isequals(*command, "<") || \
+	ft_isequals(*command, "<<") || ft_isequals(*command, ">") || \
+	ft_isequals(*command, ">>"))
+	{
+		if (ft_isequals(*command, "|"))
+		{
+			write(2, "minishell: syntax error near unexpected token `|'\n", 50);
+			return (-1);
+		}
+		command[1] = NULL;
+		new = ft_join_chars(command, args);
+		ret = ms_red_in_out(new, redir);
+		free(new);
+	}
+	else if (ft_isequals(*command, "cd") || ft_isequals(*command, "export") || \
+	ft_isequals(*command, "unset"))
+		return (ms_builtin(master, *command, args));
+	return (ret);
+}
