@@ -6,6 +6,7 @@ Le CTRL + C doit faire comme bash
   heredoc -> ctrl C ne marche pas et le 2eme CTRL D fait un segfault
   TODO add mechanic: echo '$USER' -> should print -> $USER and not tglory (idea: replace '$USER' with '\$USER' in ft_split_ultime)
   fix echo t"$USER" -> sould print -> ttglory and not "tglory
+  faire le CTRL + \ dans un fork & annuler l'action dans le process principal 
 
 - mrozniec :
   gerer les cd ~
