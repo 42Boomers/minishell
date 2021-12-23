@@ -27,13 +27,19 @@ void	ms_check_redir(char **command, char **args)
 	char	*temp;
 
 	temp = NULL;
-	if ((ft_strcmp(*command, "<") == 0) || (ft_strcmp(*command, "<<") == 0) || \
-	(ft_strcmp(*command, ">") == 0) || (ft_strcmp(*command, ">>") == 0))
+	if (command && args[0] != NULL && args[1] != NULL && \
+	!ft_isequals(args[1], "<") && !ft_isequals(args[1], "<<") && \
+	!ft_isequals(args[1], ">") && !ft_isequals(args[1], ">>") && \
+	!ft_isequals(args[1], "|"))
 	{
-		temp = *command;
-		*command = args[1];
-		args[1] = args[0];
-		args[0] = temp;
+		if ((ft_strcmp(*command, "<") == 0) || (ft_strcmp(*command, "<<") == 0) || \
+		(ft_strcmp(*command, ">") == 0) || (ft_strcmp(*command, ">>") == 0))
+		{
+			temp = *command;
+			*command = args[1];
+			args[1] = args[0];
+			args[0] = temp;
+		}
 	}
 }
 

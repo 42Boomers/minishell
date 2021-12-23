@@ -111,17 +111,24 @@ void	ms_fork(t_master *master, char *command, char **args, int args_size)
 	pip_rec = 1;
 	while (pip_rec > 0)
 	{
-		if (ms_error_pipe(pip_end) == -1)
+		pip_rec = ft_red_pip_cmd(&command, args);
+		if (pip_rec > 0 && ms_error_pipe(pip_end) == -1)
 			return;
-		redir = ms_fork_init(&fd_in, pip_end, args, master);
-		if (master->pid == 0)
+		if (pip_rec > 0)
+			redir = ms_fork_init(&fd_in, pip_end, args, master);
+		if (pip_rec > 0 && master->pid == 0)
 			ms_child(master, command, args, args_size);
 		else
 		{
-			pip_rec = ms_wait_fork(master, args, redir);
-			if (pip_rec < 0)
-				write(2, \
-				"minishell: syntax error near unexpected token `|'\n", 50);
+			if (pip_rec > 0)
+				pip_rec = ms_wait_fork(master, args, redir);
+			else if (pip_rec == 0)
+			{
+				pip_rec = ft_pipe_check(args);
+				if (pip_rec < 0)
+					write(2, \
+					"minishell: syntax error near unexpected token `|'\n", 50);
+			}
 			if (pip_rec > 0)
 				command = ms_next_fork(pip_rec, pip_end, &fd_in, &args);
 		}

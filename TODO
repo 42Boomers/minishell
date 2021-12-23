@@ -10,6 +10,8 @@ Le CTRL + C doit faire comme bash
 
 - mrozniec :
   gerer les cd ~
+  test qui ne marche pas comme dans bash (surtout un rappel pour moi cette partie):
+	< test ""
 
 - sylducam
   .ms_heredoc

@@ -68,3 +68,28 @@ int	ft_redir_error(int ret, char **args)
 		perror("minishell");
 	return (-1);
 }
+
+int	ft_red_pip_cmd(char **command, char **args)
+{
+	int ret;
+	int redir[2];
+	char **new;
+	char **temp;
+
+	ret = 1;
+	if (ft_isequals(*command, "|") || ft_isequals(*command, "<") || \
+	ft_isequals(*command, "<<") || ft_isequals(*command, ">") || \
+	ft_isequals(*command, ">>"))
+	{
+		if (ft_isequals(*command, "|"))
+		{
+			write(2, "minishell: syntax error near unexpected token `|'\n", 50);
+			return (-1);
+		}
+		command[1] = NULL;
+		new = ft_join_chars(command, args);
+		ret = ms_red_in_out(new, redir);
+		free(new);
+	}
+	return (ret);
+}
