@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 22:17:29 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/23 22:41:53 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,12 @@ int	ms_start(int ac, char **av, char **evs)
 	return (ret_code);
 }
 
-int main(int ac, char **av, char **evs)
+int	main(int ac, char **av, char **evs)
 {
-	int ret;
-	char **split;
-	int size;
+	int		ret;
+	char	**split;
+	int		size;
 
-	// pid = getpid();						   // to delete
-	// dprintf(1, "main:47 pid = %d\n", pid); // to delete
 	if (ac >= 3 && !ft_strncmp(av[1], "-c", 3))
 	{
 		split = ft_split_ultimate(av[2], ' ');
@@ -57,6 +55,5 @@ int main(int ac, char **av, char **evs)
 	}
 	ret = 0;
 	ret = ms_start(ac, av, evs);
-	// dprintf(1, "main:59 pid = %d\n", pid); // to delete
 	return (ret);
 }

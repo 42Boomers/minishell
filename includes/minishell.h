@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 22:17:43 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/23 22:33:12 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_master
 	int		last_status;
 	int		ac;
 	t_bool	verbose;
-	pid_t	pid; // syl : Max mets le pid de ton fork dedans
+	pid_t	pid;
 }	t_master;
 
 /*------------------------------{ ENVS }------------------------------*/

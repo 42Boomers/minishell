@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 22:20:38 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 22:34:18 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	unlink_heredoc(void)
 
 	fd = 0;
 	fd = open(".ms_heredoc", O_RDONLY);
+	dprintf(1, "fd = %d", fd); // to delete
 	if (fd)
 		unlink(".ms_heredoc");
 }
