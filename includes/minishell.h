@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 22:09:56 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/23 22:17:43 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,8 @@ void			ft_sigint(void *master);
 void			ft_sigquit(void *master);
 // void			ms_register_signals(t_master *master);
 int				ft_pipe_check(char **args);
-void			ms_fork(t_master *master, char *command, char **args, int args_size);
+void			ms_fork(t_master *master, char *command, \
+				char **args, int args_size);
 int				ms_red_in_out(char **args, int *redir);
 int				ft_check_bad(int pos, char **args);
 void			ms_check_redir(char **command, char **args);

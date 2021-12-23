@@ -6,16 +6,16 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 22:08:57 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/23 22:17:29 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ms_start(int ac, char **av, char **evs)
+int	ms_start(int ac, char **av, char **evs)
 {
-	t_master *master;
-	int ret_code;
+	t_master	*master;
+	int			ret_code;
 
 	register_signal_main();
 	master = ms_init_master(ac, av, evs);
