@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 23:52:12 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/23 18:56:12 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_bool	ms_exit_execute(t_ms_input *input)
 		{
 			fprintf(stderr, "minishell: exit: %s: numeric argument required\n",
 				input->args[0]);
-			ms_exit(input, 2);
+			ms_exit(input, 255);
 		}
 	}
 	if (input->args_size > 1)
