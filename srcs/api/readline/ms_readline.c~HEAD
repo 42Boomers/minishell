@@ -34,25 +34,32 @@ int	ft_pipe_check(char **args)
 
 void	exiter(t_master *master, char **raw_args)
 {
-	int err_no;
+	long long int err_no;
 	char *err_str;
 
 	if (!raw_args[1])
 		exit(0);
-	err_no = ft_atoi(raw_args[1]);
-	err_str = ft_itoa(err_no);
+	err_no = ft_atoll(raw_args[1]);
+	err_str = ft_lltoa(err_no);
+	ft_putstr_fd("exit\n", 2);
 	if (strcmp(raw_args[1], err_str))
 	{
 		ft_putstr_fd("minishell: exit ", 2);
 		ft_putstr_fd(raw_args[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
+		free(err_str);
 		exit(255);
 	}
 	else if (raw_args[2])
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-		exit(1);
+		free(err_str);
+		return ;
 	}
+	free(err_str);
+	err_no %= 256;
+	if (err_no < 0)
+		err_no += 256;
 	exit(err_no);
 }
 

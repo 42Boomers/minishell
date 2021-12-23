@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 21:37:50 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 14:41:22 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ void ft_sigquit(void *master)
 		save = master;
 	else if (save->pid > 0)
 	{
+		dprintf(1, "\npid > 0\n"); // to delete
 		kill(save->pid, SIGQUIT);
 		printf("\n");
-		rl_on_new_line();
+		// rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 		ft_putstr_fd("Quit : 3\n", 1);
@@ -43,7 +44,7 @@ void ft_sigint(void *master)
 	{
 		if (save->pid == -1)
 		{
-			// dprintf(1, "handler_signal.c:43 pid = %d\n", )
+			dprintf(1, "\npid == -1\n"); // to delete
 			printf("\n");
 			// rl_on_new_line();
 			rl_replace_line("", 0);
@@ -53,6 +54,7 @@ void ft_sigint(void *master)
 		}
 		if (save->pid)
 		{
+			dprintf(1, "\npid > -1\n"); // to delete
 			kill(save->pid, SIGINT);
 			printf("\n");
 			rl_on_new_line();
