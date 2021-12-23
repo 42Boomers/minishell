@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:18:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 18:58:15 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/23 22:08:16 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,7 @@ int ms_readline_check(t_master *master, char **input)
 	}
 	ft_putstr("\e[0m");
 	add_history(*input);
-	if (g_ctrl_c == 0) // syl : work in progress
-		ms_history_write(master, *input);
+	ms_history_write(master, *input);
 	return (0);
 }
 
@@ -120,8 +119,6 @@ t_bool ms_readline_one(t_master *master)
 	input = NULL;
 	while (TRUE)
 	{
-		if (g_ctrl_c == 1) // syl : work in progress
-			break ; // syl : work in progress
 		i = ms_readline_check(master, &input);
 		if (i == 1)
 			break;

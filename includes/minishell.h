@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 17:27:45 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/23 22:09:56 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,6 @@ typedef struct s_ms_command
 	t_master	*master;
 }	t_ms_command;
 
-/*----------------------------{ GLOBAL VARIABLE }----------------------*/
-static	int	g_ctrl_c = 0; // keep it ?
-static	pid_t pid = 0;  // keep it ? if yes, rename it g_pid for norm
-
 /*----------------------------{ MINISHELL }----------------------------*/
 t_master		*ms_init_master(int ac, char **av, char **evs);
 void			ms_free_master(t_master	*master);
@@ -142,6 +138,9 @@ void			ms_fork_init2(char **args, int *redir, int pip_end[2],
 					int *fd_in);
 int				ms_error_pipe(int pip_end[2]);
 void			ms_heredoc(int fd, char *s_eof);
+void			fork_deleted(void);
+void			fork_created(void);
+int				register_signal_main(void);
 
 /*-------------------------------{ API }-------------------------------*/
 void			ft_println(char *str);

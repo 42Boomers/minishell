@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 14:29:33 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 22:09:29 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 	{
 		input = ms_cmd_input(cmd, args, args_siz);
 		// ms_set_status didnt work cause it is override by fork result
-		// We won't need to use fork at this case.
+		// We won't need to use fork at this case. -> DONE
 		ms_set_status(master, ms_cmd_execute(input));
 		ms_garbage_free(&input->garbage);
 		free(input);
@@ -32,8 +32,7 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 	}
 	else if (!ms_cmd_os(master, command, args))
 	{
-		// ms_set_status(master, FALSE);
-		master->last_status = 127;
+		// master->last_status = 127; -> usless code
 		if (errno == ENOENT)
 			fprintf(stderr, "%s: %s: command not found\n",
 				master->name, command);
@@ -51,8 +50,8 @@ static int ms_wait_fork(t_master *master, char **args, int *redir)
 	if (redir)
 	{
 		waitpid(master->pid, &status, 0);
+		fork_deleted();
 		master->last_status = WEXITSTATUS(status);
-		//printf("FORK last_status %d\n", WEXITSTATUS(status));
 		if (redir[0] > 0)
 			close(redir[0]);
 		if (redir[1] > 0)
@@ -89,6 +88,7 @@ static int *ms_fork_init(int *fd_in, int pip_end[2], char **args, t_master *mast
 		free(redir);
 		return (NULL);
 	}
+	fork_created();
 	master->pid = fork();
 	if (master->pid < 0)
 	{
