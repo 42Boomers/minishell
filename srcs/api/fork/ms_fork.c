@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 16:17:37 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 18:47:22 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static int ms_wait_fork(t_master *master, char **args, int *redir)
 	if (redir)
 	{
 		waitpid(master->pid, &status, 0);
+		g_ctrl_c = 0; // keep it ?
 		master->last_status = WEXITSTATUS(status);
 		//printf("FORK last_status %d\n", WEXITSTATUS(status));
 		if (redir[0] > 0)
@@ -91,6 +92,9 @@ static int *ms_fork_init(int *fd_in, int pip_end[2], char **args, t_master *mast
 		return (NULL);
 	}
 	master->pid = fork();
+	g_pid = fork();
+	// dprintf(1, "ms_fork:94 fork\n"); // to delete
+	dprintf(1, "ms_fork.c:96 g_ctrl_c = %d\n", g_ctrl_c); // to delete
 	if (master->pid < 0)
 	{
 		ft_println_red("Error > An error has occured while fork creation");
@@ -108,9 +112,12 @@ void	ms_fork(t_master *master, char *command, char **args, int args_size)
 	int *redir;
 	int pip_rec;
 
+	g_ctrl_c = 1; // keep it ?
 	pip_rec = 1;
+	// dprintf(1, "ms_fork:113 fork\n"); // to delete
 	while (pip_rec > 0)
 	{
+		// dprintf(1, "ms_fork:117 fork\n"); // to delete
 		if (ms_error_pipe(pip_end) == -1)
 			return;
 		redir = ms_fork_init(&fd_in, pip_end, args, master);

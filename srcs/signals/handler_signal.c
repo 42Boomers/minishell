@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 16:16:07 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 18:53:31 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ void ft_sigquit(void *master)
 
 	if (!save)
 		save = master;
-	else if (save->pid > 0)
+	// else if (save->pid > 0)
+	else if (g_ctrl_c == 1)
 	{
-		dprintf(1, "\nsyltest pid > 0\n"); // to delete
-		g_ctrl_c = 1;
+		dprintf(1, "Z\n"); // to delete
+		// g_ctrl_c = 1; // keep it ?
 		kill(save->pid, SIGQUIT);
 		printf("\n");
 		// rl_on_new_line();
@@ -43,27 +44,26 @@ void ft_sigint(void *master)
 		save = master;
 	else
 	{
-		if (save->pid == -1)
+		// if (save->pid == -1)
+		if (g_ctrl_c == 0)
 		{
-			dprintf(1, "\nsyltest pid == -1\n"); // to delete
-			printf("\n");
-			g_ctrl_c = 1;
-			// rl_on_new_line();
-			rl_replace_line("", 0);
-			// rl_redisplay();
-			// ms_readline(master);
-			// ft_putstr_fd("minishell -> ", 1);
-		}
-		if (save->pid)
-		{
-			dprintf(1, "\nsyltest pid > -1\n"); // to delete
-			kill(save->pid, SIGINT);
-			g_ctrl_c = 1;
-			dprintf(1, "\nX syltest g_ctrl_c = %d\n", g_ctrl_c); // to delete
+			dprintf(1, "X\n"); // to delete
 			printf("\n");
 			rl_on_new_line();
 			rl_replace_line("", 0);
 			rl_redisplay();
+		}
+		if (g_ctrl_c == 1)
+		{
+			dprintf(1, "Y\n"); // to delete
+			kill(save->pid, SIGINT);
+			// g_ctrl_c = 1;
+			printf("\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			dprintf(1, "handler_signal.c:62 g_ctrl_c = %d\n", g_ctrl_c); // to delete
+			// if (g_ctrl_c == 0)
+				rl_redisplay();
 		}
 	}
 }
@@ -79,44 +79,44 @@ my old version
 // {
 // }
 
-static void	handle_signal(int signum, siginfo_t *sig_info, void *ucontext_t)
-{
-	(void)sig_info;
-	(void)ucontext_t;
-/* understand diffrent behaviours of ctrl-c depending on minishell being in
-- "normal" mode
-- having created a fork but not being in it
-- being inside a fork
->>> try all the different functions (rl_on_new_line, rl_replace_line and
-rl_redisplay) but forsti of all, try and understand theoritically, what's
-minishell in a minishell is supposed to do.
-What to do after the whole action of ctrl-c had been performed ?
-Should I change the value of g_ctrl_c ?
-*/
-	if (signum == SIGINT)
-	{
-		if (g_ctrl_c == 0)
-		{
-			// ctrl_c_normal();
-			printf("\n");
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			rl_redisplay();
-		}
-		else if (g_ctrl_c == 1)
-		{
-			// ctrl_c_fork();
-			printf("\n");
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			g_ctrl_c = 0;
-		}
-		else if (g_ctrl_c == 2)
-		{
-			printf("\n");
-			rl_on_new_line();
-			rl_replace_line("", 0);
-		}
+// static void	handle_signal(int signum, siginfo_t *sig_info, void *ucontext_t)
+// {
+// 	(void)sig_info;
+// 	(void)ucontext_t;
+// /* understand diffrent behaviours of ctrl-c depending on minishell being in
+// - "normal" mode
+// - having created a fork but not being in it
+// - being inside a fork
+// >>> try all the different functions (rl_on_new_line, rl_replace_line and
+// rl_redisplay) but forsti of all, try and understand theoritically, what's
+// minishell in a minishell is supposed to do.
+// What to do after the whole action of ctrl-c had been performed ?
+// Should I change the value of g_ctrl_c ?
+// */
+// 	if (signum == SIGINT)
+// 	{
+// 		if (g_ctrl_c == 0)
+// 		{
+// 			// ctrl_c_normal();
+// 			printf("\n");
+// 			rl_on_new_line();
+// 			rl_replace_line("", 0);
+// 			rl_redisplay();
+// 		}
+// 		else if (g_ctrl_c == 1)
+// 		{
+// 			// ctrl_c_fork();
+// 			printf("\n");
+// 			rl_on_new_line();
+// 			rl_replace_line("", 0);
+// 			g_ctrl_c = 0;
+// 		}
+// 		else if (g_ctrl_c == 2)
+// 		{
+// 			printf("\n");
+// 			rl_on_new_line();
+// 			rl_replace_line("", 0);
+// 		}
 
 /*------------------------------------------------------------------------------
 version without segfault

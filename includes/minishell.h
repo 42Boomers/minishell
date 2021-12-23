@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 16:16:44 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 18:33:13 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_master
 	int		last_status;
 	int		ac;
 	t_bool	verbose;
-	pid_t	pid; // syl : Max mets le pid de ton fork dedans
 }	t_master;
 
 /*------------------------------{ ENVS }------------------------------*/
@@ -121,7 +120,7 @@ typedef struct s_ms_command
 
 /*----------------------------{ GLOBAL VARIABLE }----------------------*/
 static	int	g_ctrl_c = 0; // keep it ?
-static	pid_t pid = 0;  // keep it ? if yes, rename it g_pid for norm
+static	pid_t g_pid = 0;  // keep it ? if yes, rename it g_pid for norm
 
 /*----------------------------{ MINISHELL }----------------------------*/
 t_master		*ms_init_master(int ac, char **av, char **evs);
