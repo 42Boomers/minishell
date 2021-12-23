@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_fork.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrozniec <mrozniec@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 13:04:22 by mrozniec          #+#    #+#             */
-/*   Updated: 2021/12/15 13:04:22 by mrozniec         ###   ########.fr       */
+/*   Updated: 2021/12/23 19:28:07 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	ms_fork_init2(char **args, int *redir, int pip_end[2], int *fd_in)
 {
 	int	pip_rec;
 
+	
 	pip_rec = ft_pipe_check(args);
 	if (pip_rec < 0)
 		exit(-1);

@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 18:33:28 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 19:26:26 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int ms_start(int ac, char **av, char **evs)
 	int ret_code;
 
 	master = ms_init_master(ac, av, evs);
-	g_pid = -1;
 	ft_sigint(&master);
 	ft_sigquit(&master);
 	signal(SIGINT, ((void (*)(int))ft_sigint));

@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 19:02:29 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 19:17:26 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void ft_sigquit(void *master)
 	if (!save)
 		save = master;
 	// else if (save->pid > 0)
-	else if (g_ctrl_c == 1)
+	else if (g_ctrl_c == 0)
 	{
 		dprintf(1, "Z\n"); // to delete
 		// g_ctrl_c = 1; // keep it ?
@@ -40,10 +40,10 @@ void ft_sigint(void *master)
 {
 	static t_master *save = NULL;
 
-	if (!save)
-		save = master;
-	else
-	{
+	// if (!save)
+	// // // 	save = master;
+	// // else
+	// {
 		// if (save->pid == -1)
 		if (g_ctrl_c == 0)
 		{
@@ -65,7 +65,7 @@ void ft_sigint(void *master)
 			// if (g_ctrl_c == 0)
 				rl_redisplay();
 		}
-	}
+	// }
 }
 
 /*------------------------------------------------------------------------------
