@@ -6,16 +6,16 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 15:40:06 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 21:52:44 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ms_start(int ac, char **av, char **evs)
+int	ms_start(int ac, char **av, char **evs)
 {
-	t_master *master;
-	int ret_code;
+	t_master	*master;
+	int			ret_code;
 
 	master = ms_init_master(ac, av, evs);
 	ft_sigint(&master);

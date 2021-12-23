@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 17:27:45 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/23 21:50:22 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ typedef struct s_ms_command
 
 /*----------------------------{ GLOBAL VARIABLE }----------------------*/
 static	int	g_ctrl_c = 0; // keep it ?
-static	pid_t pid = 0;  // keep it ? if yes, rename it g_pid for norm
 
 /*----------------------------{ MINISHELL }----------------------------*/
 t_master		*ms_init_master(int ac, char **av, char **evs);
@@ -130,7 +129,8 @@ void			ft_sigint(void *master);
 void			ft_sigquit(void *master);
 // void			ms_register_signals(t_master *master);
 int				ft_pipe_check(char **args);
-void			ms_fork(t_master *master, char *command, char **args, int args_size);
+void			ms_fork(t_master *master, char *command, \
+				char **args, int args_size);
 int				ms_red_in_out(char **args, int *redir);
 int				ft_check_bad(int pos, char **args);
 void			ms_check_redir(char **command, char **args);
