@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   commands_os.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:35:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 17:24:29 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 00:20:13 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-// don't free args here
+
 static char	**ms_cmd_os_args(char *command, char **args)
 {
 	char	**new_args;
@@ -38,7 +38,6 @@ static char	**ms_cmd_os_args(char *command, char **args)
 		new_args = ms_mallocw(sizeof(char *) * 2, "Cannot malloc");
 	new_args[0] = command;
 	new_args[i + 1] = 0;
-	//free(args);
 	return (new_args);
 }
 

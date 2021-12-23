@@ -3,39 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   commands_launch.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:00:00 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 23:51:05 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 00:17:22 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*ms_cmd_get_key(void *arg)
-{
-	t_ms_command	*cmd;
-
-	cmd = arg;
-	return (cmd->name);
-}
-
-t_ms_input	*ms_cmd_input(t_ms_command *cmd, char **args, int args_size)
-{
-	t_ms_input	*input;
-
-	input = malloc(sizeof(*input));
-	if (!input)
-	{
-		ft_println_red("Error > Unable to malloc t_ms_input");
-		return (NULL);
-	}
-	input->args = args;
-	input->args_size = args_size;
-	input->cmd = cmd;
-	input->garbage = NULL;
-	return (input);
-}
 
 static t_bool	ms_cmd_execute2(t_ms_input *input, t_bool cmd_result)
 {
@@ -94,7 +69,7 @@ static void	*ms_cmd_launch_free(char *command, char **args)
 	int	i;
 
 	i = 0;
-	while(args[i])
+	while (args[i])
 		free(args[i++]);
 	free(args);
 	if (!command)

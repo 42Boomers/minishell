@@ -14,3 +14,6 @@ Le CTRL + C doit faire comme bash
 
 - sylducam
   .ms_heredoc
+  all srcs in Makefile
+  finish norming
+    - ms_fork (Max)

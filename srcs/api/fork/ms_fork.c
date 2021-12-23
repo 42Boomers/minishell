@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 22:09:29 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 00:25:41 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 	if (cmd)
 	{
 		input = ms_cmd_input(cmd, args, args_siz);
-		// ms_set_status didnt work cause it is override by fork result
-		// We won't need to use fork at this case. -> DONE
 		ms_set_status(master, ms_cmd_execute(input));
 		ms_garbage_free(&input->garbage);
 		free(input);
@@ -32,7 +30,6 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 	}
 	else if (!ms_cmd_os(master, command, args))
 	{
-		// master->last_status = 127; -> usless code
 		if (errno == ENOENT)
 			fprintf(stderr, "%s: %s: command not found\n",
 				master->name, command);
@@ -43,9 +40,9 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 	exit(-1);
 }
 
-static int ms_wait_fork(t_master *master, char **args, int *redir)
+static int	ms_wait_fork(t_master *master, char **args, int *redir)
 {
-	int status;
+	int	status;
 
 	if (redir)
 	{
@@ -61,9 +58,9 @@ static int ms_wait_fork(t_master *master, char **args, int *redir)
 	return (ft_pipe_check(args));
 }
 
-static char *ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
+static char	*ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
 {
-	char *command;
+	char	*command;
 
 	close(pip_end[1]);
 	*fd_in = pip_end[0];
@@ -73,9 +70,10 @@ static char *ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
 	return (command);
 }
 
-static int *ms_fork_init(int *fd_in, int pip_end[2], char **args, t_master *master)
+static int	*ms_fork_init(int *fd_in, int pip_end[2], char **args, \
+	t_master *master)
 {
-	int *redir;
+	int	*redir;
 
 	redir = malloc(2 * sizeof(int));
 	if (!redir)
@@ -102,17 +100,17 @@ static int *ms_fork_init(int *fd_in, int pip_end[2], char **args, t_master *mast
 
 void	ms_fork(t_master *master, char *command, char **args, int args_size)
 {
-	int pip_end[2];
-	int fd_in;
-	int *redir;
-	int pip_rec;
+	int	pip_end[2];
+	int	fd_in;
+	int	*redir;
+	int	pip_rec;
 
 	pip_rec = 1;
 	while (pip_rec > 0)
 	{
 		pip_rec = ft_red_pip_cmd(&command, args, master);
 		if (pip_rec > 0 && ms_error_pipe(pip_end) == -1)
-			return;
+			return ;
 		if (pip_rec > 0)
 			redir = ms_fork_init(&fd_in, pip_end, args, master);
 		if (pip_rec > 0 && master->pid == 0)
