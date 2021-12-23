@@ -3,8 +3,7 @@ Le CTRL + C doit faire comme bash
 - Supprimer le message en cours
 
 - tglory :
-  fix les leaks avec CTRL C puis plusieurs commandes inconnu
-  fix: unset OLDPWD && cd .. && exit -> free(): invalid pointer
+  heredoc -> ctrl C ne marche pas et le 2eme CTRL D fait un segfault
   TODO add mechanic: echo '$USER' -> should print -> $USER and not tglory (idea: replace '$USER' with '\$USER' in ft_split_ultime)
   fix echo t"$USER" -> sould print -> ttglory and not "tglory
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_fork.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrozniec <mrozniec@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 13:04:22 by mrozniec          #+#    #+#             */
-/*   Updated: 2021/12/15 13:04:22 by mrozniec         ###   ########.fr       */
+/*   Updated: 2021/12/23 22:33:58 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,11 @@ void	ms_heredoc(int fd, char *s_eof)
 {
 	char	*line;
 
+	if (!s_eof) // Test Fix Sefgault
+		return ;
 	line = readline(">");
+	if (!line) // Test Fix Sefgault
+		return ;
 	while (ft_strcmp(line, s_eof) != 0)
 	{
 		write(fd, line, ft_strlen(line));
