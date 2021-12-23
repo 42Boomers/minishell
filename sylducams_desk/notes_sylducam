@@ -24,15 +24,12 @@ quelle commande ? Comment ca se passe dans le code ? rl_??
 il reste des warnings quand on make. Surtout des variables ou fonctions non
 utilisees, donc juste besoin de faire du menage
 
-.ms_heredoc
-
 pb avec ecrire exit dans un minishell embeded
 
 --------------------------------------------------------------------------------
 SIGNAUX
 https://man7.org/linux/man-pages/man2/sigaction.2.html
 
-rename ms_readine.c > ms_readline.c + Makefile
 les codes retour
 virer les coms
 recherche de leaks
