@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 17:21:56 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/23 17:27:45 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,12 +135,9 @@ int				ms_red_in_out(char **args, int *redir);
 int				ft_check_bad(int pos, char **args);
 void			ms_check_redir(char **command, char **args);
 int				ft_redir_error(int ret, char **args);
-<<<<<<< HEAD
-int			ft_pres_red(char **args);
-int	ft_red_pip_cmd(char **command, char **args);
-=======
 int				ft_pres_red(char **args);
->>>>>>> fa0d725756bf67c24e4ac14e1c63b12236bf8d04
+int				ft_red_pip_cmd(char **command, char **args);
+int				ft_pres_red(char **args);
 void			ms_del_red(char **args, int pos);
 void			ms_fork_init2(char **args, int *redir, int pip_end[2],
 					int *fd_in);
