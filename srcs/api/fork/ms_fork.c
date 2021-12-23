@@ -6,37 +6,54 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 14:57:08 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 16:17:37 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ms_child(t_master *master, char *command, char **args)
+static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 {
-	char	*error;
+	t_ms_command	*cmd;
+	t_ms_input		*input;
 
 	if (ft_isequals(command, "exit"))
 		exit(0);
-	if (!ms_cmd_os(master, command, args))
+	cmd = ft_lstget(master->cmds, command, ms_cmd_get_key);
+	if (cmd)
+	{
+		input = ms_cmd_input(cmd, args, args_siz);
+		// ms_set_status didnt work cause it is override by fork result
+		// We won't need to use fork at this case.
+		ms_set_status(master, ms_cmd_execute(input));
+		free(args);
+		ms_garbage_free(&input->garbage);
+		free(input);
+		exit(0);
+	}
+	else if (!ms_cmd_os(master, command, args))
 	{
 		// ms_set_status(master, FALSE);
 		master->last_status = 127;
-		error = ft_strjoin("minishell: ", command);
-		perror(error);
-		free(error);
+		if (errno == ENOENT)
+			fprintf(stderr, "%s: %s: command not found\n",
+				master->name, command);
+		else
+			ms_print_error(master->name, command);
+		exit(127);
 	}
 	exit(-1);
 }
 
-static int	ms_wait_fork(pid_t fork_id, char **args, int *redir)
+static int ms_wait_fork(t_master *master, char **args, int *redir)
 {
-	int	*status;
+	int status;
 
-	status = NULL;
 	if (redir)
 	{
-		waitpid(fork_id, status, 0);
+		waitpid(master->pid, &status, 0);
+		master->last_status = WEXITSTATUS(status);
+		//printf("FORK last_status %d\n", WEXITSTATUS(status));
 		if (redir[0] > 0)
 			close(redir[0]);
 		if (redir[1] > 0)
@@ -46,9 +63,9 @@ static int	ms_wait_fork(pid_t fork_id, char **args, int *redir)
 	return (ft_pipe_check(args));
 }
 
-static char	*ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
+static char *ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
 {
-	char	*command;
+	char *command;
 
 	close(pip_end[1]);
 	*fd_in = pip_end[0];
@@ -58,10 +75,9 @@ static char	*ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
 	return (command);
 }
 
-static int	*ms_fork_init(int *fd_in, int pip_end[2], char **args, pid_t \
-*fork_id)
+static int *ms_fork_init(int *fd_in, int pip_end[2], char **args, t_master *master)
 {
-	int	*redir;
+	int *redir;
 
 	redir = malloc(2 * sizeof(int));
 	if (!redir)
@@ -74,36 +90,38 @@ static int	*ms_fork_init(int *fd_in, int pip_end[2], char **args, pid_t \
 		free(redir);
 		return (NULL);
 	}
-	*fork_id = fork();
-	if (*fork_id < 0)
+	master->pid = fork();
+	if (master->pid < 0)
 	{
 		ft_println_red("Error > An error has occured while fork creation");
 		return (NULL);
 	}
-	if (*fork_id == 0)
+	if (master->pid == 0)
 		ms_fork_init2(args, redir, pip_end, fd_in);
 	return (redir);
 }
 
-void	ms_fork(t_master *master, char *command, char **args)
+void	ms_fork(t_master *master, char *command, char **args, int args_size)
 {
-	int		pip_end[2];
-	int		fd_in;
-	int		*redir;
-	int		pip_rec;
-	pid_t	fork_id;
+	int pip_end[2];
+	int fd_in;
+	int *redir;
+	int pip_rec;
 
 	pip_rec = 1;
 	while (pip_rec > 0)
 	{
 		if (ms_error_pipe(pip_end) == -1)
-			return ;
-		redir = ms_fork_init(&fd_in, pip_end, args, &fork_id);
-		if (fork_id == 0)
-			ms_child(master, command, args);
+			return;
+		redir = ms_fork_init(&fd_in, pip_end, args, master);
+		if (master->pid == 0)
+			ms_child(master, command, args, args_size);
 		else
 		{
-			pip_rec = ms_wait_fork(fork_id, args, redir);
+			pip_rec = ms_wait_fork(master, args, redir);
+			if (pip_rec < 0)
+				write(2, \
+				"minishell: syntax error near unexpected token `|'\n", 50);
 			if (pip_rec > 0)
 				command = ms_next_fork(pip_rec, pip_end, &fd_in, &args);
 		}

@@ -14,12 +14,12 @@ jobs:
       - name: Print Informations for Segfault
         run: |
           make re CFLAGS='-Wall -Wextra -g3 -fsanitize=address' > /dev/null
-          ./minishell test
+          ./minishell -t
         continue-on-error: true
       - name: Make
         run: make re
       - name: Start Minishell
-        run: ./minishell test
+        run: ./minishell -t
       - name: Valgrind - Leak Checker
         uses: solareenlo/42valgrind-action@v1.0.3
         with:

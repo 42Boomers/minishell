@@ -39,8 +39,7 @@ t_bool	ms_env_add_raw(t_master *master, char *raw_env)
 		ms_env_free(env);
 		return (TRUE);
 	}
-	ft_lstadd_back(&master->envs,
-		ft_lstnew(env));
+	ft_lstadd_back(&master->envs, ft_lstnew(env));
 	if (ft_isequals(env->key, "PATH"))
 		ms_env_path_refresh(master);
 	return (TRUE);

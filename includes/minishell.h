@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 14:55:18 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 16:16:44 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,20 @@ typedef enum s_bool
 typedef struct s_master
 {
 	pid_t	pid;
+	t_list	*garbage;
+	t_list	*cmds;
+	t_list	*envs;
 	char	**pwd;
 	char	**old_pwd;
+	char	**av;
+	char	**paths;
+	char	*hist_file;
+	char	*name;
 	int		cmd_ret;
 	int		last_status;
 	int		ac;
-	char	**av;
-	t_list	*envs;
-	char	**paths;
-	char	*hist_file;
-	t_list	*garbage;
-	t_list	*cmds;
 	t_bool	verbose;
+	pid_t	pid; // syl : Max mets le pid de ton fork dedans
 }	t_master;
 
 /*------------------------------{ ENVS }------------------------------*/
@@ -118,18 +120,24 @@ typedef struct s_ms_command
 }	t_ms_command;
 
 /*----------------------------{ GLOBAL VARIABLE }----------------------*/
-static	int	g_ctrl_c = 0;
+static	int	g_ctrl_c = 0; // keep it ?
+static	pid_t pid = 0;  // keep it ? if yes, rename it g_pid for norm
 
 /*----------------------------{ MINISHELL }----------------------------*/
 t_master		*ms_init_master(int ac, char **av, char **evs);
 void			ms_free_master(t_master	*master);
 t_bool			ms_test_cmd(t_master *master);
 t_bool			ms_readline(t_master *master);
-void			ms_register_signals(t_master *master);
+void			ft_sigint(void *master);
+void			ft_sigquit(void *master);
+// void			ms_register_signals(t_master *master);
 int				ft_pipe_check(char **args);
-void			ms_fork(t_master *master, char *command, char **args);
+void			ms_fork(t_master *master, char *command, char **args, int args_size);
 int				ms_red_in_out(char **args, int *redir);
+int				ft_check_bad(int pos, char **args);
 void			ms_check_redir(char **command, char **args);
+int				ft_redir_error(int ret, char **args);
+int				ft_pres_red(char **args);
 void			ms_del_red(char **args, int pos);
 void			ms_fork_init2(char **args, int *redir, int pip_end[2],
 					int *fd_in);
@@ -170,6 +178,9 @@ void			ms_set_status(t_master *master, int status);
 void			ms_pwd_set(t_master *master, char *new_pwd);
 char			**ft_split_ultimate(char const *s, char c);
 char			*ms_prefix_get(t_master *master);
+char			**ft_join_chars(char **array1, char **array2);
+void			ms_print_error(char *prog_name, char *cmd_name);
+void			ms_print_error_cmd(t_ms_input *input);
 
 /*----------------------------{ API CMDS }-----------------------------*/
 t_ms_command	*ms_cmd_register(char *name, char *description,
@@ -186,6 +197,9 @@ t_bool			ms_history_read(t_master *master);
 t_bool			ms_history_write(t_master *master, char *command);
 void			ms_cmd_register_default_args(t_ms_command *cmd,
 					char **default_args, int default_args_size);
+char			*ms_cmd_get_key(void *arg);
+t_ms_input		*ms_cmd_input(t_ms_command *cmd, char **args, int args_size);
+t_bool			ms_cmd_execute(t_ms_input *input);
 
 /*----------------------------{ API STR }-----------------------------*/
 t_str_build		*ft_str_build_init(void);
@@ -203,6 +217,7 @@ t_bool			ms_cmd_echo_register(t_ms_command *cmd);
 t_bool			ms_cmd_cd_register(t_ms_command *cmd);
 t_bool			ms_cmd_unset_register(t_ms_command *cmd);
 t_bool			ms_cmd_export_register(t_ms_command *cmd);
+t_bool			ms_cmd_exit_register(t_ms_command *cmd);
 
 /*-----------------------------{ GARBAGE }-----------------------------*/
 void			*ms_mallocw(size_t size, char *warning_message);

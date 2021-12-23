@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:35:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/18 12:45:00 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 16:18:10 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,9 @@ t_master	*ms_init_master(int ac, char **av, char **evs)
 {
 	t_master	*master;
 
-	master = malloc(sizeof(t_master));
+	master = ms_mallocw(sizeof(t_master), "Can't malloc t_master");
 	if (!master)
-	{
-		ft_println_red("Error > An error has occured while malloc t_master");
 		return (NULL);
-	}
-	master->pid = -1;
 	master->garbage = NULL;
 	master->cmds = NULL;
 	ms_garbage_master_add(master, &(master->cmds), ms_lstclear);
@@ -35,6 +31,8 @@ t_master	*ms_init_master(int ac, char **av, char **evs)
 	master->cmd_ret = 0;
 	master->old_pwd = NULL;
 	master->last_status = 0;
+	master->pid = -1;
+	master->name = "minishell";
 	ms_env_init(master, evs);
 	master->hist_file = ft_strjoin(ms_pwd(master), "/.ms_history");
 	ms_garbage_master_add(master, master->hist_file, free);

@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:35:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 13:43:26 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 22:37:11 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ static void	ms_cmd_os_start(t_master *master,
 }
 
 static t_bool	ms_cmd_os_search(t_master *master,
-				char *command, char **paths, char **args)
+				char *command, char **args)
 {
 	char	*name;
+	char	**paths;
 
+	paths = ms_env_path_get(master);
 	while (*paths)
 	{
 		name = ft_strjoin_plus(*paths++, "/", command);
@@ -79,5 +81,5 @@ t_bool	ms_cmd_os(t_master *master, char *command,
 		ms_cmd_os_start(master, command, args);
 		return (FALSE);
 	}
-	return (ms_cmd_os_search(master, command, ms_env_path_get(master), args));
+	return (ms_cmd_os_search(master, command, args));
 }

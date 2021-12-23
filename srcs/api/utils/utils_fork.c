@@ -53,6 +53,8 @@ void	ms_fork_init2(char **args, int *redir, int pip_end[2], int *fd_in)
 	int	pip_rec;
 
 	pip_rec = ft_pipe_check(args);
+	if (pip_rec < 0)
+		exit(-1);
 	if (redir[0] > 0)
 		dup2(redir[0], 0);
 	else
@@ -61,7 +63,7 @@ void	ms_fork_init2(char **args, int *redir, int pip_end[2], int *fd_in)
 		close(pip_end[1]);
 	if (redir[1] > 0)
 		dup2(redir[1], 1);
-	else if (pip_rec > 0)
+	else if (pip_rec != 0)
 		dup2(pip_end[1], 1);
 	close(pip_end[0]);
 }

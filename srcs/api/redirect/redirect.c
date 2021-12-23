@@ -22,18 +22,15 @@ static int	ft_red_in_check(char **args)
 		if (ft_strcmp(args[i], "<") == 0)
 		{
 			args[i] = NULL;
-			if (!args[i + 1])
-				return (0);
 			return (i + 1);
 		}
 		if (ft_strcmp(args[i], "<<") == 0)
 		{
 			args[i] = NULL;
-			if (!args[i + 1])
-				return (0);
 			return (-(i + 1));
 		}
-		if (ft_strcmp(args[i], "|") == 0)
+		if (ft_strcmp(args[i], "|") == 0 || ft_strcmp(args[i], ">") == 0 || \
+		ft_strcmp(args[i], ">>") == 0)
 			return (0);
 	}
 	return (0);
@@ -44,6 +41,8 @@ static int	ms_red_in(char **args, int *fd_red_in)
 	int		pos;
 
 	pos = ft_red_in_check(args);
+	if (ft_check_bad(pos, args) == -1)
+		return (-2);
 	if (pos == 0)
 		fd_red_in[0] = 0;
 	while (pos != 0)
@@ -70,8 +69,12 @@ static int	ms_red_in(char **args, int *fd_red_in)
 		}
 		pos = ft_red_in_check(args);
 		if (pos != 0)
+		{
 			if (close(*fd_red_in) == -1)
 				return (-1);
+			else if (ft_check_bad(pos, args) == -1)
+				return (-2);
+		}
 	}
 	return (0);
 }
@@ -86,18 +89,15 @@ static int	ft_red_out_check(char **args)
 		if (ft_strcmp(args[i], ">") == 0)
 		{
 			args[i] = NULL;
-			if (!args[i + 1])
-				return (0);
 			return (i + 1);
 		}
 		if (ft_strcmp(args[i], ">>") == 0)
 		{
 			args[i] = NULL;
-			if (!args[i + 1])
-				return (0);
 			return (-(i + 1));
 		}
-		if (ft_strcmp(args[i], "|") == 0)
+		if (ft_strcmp(args[i], "|") == 0 || ft_strcmp(args[i], "<") == 0 || \
+		ft_strcmp(args[i], "<<") == 0)
 			return (0);
 	}
 	return (0);
@@ -108,6 +108,8 @@ static int	ms_red_out(char **args, int *fd_red_out)
 	int	pos;
 
 	pos = ft_red_out_check(args);
+	if (ft_check_bad(pos, args) == -1)
+		return (-2);
 	if (pos == 0)
 		fd_red_out[1] = 0;
 	while (pos != 0)
@@ -129,8 +131,12 @@ static int	ms_red_out(char **args, int *fd_red_out)
 		}
 		pos = ft_red_out_check(args);
 		if (pos != 0)
+		{
 			if (close(fd_red_out[1]) == -1)
 				return (-1);
+			else if (ft_check_bad(pos, args) == -1)
+				return (-2);
+		}
 	}
 	return (0);
 }
@@ -138,33 +144,22 @@ static int	ms_red_out(char **args, int *fd_red_out)
 int	ms_red_in_out(char **args, int *redir)
 {
 	int		ret;
-	char	*strer;
+	int		f_red;
 
-	ret = ms_red_in(args, redir);
-	if (ret != 0)
+	f_red = 1;
+	while (f_red > 0)
 	{
-		if (ret > 0)
-		{
-			strer = ft_strjoin("minishell: ", args[ret]);
-			perror(strer);
-			free(strer);
-		}
-		else if (ret < 0)
-			perror("minishell");
-		return (-1);
-	}
-	ret = ms_red_out(args, redir);
-	if (ret != 0)
-	{
-		if (ret > 0)
-		{
-			strer = ft_strjoin("minishell: ", args[ret]);
-			perror(strer);
-			free(strer);
-		}
-		else if (ret < 0)
-			perror("minishell");
-		return (-1);
+		if (f_red == (f_red | 4))
+			close(redir[0]);
+		if (f_red == (f_red | 2))
+			close(redir[1]);
+		ret = ms_red_in(args, redir);
+		if (ret != 0)
+			return (ft_redir_error(ret, args));
+		ret = ms_red_out(args, redir);
+		if (ret != 0)
+			return (ft_redir_error(ret, args));
+		f_red = ft_pres_red(args);
 	}
 	return (0);
 }

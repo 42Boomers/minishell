@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:51:11 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 16:48:02 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/21 15:15:29 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ t_bool	ms_history_read(t_master *master)
 	int		fd;
 	int		ret;
 
-	fd = open(master->hist_file, O_RDONLY);
+	fd = open(master->hist_file, O_RDONLY | O_CREAT,
+			S_IRWXU | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		return (FALSE);
 	ret = 1;
@@ -44,7 +45,8 @@ t_bool	ms_history_write(t_master *master, char *command)
 {
 	int		fd;
 
-	fd = open(master->hist_file, O_WRONLY | O_CREAT | O_APPEND, 644);
+	fd = open(master->hist_file, O_WRONLY | O_CREAT | O_APPEND,
+			S_IRWXU | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		return (FALSE);
 	ft_putstr_fd(command, fd);

@@ -17,22 +17,21 @@ minishell.h:95   Alors, on a un enum booleen, qui renvoie -1, 0 ou pas 0 (deja,
 				 dereference quoi avec ce (*nom), ou alors c'est un cast ? Mais
 				 un cast de quoi ? Je comprends rien T_T
 
+
 qu'est-ce qu'il se passe quand j'appuie sur enter ou que je lance n'importe
 quelle commande ? Comment ca se passe dans le code ? rl_??
 
 il reste des warnings quand on make. Surtout des variables ou fonctions non
 utilisees, donc juste besoin de faire du menage
 
-les codes retour
-
-warning rl_replace_line (ajouter stdio.h a la compil ou aller voir encore bperez)
-
-faire mise a la norme
-recherche de leaks
+pb avec ecrire exit dans un minishell embeded
 
 --------------------------------------------------------------------------------
 SIGNAUX
 https://man7.org/linux/man-pages/man2/sigaction.2.html
 
-
+les codes retour
 virer les coms
+recherche de leaks
+mettre la libft a la racine
+faire mise a la norme

@@ -6,13 +6,13 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:00:00 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/20 21:34:59 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/22 23:51:05 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-static char	*ms_cmd_get_key(void *arg)
+
+char	*ms_cmd_get_key(void *arg)
 {
 	t_ms_command	*cmd;
 
@@ -20,7 +20,7 @@ static char	*ms_cmd_get_key(void *arg)
 	return (cmd->name);
 }
 
-static t_ms_input	*ms_cmd_input(t_ms_command *cmd, char **args, int args_size)
+t_ms_input	*ms_cmd_input(t_ms_command *cmd, char **args, int args_size)
 {
 	t_ms_input	*input;
 
@@ -42,31 +42,31 @@ static t_bool	ms_cmd_execute2(t_ms_input *input, t_bool cmd_result)
 	if (input->cmd->print)
 	{
 		cmd_result = input->cmd->print(input);
-		if (cmd_result != 1)
+		if (cmd_result != TRUE)
 			return (FALSE);
 	}
 	return (TRUE);
 }
 
-static t_bool	ms_cmd_execute(t_ms_input *input)
+t_bool	ms_cmd_execute(t_ms_input *input)
 {
 	t_bool	cmd_result;
 
 	if (input->cmd->analyze)
 	{
 		cmd_result = input->cmd->analyze(input);
-		if (cmd_result != 1)
+		if (cmd_result != TRUE)
 			return (FALSE);
 	}
 	if (input->cmd->execute)
 	{
 		cmd_result = input->cmd->execute(input);
-		if (cmd_result != 1)
+		if (cmd_result != TRUE)
 			return (FALSE);
 	}
 	return (ms_cmd_execute2(input, cmd_result));
 }
-*/
+
 char	**ms_cmd_env_parse(t_master *master, char **args, int *args_size)
 {
 	int		i;
@@ -81,37 +81,38 @@ char	**ms_cmd_env_parse(t_master *master, char **args, int *args_size)
 	while (++i < *args_size)
 	{
 		new_args[j] = ms_env_parse(master, args[i]);
-		// printf("ARG TRANS '%s' -> '%s'\n", args[i], new_args[j]);
 		if (new_args[j])
-			ms_garbage_master_add(master, new_args[j++], free); // TODO add to garbage of cmd
+			j++;
 	}
-	// ms_garbage_master_add(master, new_args, free);
 	new_args[j] = 0;
 	*args_size = j;
 	return (new_args);
 }
 
+static void	*ms_cmd_launch_free(char *command, char **args)
+{
+	int	i;
+
+	i = 0;
+	while(args[i])
+		free(args[i++]);
+	free(args);
+	if (!command)
+		free(command);
+	return (NULL);
+}
+
 t_ms_command	*ms_cmd_launch(t_master *master, char *command,
 		char **args, int args_size)
 {
-	//t_ms_command	*cmd;
-	//t_ms_input		*input;
-
 	args = ms_cmd_env_parse(master, args, &args_size);
 	if (!args)
 		return (NULL);
-/*	cmd = ft_lstget(master->cmds, command, ms_cmd_get_key);
-	if (!cmd)
-	{
-*/	ms_check_redir(&command, args);
-	ms_fork(master, command, args);
-	free(args);
+	command = ms_env_parse(master, command);
+	if (!command)
+		return (ms_cmd_launch_free(NULL, args));
+	ms_check_redir(&command, args);
+	ms_fork(master, command, args, args_size);
+	ms_cmd_launch_free(command, args);
 	return (NULL);
-/*	}
-	input = ms_cmd_input(cmd, args, args_size);
-	ms_set_status(master, ms_cmd_execute(input));
-	free(args);
-	ms_garbage_free(&input->garbage);
-	free(input);
-	return (cmd);*/
 }
