@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 21:37:50 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 14:30:47 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void ft_sigint(void *master)
 	{
 		if (save->pid == -1)
 		{
-			// dprintf(1, "handler_signal.c:43 pid = %d\n", )
 			printf("\n");
 			// rl_on_new_line();
 			rl_replace_line("", 0);

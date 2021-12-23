@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 23:51:13 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/23 14:29:33 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 	t_ms_command	*cmd;
 	t_ms_input		*input;
 
-	pid = getpid();								// to delete
-	dprintf(1, "ms_fork.c:20 pid = %d\n", pid); // to delete
 	if (ft_isequals(command, "exit"))
 		exit(0);
 	cmd = ft_lstget(master->cmds, command, ms_cmd_get_key);
@@ -56,8 +54,6 @@ static int ms_wait_fork(t_master *master, char **args, int *redir)
 		waitpid(master->pid, &status, 0);
 		master->last_status = WEXITSTATUS(status);
 		//printf("FORK last_status %d\n", WEXITSTATUS(status));
-		pid = getpid();								// to delete
-		// dprintf(1, "ms_fork.c:43 pid = %d\n", pid); // to delete
 		if (redir[0] > 0)
 			close(redir[0]);
 		if (redir[1] > 0)
