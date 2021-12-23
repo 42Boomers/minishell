@@ -6,15 +6,15 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:18:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 14:31:04 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 14:45:08 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_pipe_check(char **args)
+int ft_pipe_check(char **args)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (args[++i])
@@ -32,7 +32,7 @@ int	ft_pipe_check(char **args)
 	return (0);
 }
 
-void	exiter(t_master *master, char **raw_args)
+void exiter(t_master *master, char **raw_args)
 {
 	int err_no;
 	char *err_str;
@@ -56,10 +56,10 @@ void	exiter(t_master *master, char **raw_args)
 	exit(err_no);
 }
 
-t_bool	ms_readline_two(t_master *master, char *input)
+t_bool ms_readline_two(t_master *master, char *input)
 {
-	char	**raw_args;
-	int		i;
+	char **raw_args;
+	int i;
 
 	raw_args = ft_split_ultimate(input, ' ');
 	if (raw_args && raw_args[0])
@@ -88,9 +88,9 @@ t_bool	ms_readline_two(t_master *master, char *input)
 	return (TRUE);
 }
 
-int	ms_readline_check(t_master *master, char **input)
+int ms_readline_check(t_master *master, char **input)
 {
-	char	*prefix;
+	char *prefix;
 
 	prefix = ms_prefix_get(master);
 	*input = readline(prefix);
@@ -99,40 +99,44 @@ int	ms_readline_check(t_master *master, char **input)
 	{
 		ft_putstr("\e[0m\n");
 		return (1);
+		dprintf(1, "syl test readline 1\n"); // to delete
 	}
 	if (!**input || ft_isblank(*input))
 	{
 		free(*input);
 		return (2);
+		dprintf(1, "syl test readline 2\n"); // to delete
 	}
 	ft_putstr("\e[0m");
 	add_history(*input);
 	ms_history_write(master, *input);
+	dprintf(1, "syl test readline 3\n"); // to delete
 	return (0);
 }
 
-t_bool	ms_readline_one(t_master *master)
+t_bool ms_readline_one(t_master *master)
 {
-	char	*input;
-	int		i;
+	char *input;
+	int i;
 
 	input = NULL;
 	while (TRUE)
 	{
+		dprintf(1, "syl test readline 4 issue spoted\n"); // to delete
 		i = ms_readline_check(master, &input);
 		if (i == 1)
-			break ;
+			break;
 		else if (i == 2)
-			continue ;
+			continue;
 		if (!ms_readline_two(master, input))
-			break ;
+			break;
 	}
 	if (input)
 		free(input);
 	return (TRUE);
 }
 
-t_bool	ms_readline(t_master *master)
+t_bool ms_readline(t_master *master)
 {
 	ms_readline_one(master);
 	return (TRUE);
