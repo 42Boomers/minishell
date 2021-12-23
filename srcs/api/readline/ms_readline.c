@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:18:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 15:41:34 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 16:08:27 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,19 +99,19 @@ int ms_readline_check(t_master *master, char **input)
 	{
 		ft_putstr("\e[0m\n");
 		return (1);
-		dprintf(1, "syl test readline 1\n"); // to delete
+		dprintf(1, "syltest readline 1\n"); // to delete
 	}
 	if (!**input || ft_isblank(*input))
 	{
 		free(*input);
 		return (2);
-		dprintf(1, "syl test readline 2\n"); // to delete
+		dprintf(1, "syltest readline 2\n"); // to delete
 	}
 	ft_putstr("\e[0m");
 	add_history(*input);
-	if (g_ctrl_c != -1)
+	if (g_ctrl_c == 0)
 		ms_history_write(master, *input);
-	dprintf(1, "syl test readline 3\n"); // to delete
+	dprintf(1, "syltest readline 3\n"); // to delete
 	return (0);
 }
 
@@ -123,35 +123,38 @@ t_bool ms_readline_one(t_master *master)
 	input = NULL;
 	while (TRUE)
 	{
-		dprintf(1, "getpid = %d\n", getpid()); // to delete
-		dprintf(1, "pid master = %d\n", master->pid); // to delete
-		dprintf(1, "syl test readline 9 issue spoted\n"); // to delete
+		dprintf(1, "\nsyltest getpid = %d\n", getpid()); // to delete
+		dprintf(1, "syltest pid master = %d\n", master->pid); // to delete
+		dprintf(1, "syltest g_ctrl_c = %d\n", g_ctrl_c); // to delete
+		if (g_ctrl_c == 1)
+			break;
+		dprintf(1, "syltest readline 9 issue spoted\n"); // to delete
 		i = ms_readline_check(master, &input);
-		dprintf(1, "i = %d\n", i); // to delete
-		dprintf(1, "i = %d\n", i); // to delete
-		dprintf(1, "syl test readline 10 issue spoted\n"); // to delete
+		dprintf(1, "syltest i = %d\n", i); // to delete
+		dprintf(1, "syltest i = %d\n", i); // to delete
+		dprintf(1, "syltest readline 10 issue spoted\n"); // to delete
 		if (i == 1)
 		{
-			dprintf(1, "syl test readline 4 issue spoted\n"); // to delete
+			dprintf(1, "syltest readline 4 issue spoted\n"); // to delete
 			break;
 		}
 		else if (i == 2)
 		{
-			dprintf(1, "syl test readline 5 issue spoted\n"); // to delete
+			dprintf(1, "syltest readline 5 issue spoted\n"); // to delete
 			continue;
 		}
 		if (!ms_readline_two(master, input))
 		{
-			dprintf(1, "syl test readline 6 issue spoted\n"); // to delete
+			dprintf(1, "syltest readline 6 issue spoted\n"); // to delete
 			break;
 		}
 	}
 	if (input)
 	{
-		dprintf(1, "syl test readline 7 issue spoted\n"); // to delete
+		dprintf(1, "syltest readline 7 issue spoted\n"); // to delete
 		free(input);
 	}
-	dprintf(1, "syl test readline 8 issue spoted\n"); // to delete
+	dprintf(1, "syltest readline 8 issue spoted\n"); // to delete
 	return (TRUE);
 }
 

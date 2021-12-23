@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 15:42:24 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/23 16:07:08 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void ft_sigquit(void *master)
 		save = master;
 	else if (save->pid > 0)
 	{
-		dprintf(1, "\npid > 0\n"); // to delete
+		dprintf(1, "\nsyltest pid > 0\n"); // to delete
+		g_ctrl_c = 1;
 		kill(save->pid, SIGQUIT);
 		printf("\n");
 		// rl_on_new_line();
@@ -44,8 +45,9 @@ void ft_sigint(void *master)
 	{
 		if (save->pid == -1)
 		{
-			dprintf(1, "\npid == -1\n"); // to delete
+			dprintf(1, "\nsyltest pid == -1\n"); // to delete
 			printf("\n");
+			g_ctrl_c = 1;
 			// rl_on_new_line();
 			rl_replace_line("", 0);
 			// rl_redisplay();
@@ -54,9 +56,10 @@ void ft_sigint(void *master)
 		}
 		if (save->pid)
 		{
-			dprintf(1, "\npid > -1\n"); // to delete
-			g_ctrl_c = -1;
+			dprintf(1, "\nsyltest pid > -1\n"); // to delete
 			kill(save->pid, SIGINT);
+			g_ctrl_c = 1;
+			dprintf(1, "\nX syltest g_ctrl_c = %d\n", g_ctrl_c); // to delete
 			printf("\n");
 			rl_on_new_line();
 			rl_replace_line("", 0);
