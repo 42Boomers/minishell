@@ -79,10 +79,10 @@ void	ms_heredoc(int fd, char *s_eof)
 {
 	char	*line;
 
-	if (!s_eof) // Test Fix Sefgault
+	if (!s_eof)
 		return ;
 	line = readline(">");
-	if (!line) // Test Fix Sefgault
+	if (!line)
 		return ;
 	while (ft_strcmp(line, s_eof) != 0)
 	{
