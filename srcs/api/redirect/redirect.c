@@ -48,26 +48,11 @@ static int	ms_red_in(char **args, int *fd_red_in)
 	while (pos != 0)
 	{
 		if (pos > 0)
-		{
-			*fd_red_in = open(args[pos], O_RDONLY);
-			if (*fd_red_in == -1)
-				return (pos);
-			ms_del_red(args, pos);
-		}
+			pos = ms_redir_open(fd_red_in, args, pos, 2);
 		else if (pos < 0)
-		{
-			*fd_red_in = open(".ms_heredoc", O_CREAT | O_WRONLY | O_TRUNC, \
-			0641);
-			if (*fd_red_in == -1)
-				return (-1);
-			ms_heredoc(*fd_red_in, args[-pos]);
-			close(*fd_red_in);
-			*fd_red_in = open(".ms_heredoc", O_RDONLY);
-			if (*fd_red_in == -1)
-				return (-1);
-			unlink(".ms_heredoc");
-			ms_del_red(args, -pos);
-		}
+			pos = ms_redir_open(fd_red_in, args, pos, 3);
+		if (pos != 0)
+			return (pos);
 		pos = ft_red_in_check(args);
 		if (pos != 0)
 		{
@@ -116,20 +101,11 @@ static int	ms_red_out(char **args, int *fd_red_out)
 	while (pos != 0)
 	{
 		if (pos > 0)
-		{
-			fd_red_out[1] = open(args[pos], O_CREAT | O_WRONLY | O_TRUNC, 0641);
-			if (fd_red_out[1] == -1)
-				return (pos);
-			ms_del_red(args, pos);
-		}
+			pos = ms_redir_open(fd_red_out, args, pos, 0);
 		else if (pos < 0)
-		{
-			fd_red_out[1] = open(args[-pos], O_CREAT | O_WRONLY | O_APPEND, \
-			0641);
-			if (fd_red_out[1] == -1)
-				return (-pos);
-			ms_del_red(args, -pos);
-		}
+			pos = ms_redir_open(fd_red_out, args, pos, 1);
+		if (pos != 0)
+			return (pos);
 		pos = ft_red_out_check(args);
 		if (pos != 0)
 		{
