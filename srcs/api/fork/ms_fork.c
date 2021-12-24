@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 16:44:02 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 16:52:08 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 	t_ms_command	*cmd;
 	t_ms_input		*input;
 
-	if (ft_isequals(command, "exit"))
-		exit(0);
 	cmd = ft_lstget(master->cmds, command, ms_cmd_get_key);
 	if (cmd)
 	{
@@ -29,18 +27,7 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 		exit(0);
 	}
 	else if (!ms_cmd_os(master, command, args))
-	{
-		if (errno == ENOENT)
-		{
-			ft_putstr_fd(master->name, 2);
-			ft_putstr_fd(": ", 2);
-			ft_putstr_fd(command, 2);
-			ft_putendl_fd(": command not found", 2);
-		}
-		else
-			ms_print_error(master->name, command);
-		exit(127);
-	}
+		ms_print_cmd_not_found(master->name, command);
 	exit(-1);
 }
 

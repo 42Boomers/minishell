@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 16:41:11 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 17:15:19 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,14 @@ void			ms_heredoc(int fd, char *s_eof);
 void			register_signal_main(void);
 void			register_signal_fork(void);
 void			ctrl_c_fork(int signum, siginfo_t *sig_info, void *ucontext_t);
-void			ctrl_c_normal(int signum, siginfo_t *sig_info, void *ucontext_t);
-void			ctrl_bs_normal(int signum, siginfo_t *sig_info, void *ucontext_t);
+void			ctrl_c_normal(int signum, siginfo_t *sig_info,
+					void *ucontext_t);
+void			ctrl_bs_normal(int signum, siginfo_t *sig_info,	
+					void *ucontext_t);
 void			ctrl_bs_fork(int signum, siginfo_t *sig_info, void *ucontext_t);
+void			ms_print_cmd_not_found(char *name, char *cmd);
+t_list			*lst_cpy(t_list *lst);
+void			map_swap(t_env *arg1, t_env *arg2);
 
 /*-------------------------------{ API }-------------------------------*/
 void			ft_println(char *str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 16:21:23 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/24 17:06:49 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@ static void	ms_exit(t_ms_input *input, int status_code)
 {
 	ms_free_master(input->cmd->master);
 	exit(status_code);
+}
+
+static void	ms_exit_error(t_ms_input *input, int i)
+{
+	if (!ft_isdigit(input->args[0][i]))
+	{
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(input->args[0], 2);
+		ft_putendl_fd(": numeric argument required", 2);
+		ms_exit(input, 255);
+	}
 }
 
 static t_bool	ms_exit_execute(t_ms_input *input)
@@ -31,15 +42,7 @@ static t_bool	ms_exit_execute(t_ms_input *input)
 	if (input->args[0][0] == '-')
 		i++;
 	while (input->args[0][++i])
-	{
-		if (!ft_isdigit(input->args[0][i]))
-		{
-			ft_putstr_fd("minishell: exit: ", 2);
-			ft_putstr_fd(input->args[0], 2);
-			ft_putendl_fd(": numeric argument required", 2);
-			ms_exit(input, 255);
-		}
-	}
+		ms_exit_error(input, i);
 	if (input->args_size > 1)
 	{
 		ft_putstr_fd(input->cmd->master->name, 2);
