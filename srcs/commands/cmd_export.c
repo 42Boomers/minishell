@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 00:30:33 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 16:52:22 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_list 	*lst_cpy(t_list *lst)
+static t_list	*lst_cpy(t_list *lst)
 {
-	t_list *cpy;
+	t_list	*cpy;
 
 	while (lst)
 	{
@@ -24,23 +24,23 @@ static t_list 	*lst_cpy(t_list *lst)
 	return (cpy);
 }
 
-static void    map_swap(t_env *arg1, t_env *arg2)
+static void	map_swap(t_env *arg1, t_env *arg2)
 {
-    t_env    temp;
+	t_env	temp;
 
-    temp.key = arg1->key;
-    temp.value = arg1->value;
-    arg1->key = arg2->key;
-    arg1->value = arg2->value;
-    arg2->key = temp.key;
-    arg2->value = temp.value;
+	temp.key = arg1->key;
+	temp.value = arg1->value;
+	arg1->key = arg2->key;
+	arg1->value = arg2->value;
+	arg2->key = temp.key;
+	arg2->value = temp.value;
 }
 
 static void	export_print(t_master *master)
 {
-	t_list *lst;
-	t_list *cpy;
-	t_list *to_print;
+	t_list	*lst;
+	t_list	*cpy;
+	t_list	*to_print;
 
 	lst = lst_cpy(master->envs);
 	while (lst)
@@ -49,12 +49,14 @@ static void	export_print(t_master *master)
 		to_print = lst->next;
 		while (to_print)
 		{
-			if (ft_strcmp(((t_env *)(lst->content))->key, ((t_env *)(to_print->content))->key) > 0)
+			if (ft_strcmp(((t_env *)(lst->content))->key, \
+				((t_env *)(to_print->content))->key) > 0)
 				map_swap(lst->content, to_print->content);
 			to_print = to_print->next;
 		}
 		if (((t_env *)(lst->content))->value)
-			printf("declare -x %s=\"%s\"\n", ((t_env *)(lst->content))->key, ((t_env *)(lst->content))->value);
+			printf("declare -x %s=\"%s\"\n", ((t_env *)(lst->content))->key, \
+			((t_env *)(lst->content))->value);
 		else
 			printf("declare -x %s\n", ((t_env *)(lst->content))->key);
 		lst = lst->next;

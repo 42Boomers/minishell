@@ -22,12 +22,9 @@ Le CTRL + C doit faire comme bash
 - sylducam
   all srcs in Makefile
   finish norming
-    > srcs/commands/cmd_exit.c: Error!
-      srcs/commands/cmd_export.c: Error!
-      srcs/init/master_init.c: Error!
       srcs/signals/handler_signal.c: Error!
       srcs/signals/signal_bs.c: Error!
-    > tglory needs to cut some functions (+25 lines) before I finish :
-      - ms_exit_execute in cmd_exit.c
-      - 
+    > recheck all but especially :
+      cmd_exit.c
+      cmd_export.c
   
