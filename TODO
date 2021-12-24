@@ -2,12 +2,17 @@ Le CTRL + C doit faire comme bash
 - Afficher "^C" (FAIT)
 - Supprimer le message en cours
 - gere le cas exit | exit 32 (32 n'etant qu'un exemple)
+- 2 warnings le 24/12/2021 a 16h :
+      > srcs/api/readline/ms_readline.c:15:23: warning: unused parameter 'master' [-Wunused-parameter]
+        void    exiter(t_master *master, char **raw_args)
+      > srcs/api/readline/ms_readline.c:15:23: warning: unused parameter 'master' [-Wunused-parameter]
+        void    exiter(t_master *master, char **raw_args)
 
 - tglory :
   heredoc -> ctrl C ne marche pas et le 2eme CTRL D fait un segfault
   TODO add mechanic: echo '$USER' -> should print -> $USER and not tglory (idea: replace '$USER' with '\$USER' in ft_split_ultime)
   fix echo t"$USER" -> sould print -> ttglory and not "tglory
-  faire le CTRL + \ dans un fork & annuler l'action dans le process principal 
+  faire le CTRL + \ dans un fork & annuler l'action dans le process principal
 
 - mrozniec :
   gerer les cd ~
@@ -15,7 +20,14 @@ Le CTRL + C doit faire comme bash
 	< test ""
 
 - sylducam
-  .ms_heredoc
   all srcs in Makefile
   finish norming
-    - ms_fork.c, redirect.c, ft_split_ultimate.c , utils_fork.c, utils_redir.c (Max)
+    > srcs/commands/cmd_exit.c: Error!
+      srcs/commands/cmd_export.c: Error!
+      srcs/init/master_init.c: Error!
+      srcs/signals/handler_signal.c: Error!
+      srcs/signals/signal_bs.c: Error!
+    > tglory needs to cut some functions (+25 lines) before I finish :
+      - ms_exit_execute in cmd_exit.c
+      - 
+  
