@@ -28,3 +28,46 @@ Le CTRL + C doit faire comme bash
       cmd_export.c
       ft_split_ultimate.c
   
+git submodule update a chaque fois au debut pour mettre a jour les modif que
+tglory a faites a sa libft
+
+Ask tglory :
+Comment les headers sont ajoutes sans le path complet ?
+	-> tristan : d
+Comment objs bien classes ? Makefileans le make, argument "-Iincludes -Ilibft -Ilibft/gnl -Ilibft/custom" lors de la compil
+	-> tristan : renome le prefix du path des *.o en objs lors du convertion des noms de %.c en %.o
+	-> syl : J'ai besoin de plus d'explications par rapport a ca
+dossier objs libft (Makefile)
+	-> tristan : Virer parce que les testers aiment pas :/
+	-> syl : les testers de minishell ? Tu peux m'en dire plus ?
+minishell.h:95   Alors, on a un enum booleen, qui renvoie -1, 0 ou pas 0 (deja,
+				 ca, je comprends pas). Maintenant, cet enum booleen devient une
+				 structure (t_ms_input *)(???) qui elle meme prend le nom de
+				 analyze, execute ou print mais en (*analyze), wtf ??? Tu
+				 dereference quoi avec ce (*nom), ou alors c'est un cast ? Mais
+				 un cast de quoi ? Je comprends rien T_T
+
+
+qu'est-ce qu'il se passe quand j'appuie sur enter ou que je lance n'importe
+quelle commande ? Comment ca se passe dans le code ? rl_??
+
+il reste des warnings quand on make. Surtout des variables ou fonctions non
+utilisees, donc juste besoin de faire du menage
+
+pb avec ecrire exit dans un minishell embeded
+
+--------------------------------------------------------------------------------
+SIGNAUX
+https://man7.org/linux/man-pages/man2/sigaction.2.html
+
+les codes retour
+virer les coms
+recherche de leaks
+mettre la libft a la racine
+faire mise a la norme
+
+notes utiles pour moi dans mon repo minishell sur mon github
+if you need anything from your sylducams_desk, I pushed it to usefull_stuff
+on 202112241727
+
+---------------------------------END OF sylducam's notes------------------------
