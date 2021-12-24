@@ -20,7 +20,6 @@ Le CTRL + C doit faire comme bash
 	< test ""
 
 - sylducam
-  all srcs in Makefile
   finish norming
     > recheck all but especially :
       ms_fork.c
