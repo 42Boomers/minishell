@@ -22,9 +22,9 @@ Le CTRL + C doit faire comme bash
 - sylducam
   all srcs in Makefile
   finish norming
-      srcs/signals/handler_signal.c: Error!
-      srcs/signals/signal_bs.c: Error!
     > recheck all but especially :
+      ms_fork.c
       cmd_exit.c
       cmd_export.c
+      ft_split_ultimate.c
   
