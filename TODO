@@ -1,6 +1,7 @@
 Le CTRL + C doit faire comme bash 
 - Afficher "^C" (FAIT)
 - Supprimer le message en cours
+- gere le cas exit | exit 32 (32 n'etant qu'un exemple)
 
 - tglory :
   heredoc -> ctrl C ne marche pas et le 2eme CTRL D fait un segfault
