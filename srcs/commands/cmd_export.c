@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 17:18:20 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 17:29:40 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	export_print(t_master *master)
 	}
 }
 
-static t_bool	ms_export_print_not_valid(char *str)
+static void	ms_export_print_not_valid(char *str)
 {
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(str, 2);
@@ -79,6 +79,7 @@ static t_bool	ms_export_print(t_ms_input *input)
 		export_print(input->cmd->master);
 	while (input->args_size > i)
 	{
+		tmp = NULL;
 		if (ms_export_check_var(input->cmd->master, tmp, input->args[i]))
 			ms_env_free(tmp);
 		i++;
