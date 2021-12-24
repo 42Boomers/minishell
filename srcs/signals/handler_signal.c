@@ -14,12 +14,7 @@
 
 void	unlink_heredoc(void)
 {
-	int	fd;
-
-	fd = 0;
-	fd = open(".ms_heredoc", O_RDONLY);
-	if (fd)
-		unlink(".ms_heredoc");
+	unlink(".ms_heredoc");
 }
 
 static void	ctrl_c_fork(int signum, siginfo_t *sig_info, void *ucontext_t)
