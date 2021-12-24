@@ -134,6 +134,7 @@ int				ft_check_bad(int pos, char **args);
 void			ms_check_redir(char **command, char **args);
 int				ft_redir_error(int ret, char **args);
 int				ms_redir_open(int *fd, char **args, int pos, int option);
+int				ms_bad_redir_error(char **args, int pos);
 int				ft_pres_red(char **args);
 int				ft_red_pip_cmd(char **command, char **args, t_master *master);
 void			ms_del_red(char **args, int pos);
