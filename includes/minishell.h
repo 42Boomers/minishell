@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 00:26:24 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 04:29:12 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <fcntl.h>
 # include <dirent.h>
 # include <string.h>
+# include <termios.h> 
 
 /*-----------------------------{ BOOLEAN }-----------------------------*/
 typedef enum s_bool
@@ -142,6 +143,8 @@ void			ms_heredoc(int fd, char *s_eof);
 void			fork_deleted(void);
 void			fork_created(void);
 int				register_signal_main(void);
+void 			ctrl_bs_register(void);
+void 			ctrl_bs_unregister(void);
 
 /*-------------------------------{ API }-------------------------------*/
 void			ft_println(char *str);

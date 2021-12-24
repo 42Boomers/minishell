@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands_launch.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:00:00 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 00:17:22 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/24 03:51:17 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	*ms_cmd_launch_free(char *command, char **args)
 	while (args[i])
 		free(args[i++]);
 	free(args);
-	if (!command)
+	if (command)
 		free(command);
 	return (NULL);
 }
