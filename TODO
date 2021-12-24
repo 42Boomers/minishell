@@ -29,14 +29,20 @@ Problemes :
 Exemple 1 :
 1 - on lance un minishell dans un minishell (2 minishells imbriques)
 2 - on fait ctrl-c
-3 - on ecrit exit
-Resultat : - presque impossible d'ecrire exit
-           - ctrl-d, par contre, marche bien. Il quitte les 2 minishells d'un coup
-Exemple 2 :
+3 - on tente d'exit
+Pour cela deux techniques :
+1 - ecrire exit
+2 - ctrl-d
+MAIS
+1 - il est presque impossible d'ecrire quoi que ce soit
+2 - ctrl-d par contre, marche bien. Il quitte les 2 minishells d'un coup
+
+Exemple 2 : (revoir le ctrl-d, le resultat n'est pas sur d'etre celui que j'ai ecrit)
 1 - on lance un minishell dans un minishell dans un minishell (3 minishells imbriques)
-2 - on fait ctrl-c
-3.1 - on ecrit exit
-3.2 - 
+2 et 3 - meme procedure que dans l'Exemple 1
+Resultat :
+1 - encore plus impossible d'ecrire exit (ou quoi que ce soit, bien evidemment)
+2 - ctrl-d doit etre fait 2 fois mais il exit bien les 3 minishells proprement
 --------------------------------------------------------------------------------
 SIGNAUX
 https://man7.org/linux/man-pages/man2/sigaction.2.html
