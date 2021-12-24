@@ -55,10 +55,12 @@ static char	**ft_ttabcrea(char const *s, char c)
 			n++;
 		if (s[n] != c && s[n] != '\0')
 			line++;
-		n = ft_skip(s, n);
 		while (s[n] != c && s[n] != '\0' && s[n] != '|' && s[n] != '<' && \
 		s[n] != '>')
+		{
+			n = ft_skip(s, n);
 			n++;
+		}
 		if (s[n] == '|' || s[n] == '<' || s[n] == '>')
 			line++;
 		if (s[n] == '|' || s[n] == '<' || s[n] == '>')
@@ -75,22 +77,22 @@ static char	**ft_ttabcrea(char const *s, char c)
 
 static char	*ft_fillstr(char const *s, char c, int n)
 {
-	int		m[2];
+	int		m[4];
 	char	*strs;
 
 	m[0] = n;
+	m[2] = 0;
+	m[3] = 0;
 	if (s[n] != '|' && s[n] != '<' && s[n] != '>')
 	{
 		while (s[n] != '\0' && s[n] != c && s[n] != '|' && s[n] != '<' && \
 			s[n] != '>')
 		{
 			n = ft_skip(s, n);
+			if (s[n] == '\'' || s[n] == '\"')
+				m[2] += 2;
 			n++;
 		}
-		if (s[n - 1] == '\"' || s[n - 1] == '\'')
-			m[0]++;
-		if (s[n - 1] == '\"' || s[n - 1] == '\'')
-			n--;
 	}
 	else if (s[n] == '|' || (s[n] == '<' && s[n + 1] != '<') || \
 	(s[n] == '>' && s[n + 1] != '>'))
@@ -103,9 +105,21 @@ static char	*ft_fillstr(char const *s, char c, int n)
 	if (!strs)
 		return (NULL);
 	m[1] = m[0];
-	while (m[0] > 0)
+	while ((m[0] - m[2]) > 0)
 	{
-		strs[m[1] - m[0]] = s[n - m[0]];
+		while (s[n - m[0]] == '\"' || s[n - m[0]] == '\'')
+		{
+			if (s[n - m[0]] == '\'')
+				m[3] = !m[3];
+			n++;
+		}
+		if (s[n - m[0]] == '$' && m[3] != 0) {
+			strs[m[1] - m[0]] = '\\';
+			m[1]++;
+			strs[m[1] - m[0]] = s[n - m[0]];
+		}
+		else
+			strs[m[1] - m[0]] = s[n - m[0]];
 		m[0]--;
 	}
 	strs[m[1]] = '\0';
