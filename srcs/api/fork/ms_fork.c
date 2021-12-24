@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 00:46:02 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 16:52:08 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 	t_ms_command	*cmd;
 	t_ms_input		*input;
 
-	if (ft_isequals(command, "exit"))
-		exit(0);
 	cmd = ft_lstget(master->cmds, command, ms_cmd_get_key);
 	if (cmd)
 	{
@@ -29,18 +27,7 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 		exit(0);
 	}
 	else if (!ms_cmd_os(master, command, args))
-	{
-		if (errno == ENOENT)
-		{
-			ft_putstr_fd(master->name, 2);
-			ft_putstr_fd(": ", 2);
-			ft_putstr_fd(command, 2);
-			ft_putendl_fd(": command not found", 2);
-		}
-		else
-			ms_print_error(master->name, command);
-		exit(127);
-	}
+		ms_print_cmd_not_found(master->name, command);
 	exit(-1);
 }
 
@@ -53,7 +40,7 @@ static int	ms_wait_fork(t_master *master, char **args, int *redir, int pip_rec)
 		if (redir)
 		{
 			waitpid(master->pid, &status, 0);
-			fork_deleted();
+			register_signal_main();
 			master->last_status = WEXITSTATUS(status);
 			if (redir[0] > 0)
 				close(redir[0]);
@@ -102,7 +89,7 @@ static int	*ms_fork_init(int *fd_in, int pip_end[2], char **args, \
 		free(redir);
 		return (NULL);
 	}
-	fork_created();
+	register_signal_fork();
 	master->pid = fork();
 	if (master->pid < 0)
 	{

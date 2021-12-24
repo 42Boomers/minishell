@@ -6,41 +6,17 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 00:30:33 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 17:29:40 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_list 	*lst_cpy(t_list *lst)
-{
-	t_list *cpy;
-
-	while (lst)
-	{
-		ft_lstadd_back(&cpy, ft_lstnew(lst->content));
-		lst = lst->next;
-	}
-	return (cpy);
-}
-
-static void    map_swap(t_env *arg1, t_env *arg2)
-{
-    t_env    temp;
-
-    temp.key = arg1->key;
-    temp.value = arg1->value;
-    arg1->key = arg2->key;
-    arg1->value = arg2->value;
-    arg2->key = temp.key;
-    arg2->value = temp.value;
-}
-
 static void	export_print(t_master *master)
 {
-	t_list *lst;
-	t_list *cpy;
-	t_list *to_print;
+	t_list	*lst;
+	t_list	*cpy;
+	t_list	*to_print;
 
 	lst = lst_cpy(master->envs);
 	while (lst)
@@ -49,17 +25,47 @@ static void	export_print(t_master *master)
 		to_print = lst->next;
 		while (to_print)
 		{
-			if (ft_strcmp(((t_env *)(lst->content))->key, ((t_env *)(to_print->content))->key) > 0)
+			if (ft_strcmp(((t_env *)(lst->content))->key,
+				((t_env *)(to_print->content))->key) > 0)
 				map_swap(lst->content, to_print->content);
 			to_print = to_print->next;
 		}
 		if (((t_env *)(lst->content))->value)
-			printf("declare -x %s=\"%s\"\n", ((t_env *)(lst->content))->key, ((t_env *)(lst->content))->value);
+			printf("declare -x %s=\"%s\"\n", ((t_env *)(lst->content))->key,
+				((t_env *)(lst->content))->value);
 		else
 			printf("declare -x %s\n", ((t_env *)(lst->content))->key);
 		lst = lst->next;
 		free(cpy);
 	}
+}
+
+static void	ms_export_print_not_valid(char *str)
+{
+	ft_putstr_fd("minishell: export: `", 2);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd("`: not a valid identifier", 2);
+}
+
+static t_bool	ms_export_check_var(t_master *master, t_env *tmp, char *str)
+{
+	tmp = ms_env_create(str);
+	if (!tmp)
+	{
+		if (!check_var_arg(str))
+			ms_export_print_not_valid(str);
+		return (FALSE);
+	}
+	if (!check_var_arg(tmp->key))
+	{
+		if (*tmp->key)
+			ms_export_print_not_valid(tmp->key);
+		else
+			ms_export_print_not_valid(str);
+	}
+	else if (!ms_env_add_raw(master, str))
+		ms_export_print_not_valid(str);
+	return (TRUE);
 }
 
 static t_bool	ms_export_print(t_ms_input *input)
@@ -73,34 +79,9 @@ static t_bool	ms_export_print(t_ms_input *input)
 		export_print(input->cmd->master);
 	while (input->args_size > i)
 	{
-		tmp = ms_env_create(input->args[i]);
-		if (!tmp)
-		{
-			if (!check_var_arg(input->args[i]))
-			{
-				ft_putstr_fd("minishell: export: `", 2);
-				ft_putstr_fd(input->args[i], 2);
-				ft_putendl_fd("`: not a valid identifier", 2);
-			}
-			i++;
-			continue ;
-		}
-		if (!check_var_arg(tmp->key))
-		{
-			ft_putstr_fd("minishell: export: `", 2);
-			if (*tmp->key)
-				ft_putstr_fd(tmp->key, 2);
-			else
-				ft_putstr_fd(input->args[i], 2);
-			ft_putendl_fd("`: not a valid identifier", 2);
-		}
-		else if (!ms_env_add_raw(input->cmd->master, input->args[i]))
-		{
-			ft_putstr_fd("minishell: export: `", 2);
-			ft_putstr_fd(input->args[i], 2);
-			ft_putendl_fd("`: not a valid identifier", 2);
-		}
-		ms_env_free(tmp);
+		tmp = NULL;
+		if (ms_export_check_var(input->cmd->master, tmp, input->args[i]))
+			ms_env_free(tmp);
 		i++;
 	}
 	return (TRUE);

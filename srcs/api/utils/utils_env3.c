@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:41:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 13:14:49 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 17:15:11 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,16 @@ t_bool	ms_env_add_raw(t_master *master, char *raw_env)
 	if (ft_isequals(env->key, "PATH"))
 		ms_env_path_refresh(master);
 	return (TRUE);
+}
+
+void	map_swap(t_env *arg1, t_env *arg2)
+{
+	t_env		temp;
+
+	temp.key = arg1->key;
+	temp.value = arg1->value;
+	arg1->key = arg2->key;
+	arg1->value = arg2->value;
+	arg2->key = temp.key;
+	arg2->value = temp.value;
 }
