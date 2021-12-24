@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 04:29:12 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 15:58:15 by sylducam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ t_bool			ms_test_cmd(t_master *master);
 t_bool			ms_readline(t_master *master);
 void			ft_sigint(void *master);
 void			ft_sigquit(void *master);
-// void			ms_register_signals(t_master *master);
 int				ft_pipe_check(char **args);
 void			ms_fork(t_master *master, char *command, \
 				char **args, int args_size);
@@ -144,8 +143,8 @@ void			ms_heredoc(int fd, char *s_eof);
 void			fork_deleted(void);
 void			fork_created(void);
 int				register_signal_main(void);
-void 			ctrl_bs_register(void);
-void 			ctrl_bs_unregister(void);
+void			ctrl_bs_register(void);
+void			ctrl_bs_unregister(void);
 
 /*-------------------------------{ API }-------------------------------*/
 void			ft_println(char *str);
