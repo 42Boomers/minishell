@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 16:38:53 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 16:44:02 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,33 @@ static void	ms_child(t_master *master, char *command, char **args, int args_siz)
 	exit(-1);
 }
 
-static int	ms_wait_fork(t_master *master, char **args, int *redir)
+static int	ms_wait_fork(t_master *master, char **args, int *redir, int pip_rec)
 {
 	int	status;
 
-	if (redir)
+	if (pip_rec > 0)
 	{
-		waitpid(master->pid, &status, 0);
-		register_signal_main();
-		master->last_status = WEXITSTATUS(status);
-		if (redir[0] > 0)
-			close(redir[0]);
-		if (redir[1] > 0)
-			close(redir[1]);
-		free(redir);
+		if (redir)
+		{
+			waitpid(master->pid, &status, 0);
+			register_signal_main();
+			master->last_status = WEXITSTATUS(status);
+			if (redir[0] > 0)
+				close(redir[0]);
+			if (redir[1] > 0)
+				close(redir[1]);
+			free(redir);
+		}
+		pip_rec = ft_pipe_check(args);
 	}
-	return (ft_pipe_check(args));
+	else if (pip_rec == 0)
+	{
+		pip_rec = ft_pipe_check(args);
+		if (pip_rec < 0)
+			write(2, \
+					"minishell: syntax error near unexpected token `|'\n", 50);
+	}
+	return (pip_rec);
 }
 
 static char	*ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
@@ -122,15 +133,7 @@ void	ms_fork(t_master *master, char *command, char **args, int args_size)
 			ms_child(master, command, args, args_size);
 		else
 		{
-			if (pip_rec > 0)
-				pip_rec = ms_wait_fork(master, args, redir);
-			else if (pip_rec == 0)
-			{
-				pip_rec = ft_pipe_check(args);
-				if (pip_rec < 0)
-					write(2, \
-					"minishell: syntax error near unexpected token `|'\n", 50);
-			}
+			pip_rec = ms_wait_fork(master, args, redir, pip_rec);
 			if (pip_rec > 0)
 				command = ms_next_fork(pip_rec, pip_end, &fd_in, &args);
 		}

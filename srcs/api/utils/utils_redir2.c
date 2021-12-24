@@ -47,3 +47,15 @@ int	ms_redir_open(int *fd, char **args, int pos, int option)
 		return (ft_heredoc(fd, args, pos));
 	return (0);
 }
+
+int	ms_bad_redir_error(char **args, int pos)
+{
+	char	*ret;
+
+	ret = \
+		ft_strjoin_plus("minishell: syntax error near unexpected token `", \
+		args[pos], "\'\n");
+	ft_putstr_fd(ret, 2);
+	free(ret);
+	return (-1);
+}
