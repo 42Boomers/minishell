@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 17:15:19 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 18:30:48 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,11 @@ t_bool			ms_file_is_dir(char *dname);
 void			ms_set_status(t_master *master, int status);
 void			ms_pwd_set(t_master *master, char *new_pwd);
 char			**ft_split_ultimate(char const *s, char c);
+int				ft_split_ultimate2(char const *s, char c, int n);
+t_bool			ft_fillstr2(char const *s, char c, int *n, int *m);
+char			*ft_fillstr3(char const *s, char *strs, int *n, int *m);
+int				ft_ttabcrea2(char const *s, char c, int n, int *line);
+int				ft_skip(const char *s, int n);
 char			*ms_prefix_get(t_master *master);
 char			**ft_join_chars(char **array1, char **array2);
 void			ms_print_error(char *prog_name, char *cmd_name);

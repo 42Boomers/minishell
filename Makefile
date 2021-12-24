@@ -17,7 +17,7 @@ SRCS				=	srcs/api/commands/commands_actions.c srcs/api/commands/commands_launch
 						srcs/api/utils/utils_str.c srcs/api/utils/utils_var_parsing.c srcs/api/write/ms_write.c srcs/commands/cmd_export.c \
 						srcs/commands/cmd_cd.c srcs/commands/cmd_echo.c srcs/commands/cmd_env.c srcs/commands/cmd_exit.c \
 						srcs/commands/cmd_help.c srcs/commands/cmd_pwd.c srcs/commands/cmd_unset.c srcs/init/master_init.c \
-						srcs/main.c srcs/signals/handler_signal.c srcs/signals/handler_signal2.c srcs/test.c
+						srcs/main.c srcs/signals/handler_signal.c srcs/signals/handler_signal2.c srcs/test.c srcs/api/utils/ft_split_ultimate2.c
 
 OBJS				=	$(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 CFLAGS				=	-Wall -Wextra -Werror -g3

@@ -3,43 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_ultimate.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 18:02:37 by mrozniec          #+#    #+#             */
-/*   Updated: 2021/12/24 00:37:51 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/24 18:35:50 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	ft_skip(const char *s, int n)
-{
-	while (s[n] && s[n + 1] && s[n] == '\\')
-		n += 2;
-	if (s[n] == '\"')
-	{
-		n++;
-		while (s[n] && s[n] != '\"')
-		{
-			if (s[n + 1] && s[n] == '\\')
-				n += 2;
-			else
-				n++;
-		}
-	}
-	if (s[n] == '\'')
-	{
-		n++;
-		while (s[n] && s[n] != '\'')
-		{
-			if (s[n + 1] && s[n] == '\\')
-				n += 2;
-			else
-				n++;
-		}
-	}
-	return (n);
-}
 
 static char	**ft_ttabcrea(char const *s, char c)
 {
@@ -50,25 +21,7 @@ static char	**ft_ttabcrea(char const *s, char c)
 	n = 0;
 	line = 0;
 	while (s[n] != '\0')
-	{
-		while (s[n] == c)
-			n++;
-		if (s[n] != c && s[n] != '\0')
-			line++;
-		while (s[n] != c && s[n] != '\0' && s[n] != '|' && s[n] != '<' && \
-		s[n] != '>')
-		{
-			n = ft_skip(s, n);
-			n++;
-		}
-		if (s[n] == '|' || s[n] == '<' || s[n] == '>')
-			line++;
-		if (s[n] == '|' || s[n] == '<' || s[n] == '>')
-			n++;
-		if ((s[n] == '<' && s[n - 1] == '<') || (s[n] == '>' && \
-		s[n - 1] == '>'))
-			n++;
-	}
+		n = ft_ttabcrea2(s, c, n, &line);
 	strs = malloc(sizeof(char *) * (line + 1));
 	if (!strs)
 		return (NULL);
@@ -83,47 +36,21 @@ static char	*ft_fillstr(char const *s, char c, int n)
 	m[0] = n;
 	m[2] = 0;
 	m[3] = 0;
-	if (s[n] != '|' && s[n] != '<' && s[n] != '>')
+	if (!ft_fillstr2(s, c, &n, m))
 	{
-		while (s[n] != '\0' && s[n] != c && s[n] != '|' && s[n] != '<' && \
-			s[n] != '>')
-		{
-			n = ft_skip(s, n);
-			if (s[n] == '\'' || s[n] == '\"')
-				m[2] += 2;
+		if (s[n] == '|' || (s[n] == '<' && s[n + 1] != '<') || \
+		(s[n] == '>' && s[n + 1] != '>'))
 			n++;
-		}
+		else if ((s[n] == '<' && s[n + 1] == '<') || \
+		(s[n] == '>' && s[n + 1] == '>'))
+			n += 2;
 	}
-	else if (s[n] == '|' || (s[n] == '<' && s[n + 1] != '<') || \
-	(s[n] == '>' && s[n + 1] != '>'))
-		n++;
-	else if ((s[n] == '<' && s[n + 1] == '<') || \
-	(s[n] == '>' && s[n + 1] == '>'))
-	n += 2;
 	m[0] = n - m[0];
 	strs = malloc(sizeof(char) * (m[0] + 1));
 	if (!strs)
 		return (NULL);
 	m[1] = m[0];
-	while ((m[0] - m[2]) > 0)
-	{
-		while (s[n - m[0]] == '\"' || s[n - m[0]] == '\'')
-		{
-			if (s[n - m[0]] == '\'')
-				m[3] = !m[3];
-			n++;
-		}
-		if (s[n - m[0]] == '$' && m[3] != 0) {
-			strs[m[1] - m[0]] = '\\';
-			m[1]++;
-			strs[m[1] - m[0]] = s[n - m[0]];
-		}
-		else
-			strs[m[1] - m[0]] = s[n - m[0]];
-		m[0]--;
-	}
-	strs[m[1]] = '\0';
-	return (strs);
+	return (ft_fillstr3(s, strs, &n, m));
 }
 
 static char	**ft_free_error(char **strs, int line)
@@ -157,20 +84,7 @@ char	**ft_split_ultimate(char const *s, char c)
 			if (!strs[line - 1])
 				return (ft_free_error(strs, line - 1));
 		}
-		if (s[n] == '|' || s[n] == '<' || s[n] == '>')
-		{
-			n++;
-			if ((s[n] == '<' && s[n - 1] == '<') || (s[n] == '>' && \
-				s[n - 1] == '>'))
-				n++;
-		}
-		else
-		{
-			n = ft_skip(s, n);
-			while (s[n] != c && s[n] != '\0' && s[n] != '|' && s[n] != '<' && \
-			s[n] != '>')
-				n++;
-		}
+		n = ft_split_ultimate2(s, c, n);
 	}
 	strs[line] = NULL;
 	return (strs);
