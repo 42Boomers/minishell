@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 15:58:15 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/24 16:41:11 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,11 +140,12 @@ void			ms_fork_init2(char **args, int *redir, int pip_end[2],
 					int *fd_in);
 int				ms_error_pipe(int pip_end[2]);
 void			ms_heredoc(int fd, char *s_eof);
-void			fork_deleted(void);
-void			fork_created(void);
-int				register_signal_main(void);
-void			ctrl_bs_register(void);
-void			ctrl_bs_unregister(void);
+void			register_signal_main(void);
+void			register_signal_fork(void);
+void			ctrl_c_fork(int signum, siginfo_t *sig_info, void *ucontext_t);
+void			ctrl_c_normal(int signum, siginfo_t *sig_info, void *ucontext_t);
+void			ctrl_bs_normal(int signum, siginfo_t *sig_info, void *ucontext_t);
+void			ctrl_bs_fork(int signum, siginfo_t *sig_info, void *ucontext_t);
 
 /*-------------------------------{ API }-------------------------------*/
 void			ft_println(char *str);

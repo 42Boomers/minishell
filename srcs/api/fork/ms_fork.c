@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 00:46:02 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 16:38:53 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	ms_wait_fork(t_master *master, char **args, int *redir)
 	if (redir)
 	{
 		waitpid(master->pid, &status, 0);
-		fork_deleted();
+		register_signal_main();
 		master->last_status = WEXITSTATUS(status);
 		if (redir[0] > 0)
 			close(redir[0]);
@@ -91,7 +91,7 @@ static int	*ms_fork_init(int *fd_in, int pip_end[2], char **args, \
 		free(redir);
 		return (NULL);
 	}
-	fork_created();
+	register_signal_fork();
 	master->pid = fork();
 	if (master->pid < 0)
 	{
