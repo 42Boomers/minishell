@@ -67,6 +67,7 @@ static char	*ms_next_fork(int pip_rec, int pip_end[2], int *fd_in, char ***args)
 	char	*command;
 
 	close(pip_end[1]);
+	close(*fd_in);
 	*fd_in = pip_end[0];
 	command = (*args)[pip_rec];
 	*args = &((*args)[pip_rec + 1]);
@@ -134,4 +135,7 @@ void	ms_fork(t_master *master, char *command, char **args, int args_size)
 				command = ms_next_fork(pip_rec, pip_end, &fd_in, &args);
 		}
 	}
+	close(fd_in);
+	close(pip_end[0]);
+	close(pip_end[1]);
 }

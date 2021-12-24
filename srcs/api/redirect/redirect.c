@@ -61,6 +61,7 @@ static int	ms_red_in(char **args, int *fd_red_in)
 			if (*fd_red_in == -1)
 				return (-1);
 			ms_heredoc(*fd_red_in, args[-pos]);
+			close(*fd_red_in);
 			*fd_red_in = open(".ms_heredoc", O_RDONLY);
 			if (*fd_red_in == -1)
 				return (-1);
