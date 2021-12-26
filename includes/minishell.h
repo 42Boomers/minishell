@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 19:55:47 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/26 20:22:58 by mrozniec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,12 +187,12 @@ t_bool			ms_file_can_use(char *fname);
 t_bool			ms_file_is_dir(char *dname);
 void			ms_set_status(t_master *master, int status);
 void			ms_pwd_set(t_master *master, char *new_pwd);
-char			**ft_split_ultimate(char const *s, char c);
+char			**ft_split_ultimate(t_master *master, char const *s, char c);
 int				ft_split_ultimate2(const char *s, int n, char c);
-int				ft_fillstr2(const char *s, int n, char c, int m[4]);
-void			ft_fillstr3(const char *s, int n, char *strs, int m[4]);
+char			*ft_fillstr2(t_master *master, const char *s, char *strs, int m[3]);
+char			*ft_fillstr3(const char *s, char *strs, int n, int m[3]);
 int				ft_ttabcrea2(const char *s, int n, char c, int *line);
-int				ft_skip(const char *s, int n, int *dollars);
+int				ft_skip(const char *s, int n);
 int				ft_skip2(const char *s, int n);
 char			*ms_prefix_get(t_master *master);
 char			**ft_join_chars(char **array1, char **array2);

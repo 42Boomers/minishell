@@ -114,8 +114,6 @@ void	ms_fork(t_master *master, char *command, char **args, int args_size)
 		pip_rec = ft_red_pip_cmd(&command, args, master);
 		if (pip_rec > 0 && ms_error_pipe(pip_end) == -1)
 			return ;
-		if (pip_rec == 2)
-			break ;
 		if (pip_rec > 0)
 			redir = ms_fork_init(&fd_in, pip_end, args, master);
 		if (pip_rec > 0 && master->pid == 0)

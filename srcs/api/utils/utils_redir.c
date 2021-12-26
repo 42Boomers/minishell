@@ -85,7 +85,7 @@ static int	ms_builtin(t_master *master, char *comd, char **args)
 	ms_garbage_free(&input->garbage);
 	free(temp);
 	free(input);
-	return (2);
+	return (0);
 }
 
 int	ft_red_pip_cmd(char **command, char **args, t_master *master)

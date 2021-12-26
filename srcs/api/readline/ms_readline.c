@@ -17,7 +17,7 @@ t_bool	ms_readline_two(t_master *master, char *input)
 	char	**raw_args;
 	int		i;
 
-	raw_args = ft_split_ultimate(input, ' ');
+	raw_args = ft_split_ultimate(master, input, ' ');
 	if (raw_args && raw_args[0])
 	{
 		i = 0;

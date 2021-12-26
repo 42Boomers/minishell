@@ -6,7 +6,7 @@
 /*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/23 22:41:53 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/26 17:30:12 by mrozniec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int ac, char **av, char **evs)
 
 	if (ac >= 3 && !ft_strncmp(av[1], "-c", 3))
 	{
-		split = ft_split_ultimate(av[2], ' ');
+		split = ft_split_ultimate(NULL, av[2], ' ');
 		size = 0;
 		while (split[size])
 			size++;
