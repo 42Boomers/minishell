@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 18:30:48 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 19:55:47 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void			ctrl_bs_fork(int signum, siginfo_t *sig_info, void *ucontext_t);
 void			ms_print_cmd_not_found(char *name, char *cmd);
 t_list			*lst_cpy(t_list *lst);
 void			map_swap(t_env *arg1, t_env *arg2);
+void			ms_fork_free(int fd_in, int pip_end0, int pip_end1);
 
 /*-------------------------------{ API }-------------------------------*/
 void			ft_println(char *str);
@@ -187,11 +188,12 @@ t_bool			ms_file_is_dir(char *dname);
 void			ms_set_status(t_master *master, int status);
 void			ms_pwd_set(t_master *master, char *new_pwd);
 char			**ft_split_ultimate(char const *s, char c);
-int				ft_split_ultimate2(char const *s, char c, int n);
-t_bool			ft_fillstr2(char const *s, char c, int *n, int *m);
-char			*ft_fillstr3(char const *s, char *strs, int *n, int *m);
-int				ft_ttabcrea2(char const *s, char c, int n, int *line);
-int				ft_skip(const char *s, int n);
+int				ft_split_ultimate2(const char *s, int n, char c);
+int				ft_fillstr2(const char *s, int n, char c, int m[4]);
+void			ft_fillstr3(const char *s, int n, char *strs, int m[4]);
+int				ft_ttabcrea2(const char *s, int n, char c, int *line);
+int				ft_skip(const char *s, int n, int *dollars);
+int				ft_skip2(const char *s, int n);
 char			*ms_prefix_get(t_master *master);
 char			**ft_join_chars(char **array1, char **array2);
 void			ms_print_error(char *prog_name, char *cmd_name);

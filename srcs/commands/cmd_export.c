@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 17:29:40 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 19:48:02 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static void	export_print(t_master *master)
 		else
 			printf("declare -x %s\n", ((t_env *)(lst->content))->key);
 		lst = lst->next;
-		free(cpy);
 	}
+	ft_lstclear(&lst, free);
 }
 
 static void	ms_export_print_not_valid(char *str)
@@ -73,13 +73,13 @@ static t_bool	ms_export_print(t_ms_input *input)
 	int		i;
 	t_env	*tmp;
 
+	tmp = NULL;
 	input->cmd->master->cmd_ret = 0;
 	i = 0;
 	if (input->args_size == 0)
 		export_print(input->cmd->master);
 	while (input->args_size > i)
 	{
-		tmp = NULL;
 		if (ms_export_check_var(input->cmd->master, tmp, input->args[i]))
 			ms_env_free(tmp);
 		i++;

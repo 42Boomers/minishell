@@ -1,6 +1,0 @@
-[submodule "libft"]
-	path = libft
-	url = https://github.com/tristiisch/libft.git
-[submodule "minishell_tester"]
-	path = tester
-	url = https://github.com/thallard/minishell_tester.git
