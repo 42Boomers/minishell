@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/26 20:22:58 by mrozniec         ###   ########.fr       */
+/*   Updated: 2021/12/27 20:47:08 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ t_bool			ms_str_equals(char *str1, char*str2);
 t_bool			ms_str_equals_ignore(char *str1, char *str2);
 t_bool			ms_env_init(t_master *master, char **envs);
 char			*ms_env_get(t_master *master, char *key);
-t_bool			ms_env_remove(t_master *master, char *key);
+void			ms_env_remove(t_master *master, char *key);
 char			**ms_env_format(t_master *master);
 char			**ms_env_replace(t_master *master, char *key, char *value);
 void			ms_env_destroy(t_master *master);

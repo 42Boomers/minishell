@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 22:36:30 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 23:43:12 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/27 20:26:16 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ char	*ms_prefix_get_custom(t_master *master)
 	{
 		if (ft_isequals(pwd, home))
 			return (ft_strdup("~"));
-		data = ms_prefix_short(pwd, home);
+		// data = ms_prefix_short(pwd, home);
+		// @author tglory : Faut tester quand le pwd est dans goinfre,
+		// j'ai remarqué un bug. Si la ligne commanté du dessus bug,
+		// autant la supprimer
 	}
 	if (!data)
 		return (ft_strdup(pwd));
