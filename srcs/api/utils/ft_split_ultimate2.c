@@ -51,12 +51,17 @@ char	*ft_fillstr2(t_master *master, const char *s, char *strs, int m[3])
 {
 	char	*strs_old;
 	char	*temp;
+	char	*tmp_env;
 
 	strs_old = strs;
 	temp = ft_substr(s, m[0], m[2] - m[0]);
 	m[0] = m[2] + 1;
 	if (master && ft_strlen(temp) > 0 && m[1] == 0)
-		temp = ms_env_parse(master, temp);
+	{
+		tmp_env = ms_env_parse(master, temp);
+		free(temp);
+		temp = tmp_env;
+	}
 	if (s[m[2]] == '\'')
 		m[1] = !m[1];
 	if (temp)
