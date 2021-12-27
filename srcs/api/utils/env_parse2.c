@@ -74,7 +74,7 @@ t_bool	ms_env_parse_search(t_env_parse *ep)
 		return (FALSE);
 	}
 	while ((*(ep->str) && *(ep->str) != '$')
-		|| (*(ep->str) == '$' && *(ep->str - 1) == '\\'))
+		|| (*(ep->str) == '$' && *(ep->str - 1) == '\\')) // invalid read here
 	{
 		ep->i++;
 		(ep->str)++;

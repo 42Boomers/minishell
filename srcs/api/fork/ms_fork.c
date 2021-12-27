@@ -108,6 +108,7 @@ void	ms_fork(t_master *master, char *command, char **args, int args_size)
 	int	*redir;
 	int	pip_rec;
 
+	fd_in = -1;
 	pip_rec = 1;
 	while (pip_rec > 0)
 	{

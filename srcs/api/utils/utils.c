@@ -34,7 +34,7 @@ t_list	*lst_cpy(t_list *lst)
 	memcpy(cpy, lst, sizeof(*lst));
 	return (cpy);
 }
-
+//invalid fd close
 void	ms_fork_free(int fd_in, int pip_end0, int pip_end1)
 {
 	close(fd_in);
