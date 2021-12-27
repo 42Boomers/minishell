@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:37:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 16:59:13 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/27 21:18:00 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,12 @@ char	**ms_env_replace(t_master *master, char *key, char *value)
 	tmp = env->value;
 	env->value = ft_strdup(value);
 	if (!env->value)
+	{
+		free(env);
 		return (NULL);
+	}
 	if (tmp)
-		free(tmp);
+		free(tmp); // tglory still leaks
 	if (ft_isequals(env->key, "PATH"))
 		ms_env_path_refresh(master);
 	return (&env->value);
