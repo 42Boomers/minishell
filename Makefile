@@ -9,7 +9,7 @@ SRCS_DIR			=	srcs
 SRCS				=	srcs/api/commands/commands_actions.c srcs/api/commands/commands_launch.c srcs/api/commands/commands_launch_utils.c \
 						srcs/api/commands/commands_os.c srcs/api/commands/commands_register.c srcs/api/fork/ms_fork.c srcs/api/garbage/garbage.c \
 						srcs/api/garbage/ms_malloc.c srcs/api/history/history_handler.c srcs/api/readline/ms_readline.c srcs/api/readline/ms_readline_utils.c \
-						srcs/api/redirect/redirect.c srcs/api/utils/env_parse.c srcs/api/utils/env_parse2.c srcs/api/utils/env_parse_struct.c \
+						srcs/api/redirect/redirect.c srcs/api/utils/env_parse.c srcs/api/utils/env_parse2.c srcs/api/utils/env_parse3.c srcs/api/utils/env_parse_struct.c \
 						srcs/api/utils/env_path.c srcs/api/utils/ft_join_chars.c srcs/api/utils/ft_print.c srcs/api/utils/ft_split_ultimate.c \
 						srcs/api/utils/ft_str_build.c srcs/api/utils/ft_str_build2.c srcs/api/utils/utils_env.c srcs/api/utils/utils_env2.c \
 						srcs/api/utils/utils_env3.c srcs/api/utils/utils_error.c srcs/api/utils/utils_file.c srcs/api/utils/utils_fork.c \

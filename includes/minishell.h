@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/27 20:47:08 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/27 22:51:37 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ char			*ms_env_key_get(void *arg);
 t_env			*ms_env_create(char *raw_envs);
 t_env			*ms_env_create_basic(char *key, char *value);
 t_bool			ms_env_add(t_master *master, char *key, char *value);
+t_bool			ms_env_parse_tilde(t_env_parse *ep);
 char			*ms_pwd(t_master *master);
 void			ms_write(char **array, int size);
 t_bool			ms_file_can_use(char *fname);

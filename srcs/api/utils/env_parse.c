@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 02:35:52 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 20:01:19 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/27 22:46:28 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,13 @@ char	*ms_env_parse(t_master *master, char *str)
 		}
 		if (!ms_env_parse_str(ep))
 			return (ms_env_parse_str_check(ep));
-		ep->i++;
 		if (!*ep->str || !(*ep->str + 1))
 			break ;
-		(ep->str)++;
+		if (*(ep->str) == '$')
+		{
+			ep->i++;
+			(ep->str)++;
+		}
 		if (ep->str && !ms_env_parse_var(ep))
 			return (NULL);
 		ep->str2 = (ep->str);
