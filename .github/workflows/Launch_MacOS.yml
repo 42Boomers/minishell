@@ -19,16 +19,16 @@ jobs:
         run: |
           export HOMEBREW=/usr/local/Cellar
           make re CFLAGS='-Wall -Wextra -g3 -fsanitize=address' > /dev/null
-          ./minishell test
+          ./minishell -t
         continue-on-error: true
       - name: Make
         run: make re
       - name: Launch
-        run: ./minishell test
+        run: ./minishell -t
       - name: Copy libLeaksAtExit.dylib
         run: |
           cd /usr/local/lib
           sudo ln -s /Applications/Xcode.app/Contents/Developer/usr/lib/libLeaksAtExit.dylib
       - name: Leaks - Leak Checker
-        run: leaks -atExit -- ./minishell test
+        run: leaks -atExit -- ./minishell -t
         shell: bash

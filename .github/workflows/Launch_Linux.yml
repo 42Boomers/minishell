@@ -23,4 +23,4 @@ jobs:
       - name: Valgrind - Leak Checker
         uses: solareenlo/42valgrind-action@v1.0.3
         with:
-          flags: 'valgrind --leak-check=full --show-leak-kinds=definite --track-origins=yes --errors-for-leak-kinds=definite ./minishell test'
+          flags: 'valgrind --leak-check=full --show-leak-kinds=definite --track-origins=yes --errors-for-leak-kinds=definite ./minishell -t'
