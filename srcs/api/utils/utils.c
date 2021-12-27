@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 19:53:38 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 19:54:35 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 00:23:36 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ t_list	*lst_cpy(t_list *lst)
 //invalid fd close
 void	ms_fork_free(int fd_in, int pip_end0, int pip_end1)
 {
-	close(fd_in);
+	if (fd_in > -1) // tglory : j'ai tester ça, jsp si ça fix
+		close(fd_in);
 	close(pip_end0);
 	close(pip_end1);
 }

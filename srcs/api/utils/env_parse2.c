@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 02:35:52 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/27 23:00:06 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 00:12:58 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_bool	ms_env_parse_exit_status(t_env_parse *ep)
 {
-	if (!ep->str || !(ep->str) || *(ep->str) != '?')
+	if (!ep->str || !*(ep->str) || *(ep->str) != '?')
 		return (FALSE);
 	(ep->str)++;
 	ep->i++;
