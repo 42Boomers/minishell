@@ -58,7 +58,7 @@ char	*ft_fillstr2(t_master *master, const char *s, char *strs, int m[3])
 	m[0] = m[2] + 1;
 	if (master && ft_strlen(temp) > 0 && m[1] == 0)
 	{
-		tmp_env = ms_env_parse(master, temp);
+		tmp_env = ms_env_parse(master, temp, m[3]);
 		free(temp);
 		temp = tmp_env;
 	}

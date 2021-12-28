@@ -172,7 +172,7 @@ char			**ms_env_replace(t_master *master, char *key, char *value);
 void			ms_env_destroy(t_master *master);
 char			**ms_env_path_get(t_master *master);
 char			**ms_env_path_refresh(t_master *master);
-char			*ms_env_parse(t_master *master, char *str);
+char			*ms_env_parse(t_master *master, char *str, int quote);
 t_env_parse		*ms_env_parse_create(t_master *master, char *str);
 t_bool			ms_env_parse_str(t_env_parse *ep);
 t_bool			ms_env_parse_search(t_env_parse *ep);

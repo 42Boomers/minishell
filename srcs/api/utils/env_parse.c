@@ -57,7 +57,7 @@ static void	ms_env_jump_var(t_env_parse *ep)
 	}
 }
 
-char	*ms_env_parse(t_master *master, char *str)
+char	*ms_env_parse(t_master *master, char *str, int quote)
 {
 	t_env_parse	*ep;
 
