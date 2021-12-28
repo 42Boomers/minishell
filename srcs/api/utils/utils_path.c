@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 22:36:30 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/27 20:26:16 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 02:27:25 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ char	*ms_prefix_get_custom(t_master *master)
 	{
 		if (ft_isequals(pwd, home))
 			return (ft_strdup("~"));
-		// data = ms_prefix_short(pwd, home);
+		data = ms_prefix_short(pwd, home);
 		// @author tglory : Faut tester quand le pwd est dans goinfre,
-		// j'ai remarqué un bug. Si la ligne commanté du dessus bug,
+		// j'ai remarqué un bug. Si la ligne du dessus bug,
 		// autant la supprimer
 	}
 	if (!data)
@@ -59,9 +59,9 @@ char	*ms_prefix_get(t_master *master)
 	char	*prefix;
 
 	if (!master->last_status)
-		color = "\e[0;32m➜ \e[36m";
+		color = "\e[0;32m\e[1m➜\e[36m  ";
 	else
-		color = "\e[0;31m➜ \e[36m";
+		color = "\e[0;31m\e[1m➜\e[36m  ";
 	data = ms_prefix_get_custom(master);
 	prefix = ft_strjoin_plus(color, data, " > \e[0;33m");
 	free(data);

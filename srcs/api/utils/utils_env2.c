@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:37:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/28 01:09:47 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 02:33:26 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,22 +77,18 @@ t_bool	ms_env_add(t_master *master, char *key, char *value)
 char	**ms_env_replace(t_master *master, char *key, char *value)
 {
 	t_env	*env;
-	char	**tmp;
+	char	*tmp;
 
 	if (!value)
 		return (NULL);
 	env = ms_env_get_struct(master, key);
 	if (!env)
 		return (NULL);
-	tmp = &env->value;
-	env->value = ft_strdup(value);
-	if (!env->value)
-	{
-		free(env);
+	tmp = ft_strdup(value);
+	if (!tmp)
 		return (NULL);
-	}
-	//if (tmp)
-	//	free(*tmp); // tglory still leaks
+	free(env->value);
+	env->value = tmp;
 	if (ft_isequals(env->key, "PATH"))
 		ms_env_path_refresh(master);
 	return (&env->value);

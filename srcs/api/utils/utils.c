@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 19:53:38 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/28 00:23:36 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 02:22:42 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,16 @@ void	ms_print_cmd_not_found(char *name, char *cmd)
 	exit(127);
 }
 
-t_list	*lst_cpy(t_list *lst)
+t_list	*ms_env_lst_cpy(t_list *lst)
 {
 	t_list	*cpy;
 
-	cpy = malloc(sizeof(*cpy));
-	memcpy(cpy, lst, sizeof(*lst));
+	cpy = NULL;
+	while (lst)
+	{
+		ft_lstadd_back(&cpy, ft_lstnew(lst->content));
+		lst = lst->next;
+	}
 	return (cpy);
 }
 //invalid fd close

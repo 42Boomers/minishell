@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/27 22:51:37 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 02:22:50 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void			ctrl_bs_normal(int signum, siginfo_t *sig_info,
 					void *ucontext_t);
 void			ctrl_bs_fork(int signum, siginfo_t *sig_info, void *ucontext_t);
 void			ms_print_cmd_not_found(char *name, char *cmd);
-t_list			*lst_cpy(t_list *lst);
+t_list			*ms_env_lst_cpy(t_list *lst);
 void			map_swap(t_env *arg1, t_env *arg2);
 void			ms_fork_free(int fd_in, int pip_end0, int pip_end1);
 
