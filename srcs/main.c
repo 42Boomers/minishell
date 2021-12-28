@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/26 17:30:12 by mrozniec         ###   ########.fr       */
+/*   Updated: 2021/12/28 04:02:28 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	main(int ac, char **av, char **evs)
 		exit(ms_start(ac, av, evs));
 	}
 	ret = 0;
+	//remove_signal_echo(); // test to remove ^C or ^D or ^\ in terminal
 	ret = ms_start(ac, av, evs);
 	return (ret);
 }
