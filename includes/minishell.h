@@ -189,9 +189,10 @@ t_bool			ms_file_is_dir(char *dname);
 void			ms_set_status(t_master *master, int status);
 void			ms_pwd_set(t_master *master, char *new_pwd);
 char			**ft_split_ultimate(t_master *master, char const *s, char c);
-int				ft_split_ultimate2(const char *s, int n, char c);
-char			*ft_fillstr2(t_master *master, const char *s, char *strs, int m[3]);
+char			*ft_fillstr2(t_master *master, const char *s, char *strs, \
+				int m[3]);
 char			*ft_fillstr3(const char *s, char *strs, int n, int m[3]);
+char			*ft_init_fillstr(int m[4], int n);
 int				ft_ttabcrea2(const char *s, int n, char c, int *line);
 int				ft_skip(const char *s, int n);
 int				ft_skip2(const char *s, int n);

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int ft_skip2(const char *s, int n)
+int	ft_skip2(const char *s, int n)
 {
 	n++;
 	while (s[n] && s[n] != '\"')
@@ -25,7 +25,7 @@ int ft_skip2(const char *s, int n)
 	return (n);
 }
 
-int ft_ttabcrea2(const char *s, int n, char c, int *line)
+int	ft_ttabcrea2(const char *s, int n, char c, int *line)
 {
 	while (s[n] == c)
 		n++;
@@ -72,7 +72,7 @@ char	*ft_fillstr2(t_master *master, const char *s, char *strs, int m[3])
 	return (strs);
 }
 
-char *ft_fillstr3(const char *s, char *strs, int n, int m[3])
+char	*ft_fillstr3(const char *s, char *strs, int n, int m[3])
 {
 	if (s[n] == '|' || (s[n] == '<' && s[n + 1] != '<') || \
 	(s[n] == '>' && s[n + 1] != '>'))
@@ -84,23 +84,4 @@ char *ft_fillstr3(const char *s, char *strs, int n, int m[3])
 		strs = ft_substr(s, m[0], n - m[0]);
 	}
 	return (strs);
-}
-
-int ft_split_ultimate2(const char *s, int n, char c)
-{
-	if (s[n] == '|' || s[n] == '<' || s[n] == '>')
-	{
-		n++;
-		if ((s[n] == '<' && s[n - 1] == '<') || (s[n] == '>' && \
-				s[n - 1] == '>'))
-			n++;
-	}
-	else
-	{
-		n = ft_skip(s, n);
-		while (s[n] != c && s[n] != '\0' && s[n] != '|' && s[n] != '<' && \
-			s[n] != '>')
-			n++;
-	}
-	return (n);
 }

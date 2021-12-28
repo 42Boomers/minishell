@@ -48,33 +48,32 @@ static char	**ft_ttabcrea(char const *s, char c)
 	return (strs);
 }
 
-static char	*ft_fillstr(t_master *master, char const *s, char c, int n)
+static char	*ft_fillstr(t_master *master, char const *s, char c, int *n)
 {
-	int		m[3];
+	int		m[4];
 	char	*strs;
 
-	m[1] = 0;
-	m[0] = n;
-	strs = ft_strdup("\0");
-	if (s[n] != '|' && s[n] != '<' && s[n] != '>')
+	strs = ft_init_fillstr(m, *n);
+	if (s[*n] != '|' && s[*n] != '<' && s[*n] != '>')
 	{
-		while (s[n] != '\0' && s[n] != c && s[n] != '|' && s[n] != '<' && \
-			s[n] != '>')
+		while (s[*n] != '\0' && (s[*n] != c || m[3] != 0) && s[*n] != '|' \
+		&& s[*n] != '<' && s[*n] != '>')
 		{
-			if (s[n] == '\\')
-				n += 2;
-			if (s[n] == '\'' || s[n] == '\"')
+			if (s[*n] == '\\')
+				*n += 2;
+			if (s[*n] == '\'' || s[*n] == '\"')
 			{
-				m[2] = n;
+				m[3] = !m[3];
+				m[2] = *n;
 				strs = ft_fillstr2(master, s, strs, m);
 			}
-			n++;
+			(*n)++;
 		}
-		m[2] = n;
+		m[2] = *n;
 		strs = ft_fillstr2(master, s, strs, m);
 	}
 	else
-		strs = ft_fillstr3(s, strs, n, m);
+		strs = ft_fillstr3(s, strs, *n, m);
 	return (strs);
 }
 
@@ -105,11 +104,10 @@ char	**ft_split_ultimate(t_master *master, char const *s, char c)
 		if (s[n] != '\0' && s[n] != c)
 		{
 			line++;
-			strs[line - 1] = ft_fillstr(master, s, c, n);
+			strs[line - 1] = ft_fillstr(master, s, c, &n);
 			if (!strs[line - 1])
 				return (ft_free_error(strs, line - 1));
 		}
-		n = ft_split_ultimate2(s, n, c);
 	}
 	strs[line] = NULL;
 	return (strs);

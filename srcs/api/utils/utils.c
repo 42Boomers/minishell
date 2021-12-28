@@ -38,11 +38,19 @@ t_list	*ms_env_lst_cpy(t_list *lst)
 	}
 	return (cpy);
 }
-//invalid fd close
+
 void	ms_fork_free(int fd_in, int pip_end0, int pip_end1)
 {
-	if (fd_in > -1) // tglory : j'ai tester ça, jsp si ça fix
+	if (fd_in > -1)
 		close(fd_in);
 	close(pip_end0);
 	close(pip_end1);
+}
+
+char	*ft_init_fillstr(int m[4], int n)
+{
+	m[1] = 0;
+	m[0] = n;
+	m[3] = 0;
+	return (ft_strdup("\0"));
 }
