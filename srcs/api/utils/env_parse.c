@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 02:35:52 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/28 00:25:51 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 17:36:26 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*ms_env_parse(t_master *master, char *str, int quote)
 	t_env_parse	*ep;
 
 	ep = ms_env_parse_create(master, str);
+	ep->double_quote = quote;
 	while (*(ep->str))
 	{
 		if (!*(ep->str) || !(ep->str + 1))

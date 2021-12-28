@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 18:02:37 by mrozniec          #+#    #+#             */
-/*   Updated: 2021/12/28 14:54:14 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 17:22:11 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ static char	*ft_fillstr(t_master *master, char const *s, char c, int *n)
 				*n += 2;
 			if (s[*n] == '\'' || s[*n] == '\"')
 			{
-				m[3] = !m[3];
 				m[2] = *n;
 				strs = ft_fillstr2(master, s, strs, m);
+				m[3] = !m[3];
 			}
 			(*n)++;
 		}

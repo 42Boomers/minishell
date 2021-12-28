@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_ultimate2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrozniec <mrozniec@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 09:00:55 by mrozniec          #+#    #+#             */
-/*   Updated: 2021/12/26 20:29:58 by mrozniec         ###   ########.fr       */
+/*   Updated: 2021/12/28 17:13:55 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_ttabcrea2(const char *s, int n, char c, int *line)
 	return (n);
 }
 
-char	*ft_fillstr2(t_master *master, const char *s, char *strs, int m[3])
+char	*ft_fillstr2(t_master *master, const char *s, char *strs, int m[4])
 {
 	char	*strs_old;
 	char	*temp;

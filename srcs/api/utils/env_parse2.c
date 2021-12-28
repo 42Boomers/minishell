@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 02:35:52 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/28 00:12:58 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 17:49:52 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,9 @@ t_bool	ms_env_parse_search(t_env_parse *ep)
 	}
 	while (*(ep->str) && *(ep->str) != '$')
 	{
-		if (ep->i == 0 && *(ep->str) == '~'
-			&& (!*(ep->str + 1) || *(ep->str + 1) == '/'))
+		if (!ep->double_quote && ep->i == 0 && *(ep->str) == '~' \
+	&& (!*(ep->str + 1) || (*(ep->str + 1) == '/' || (*(ep->str + 1) == '-' \
+	|| (*(ep->str + 1) == '+' && !*(ep->str + 2)) || *(ep->str + 2) == '/'))))
 			return (TRUE);
 		ep->i++;
 		(ep->str)++;

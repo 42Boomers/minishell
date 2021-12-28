@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 02:35:52 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/27 22:51:38 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 17:35:12 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ t_bool	ms_env_parse_tilde(t_env_parse *ep)
 		ft_str_add(ep->build, home);
 		(ep->str)++;
 		ep->i++;
+		if (*(ep->str) && (*(ep->str) == '-' || *(ep->str) == '+'))
+		{
+			(ep->str)++;
+			ep->i++;
+		}
 		return (TRUE);
 	}
 	return (FALSE);

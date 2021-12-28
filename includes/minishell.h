@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/28 15:27:22 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 17:14:32 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_env_parse
 	int			j;
 	int			k;
 	int			l;
+	t_bool		double_quote;
 }	t_env_parse;
 
 /*--------------------------{ COMMAND INPUT }--------------------------*/
@@ -194,7 +195,7 @@ void			ms_set_status(t_master *master, int status);
 void			ms_pwd_set(t_master *master, char *new_pwd);
 char			**ft_split_ultimate(t_master *master, char const *s, char c);
 char			*ft_fillstr2(t_master *master, const char *s, char *strs, \
-				int m[3]);
+				int m[4]);
 char			*ft_fillstr3(const char *s, char *strs, int *n, int m[3]);
 char			*ft_init_fillstr(int m[4], int n);
 int				ft_ttabcrea2(const char *s, int n, char c, int *line);
