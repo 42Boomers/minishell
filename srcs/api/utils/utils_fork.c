@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 13:04:22 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 20:04:59 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 14:21:21 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	ms_heredoc(int fd, char *s_eof)
 		write(fd, "\n", 1);
 		free(line);
 		line = readline(">");
+		if (!line)
+			return ;
 	}
 	free(line);
 }
