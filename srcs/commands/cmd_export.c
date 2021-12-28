@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 19:48:02 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 01:05:10 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 static void	export_print(t_master *master)
 {
 	t_list	*lst;
-	t_list	*cpy;
+	t_list	**cpy;
 	t_list	*to_print;
 
 	lst = lst_cpy(master->envs);
+	cpy = &lst;
 	while (lst)
 	{
-		cpy = lst;
 		to_print = lst->next;
 		while (to_print)
 		{
@@ -37,7 +37,8 @@ static void	export_print(t_master *master)
 			printf("declare -x %s\n", ((t_env *)(lst->content))->key);
 		lst = lst->next;
 	}
-	ft_lstclear(&lst, free);
+	// Usless, still leaks
+	//ft_lstclear(cpy, ms_env_free);
 }
 
 static void	ms_export_print_not_valid(char *str)
@@ -65,6 +66,8 @@ static t_bool	ms_export_check_var(t_master *master, t_env *tmp, char *str)
 	}
 	else if (!ms_env_add_raw(master, str))
 		ms_export_print_not_valid(str);
+	// Usless, still leaks
+	//free(tmp);
 	return (TRUE);
 }
 
