@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_ultimate.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 18:02:37 by mrozniec          #+#    #+#             */
-/*   Updated: 2021/12/26 20:29:58 by mrozniec         ###   ########.fr       */
+/*   Updated: 2021/12/28 14:54:14 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static char	**ft_ttabcrea(char const *s, char c)
 	line = 0;
 	while (s[n] != '\0')
 		n = ft_ttabcrea2(s, n, c, &line);
-	printf("on as malloc %d line\n", line);
 	strs = malloc(sizeof(char *) * (line + 1));
 	if (!strs)
 		return (NULL);
@@ -104,7 +103,6 @@ char	**ft_split_ultimate(t_master *master, char const *s, char c)
 			n++;
 		if (s[n] != '\0' && s[n] != c)
 		{
-			printf("on est a la ligne %d &s[%d]=%s\n", line, n, &s[n]);
 			line++;
 			strs[line - 1] = ft_fillstr(master, s, c, &n);
 			if (!strs[line - 1])

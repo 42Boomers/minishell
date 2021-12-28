@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/27 20:20:05 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 15:30:26 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ctrl_bs_normal(int signum, siginfo_t *sig_info, void *ucontext_t)
 
 void	ctrl_bs_fork(int signum, siginfo_t *sig_info, void *ucontext_t)
 {
+	printf("^\\Quit: 3\n");
 	(void)sig_info;
 	(void)ucontext_t;
 	(void)signum;

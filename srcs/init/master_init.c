@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:35:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/28 04:02:42 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 15:27:29 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ void	ms_free_master(t_master	*master)
 	ms_env_destroy(master);
 	ms_garbage_free(&master->garbage);
 	free(master);
-	// restore(NULL);  // test to remove ^C or ^D or ^\ in terminal
+	termios_restore(NULL);
 }
