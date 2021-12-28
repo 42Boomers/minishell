@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:18:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/28 14:37:56 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 16:10:13 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ms_readline_check(t_master *master, char **input)
 	free(prefix);
 	if (!*input)
 	{
-		ft_putstr("\e[0m\n");
+		ft_putstr("\e[0mexit\n");
 		return (1);
 	}
 	if (!**input || ft_isblank(*input))

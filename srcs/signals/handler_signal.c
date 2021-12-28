@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:57:19 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/28 15:30:26 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 16:09:10 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	ctrl_c_normal(int signum, siginfo_t *sig_info, void *ucontext_t)
 	(void)ucontext_t;
 	(void)signum;
 	printf("\n");
-	rl_on_new_line();
 	rl_replace_line("", 0);
+	rl_on_new_line();
 	rl_redisplay();
 	unlink_heredoc();
 }
