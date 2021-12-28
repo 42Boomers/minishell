@@ -42,6 +42,7 @@ static char	**ft_ttabcrea(char const *s, char c)
 	line = 0;
 	while (s[n] != '\0')
 		n = ft_ttabcrea2(s, n, c, &line);
+	printf("on as malloc %d line\n", line);
 	strs = malloc(sizeof(char *) * (line + 1));
 	if (!strs)
 		return (NULL);
@@ -73,7 +74,7 @@ static char	*ft_fillstr(t_master *master, char const *s, char c, int *n)
 		strs = ft_fillstr2(master, s, strs, m);
 	}
 	else
-		strs = ft_fillstr3(s, strs, *n, m);
+		strs = ft_fillstr3(s, strs, n, m);
 	return (strs);
 }
 
@@ -103,6 +104,7 @@ char	**ft_split_ultimate(t_master *master, char const *s, char c)
 			n++;
 		if (s[n] != '\0' && s[n] != c)
 		{
+			printf("on est a la ligne %d &s[%d]=%s\n", line, n, &s[n]);
 			line++;
 			strs[line - 1] = ft_fillstr(master, s, c, &n);
 			if (!strs[line - 1])

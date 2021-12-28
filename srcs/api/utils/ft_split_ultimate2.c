@@ -72,16 +72,16 @@ char	*ft_fillstr2(t_master *master, const char *s, char *strs, int m[3])
 	return (strs);
 }
 
-char	*ft_fillstr3(const char *s, char *strs, int n, int m[3])
+char	*ft_fillstr3(const char *s, char *strs, int *n, int m[3])
 {
-	if (s[n] == '|' || (s[n] == '<' && s[n + 1] != '<') || \
-	(s[n] == '>' && s[n + 1] != '>'))
-		strs = ft_substr(s, m[0], (++n) - m[0]);
-	else if ((s[n] == '<' && s[n + 1] == '<') || \
-	(s[n] == '>' && s[n + 1] == '>'))
+	if (s[*n] == '|' || (s[*n] == '<' && s[(*n) + 1] != '<') || \
+	(s[*n] == '>' && s[(*n) + 1] != '>'))
+		strs = ft_substr(s, m[0], (++(*n)) - m[0]);
+	else if ((s[*n] == '<' && s[(*n) + 1] == '<') || \
+	(s[*n] == '>' && s[(*n) + 1] == '>'))
 	{
-		n += 2;
-		strs = ft_substr(s, m[0], n - m[0]);
+		(*n) += 2;
+		strs = ft_substr(s, m[0], (*n) - m[0]);
 	}
 	return (strs);
 }
