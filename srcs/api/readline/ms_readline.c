@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 06:18:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 17:29:20 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 16:10:13 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,17 @@ t_bool	ms_readline_two(t_master *master, char *input)
 	char	**raw_args;
 	int		i;
 
-	raw_args = ft_split_ultimate(input, ' ');
+	raw_args = ft_split_ultimate(master, input, ' ');
 	if (raw_args && raw_args[0])
 	{
 		i = 0;
-		while (raw_args[i])
+		/*while (raw_args[i])
 			ms_garbage_master_add(master, raw_args[i++], free);
-		ms_garbage_master_add(master, raw_args, free);
+		ms_garbage_master_add(master, raw_args, free);*/
 		ms_cmd_launch(master, raw_args[0], raw_args + 1, i - 1);
+		while (raw_args[i])
+			free(raw_args[i++]);
+		free(raw_args);
 	}
 	free(input);
 	return (TRUE);
@@ -39,7 +42,7 @@ int	ms_readline_check(t_master *master, char **input)
 	free(prefix);
 	if (!*input)
 	{
-		ft_putstr("\e[0m\n");
+		ft_putstr("\e[0mexit\n");
 		return (1);
 	}
 	if (!**input || ft_isblank(*input))

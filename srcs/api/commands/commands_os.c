@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands_os.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sylducam <sylducam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 09:35:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 00:20:13 by sylducam         ###   ########.fr       */
+/*   Updated: 2021/12/28 15:49:34 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static t_bool	ms_cmd_os_search(t_master *master,
 t_bool	ms_cmd_os(t_master *master, char *command,
 		char **args)
 {
-	if (ms_file_can_use(command))
+	if (ms_file_can_use(command) && ft_strchr(command, '/'))
 	{
 		ms_cmd_os_start(master, command, args);
 		return (FALSE);

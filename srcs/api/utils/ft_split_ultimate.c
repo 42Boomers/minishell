@@ -6,11 +6,31 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 18:02:37 by mrozniec          #+#    #+#             */
-/*   Updated: 2021/12/24 18:35:50 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 17:22:11 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_skip(const char *s, int n)
+{
+	while (s[n] && s[n + 1] && s[n] == '\\')
+		n += 2;
+	if (s[n] == '\"')
+		n = ft_skip2(s, n);
+	if (s[n] == '\'')
+	{
+		n++;
+		while (s[n] && s[n] != '\'')
+		{
+			if (s[n + 1] && s[n] == '\\')
+				n += 2;
+			else
+				n++;
+		}
+	}
+	return (n);
+}
 
 static char	**ft_ttabcrea(char const *s, char c)
 {
@@ -21,36 +41,40 @@ static char	**ft_ttabcrea(char const *s, char c)
 	n = 0;
 	line = 0;
 	while (s[n] != '\0')
-		n = ft_ttabcrea2(s, c, n, &line);
+		n = ft_ttabcrea2(s, n, c, &line);
 	strs = malloc(sizeof(char *) * (line + 1));
 	if (!strs)
 		return (NULL);
 	return (strs);
 }
 
-static char	*ft_fillstr(char const *s, char c, int n)
+static char	*ft_fillstr(t_master *master, char const *s, char c, int *n)
 {
 	int		m[4];
 	char	*strs;
 
-	m[0] = n;
-	m[2] = 0;
-	m[3] = 0;
-	if (!ft_fillstr2(s, c, &n, m))
+	strs = ft_init_fillstr(m, *n);
+	if (s[*n] != '|' && s[*n] != '<' && s[*n] != '>')
 	{
-		if (s[n] == '|' || (s[n] == '<' && s[n + 1] != '<') || \
-		(s[n] == '>' && s[n + 1] != '>'))
-			n++;
-		else if ((s[n] == '<' && s[n + 1] == '<') || \
-		(s[n] == '>' && s[n + 1] == '>'))
-			n += 2;
+		while (s[*n] != '\0' && (s[*n] != c || m[3] != 0) && s[*n] != '|' \
+		&& s[*n] != '<' && s[*n] != '>')
+		{
+			if (s[*n] == '\\')
+				*n += 2;
+			if (s[*n] == '\'' || s[*n] == '\"')
+			{
+				m[2] = *n;
+				strs = ft_fillstr2(master, s, strs, m);
+				m[3] = !m[3];
+			}
+			(*n)++;
+		}
+		m[2] = *n;
+		strs = ft_fillstr2(master, s, strs, m);
 	}
-	m[0] = n - m[0];
-	strs = malloc(sizeof(char) * (m[0] + 1));
-	if (!strs)
-		return (NULL);
-	m[1] = m[0];
-	return (ft_fillstr3(s, strs, &n, m));
+	else
+		strs = ft_fillstr3(s, strs, n, m);
+	return (strs);
 }
 
 static char	**ft_free_error(char **strs, int line)
@@ -64,7 +88,7 @@ static char	**ft_free_error(char **strs, int line)
 	return (NULL);
 }
 
-char	**ft_split_ultimate(char const *s, char c)
+char	**ft_split_ultimate(t_master *master, char const *s, char c)
 {
 	int		n;
 	int		line;
@@ -80,11 +104,10 @@ char	**ft_split_ultimate(char const *s, char c)
 		if (s[n] != '\0' && s[n] != c)
 		{
 			line++;
-			strs[line - 1] = ft_fillstr(s, c, n);
+			strs[line - 1] = ft_fillstr(master, s, c, &n);
 			if (!strs[line - 1])
 				return (ft_free_error(strs, line - 1));
 		}
-		n = ft_split_ultimate2(s, c, n);
 	}
 	strs[line] = NULL;
 	return (strs);

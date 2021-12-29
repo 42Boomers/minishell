@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 18:10:36 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 13:14:16 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/27 21:11:33 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 t_env	*ms_env_create_basic(char *key, char *value)
 {
-	t_env	*envs;
+	t_env	*env;
 
-	envs = ms_mallocw(sizeof(t_env), "Can't malloc t_env");
-	if (!envs)
+	env = ms_mallocw(sizeof(t_env), "Can't malloc t_env");
+	if (!env)
 		return (NULL);
-	envs->key = key;
-	envs->value = value;
-	return (envs);
+	env->key = key;
+	env->value = value;
+	return (env);
 }
 
 t_env	*ms_env_create(char *raw_envs)

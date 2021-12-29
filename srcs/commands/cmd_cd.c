@@ -6,22 +6,22 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:03:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 00:47:25 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 15:14:44 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ms_pwd_buff(char *prog_name, char *command_name, int buff_size)
+char	*ms_pwd_buff(char *prog_name, char *command_name, int buff_size)
 {
 	char	*buff;
 
 	buff = ms_mallocw(sizeof(char) * buff_size, "Can't malloc new pwd");
 	if (!buff)
 		return (NULL);
-	getcwd(buff, buff_size);
-	if ((errno == EACCES || errno == EFAULT || errno == EINVAL
-			|| errno == ENOENT) || (errno == ERANGE && buff_size <= 0))
+	if (!getcwd(buff, buff_size) && ((errno == EACCES || errno == EFAULT \
+			|| errno == EINVAL || errno == ENOENT)
+			|| (errno == ERANGE && buff_size <= 0)))
 	{
 		ms_print_error(prog_name, command_name);
 		return (NULL);

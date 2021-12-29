@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:20:26 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 18:30:48 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 17:14:32 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_env_parse
 	int			j;
 	int			k;
 	int			l;
+	t_bool		double_quote;
 }	t_env_parse;
 
 /*--------------------------{ COMMAND INPUT }--------------------------*/
@@ -140,7 +141,7 @@ void			ms_del_red(char **args, int pos);
 void			ms_fork_init2(char **args, int *redir, int pip_end[2],
 					int *fd_in);
 int				ms_error_pipe(int pip_end[2]);
-void			ms_heredoc(int fd, char *s_eof);
+int 			ms_heredoc(int fd, char *s_eof);
 void			register_signal_main(void);
 void			register_signal_fork(void);
 void			ctrl_c_fork(int signum, siginfo_t *sig_info, void *ucontext_t);
@@ -150,8 +151,13 @@ void			ctrl_bs_normal(int signum, siginfo_t *sig_info,
 					void *ucontext_t);
 void			ctrl_bs_fork(int signum, siginfo_t *sig_info, void *ucontext_t);
 void			ms_print_cmd_not_found(char *name, char *cmd);
-t_list			*lst_cpy(t_list *lst);
+t_list			*ms_env_lst_cpy(t_list *lst);
 void			map_swap(t_env *arg1, t_env *arg2);
+void			ms_fork_free(int fd_in, int pip_end0, int pip_end1);
+char			*ms_pwd_buff(char *prog_name, char *command_name,
+					int buff_size);
+void			remove_termios_echo(void);
+void			termios_restore(struct termios *term);
 
 /*-------------------------------{ API }-------------------------------*/
 void			ft_println(char *str);
@@ -161,13 +167,13 @@ t_bool			ms_str_equals(char *str1, char*str2);
 t_bool			ms_str_equals_ignore(char *str1, char *str2);
 t_bool			ms_env_init(t_master *master, char **envs);
 char			*ms_env_get(t_master *master, char *key);
-t_bool			ms_env_remove(t_master *master, char *key);
+void			ms_env_remove(t_master *master, char *key);
 char			**ms_env_format(t_master *master);
 char			**ms_env_replace(t_master *master, char *key, char *value);
 void			ms_env_destroy(t_master *master);
 char			**ms_env_path_get(t_master *master);
 char			**ms_env_path_refresh(t_master *master);
-char			*ms_env_parse(t_master *master, char *str);
+char			*ms_env_parse(t_master *master, char *str, int quote);
 t_env_parse		*ms_env_parse_create(t_master *master, char *str);
 t_bool			ms_env_parse_str(t_env_parse *ep);
 t_bool			ms_env_parse_search(t_env_parse *ep);
@@ -180,18 +186,21 @@ char			*ms_env_key_get(void *arg);
 t_env			*ms_env_create(char *raw_envs);
 t_env			*ms_env_create_basic(char *key, char *value);
 t_bool			ms_env_add(t_master *master, char *key, char *value);
+t_bool			ms_env_parse_tilde(t_env_parse *ep);
 char			*ms_pwd(t_master *master);
 void			ms_write(char **array, int size);
 t_bool			ms_file_can_use(char *fname);
 t_bool			ms_file_is_dir(char *dname);
 void			ms_set_status(t_master *master, int status);
 void			ms_pwd_set(t_master *master, char *new_pwd);
-char			**ft_split_ultimate(char const *s, char c);
-int				ft_split_ultimate2(char const *s, char c, int n);
-t_bool			ft_fillstr2(char const *s, char c, int *n, int *m);
-char			*ft_fillstr3(char const *s, char *strs, int *n, int *m);
-int				ft_ttabcrea2(char const *s, char c, int n, int *line);
+char			**ft_split_ultimate(t_master *master, char const *s, char c);
+char			*ft_fillstr2(t_master *master, const char *s, char *strs, \
+				int m[4]);
+char			*ft_fillstr3(const char *s, char *strs, int *n, int m[3]);
+char			*ft_init_fillstr(int m[4], int n);
+int				ft_ttabcrea2(const char *s, int n, char c, int *line);
 int				ft_skip(const char *s, int n);
+int				ft_skip2(const char *s, int n);
 char			*ms_prefix_get(t_master *master);
 char			**ft_join_chars(char **array1, char **array2);
 void			ms_print_error(char *prog_name, char *cmd_name);

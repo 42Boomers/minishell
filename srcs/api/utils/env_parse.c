@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 02:35:52 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 20:01:19 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 17:36:26 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,21 @@ static char	*ms_env_parse_build(t_env_parse *ep)
 	return (tmp);
 }
 
-char	*ms_env_parse(t_master *master, char *str)
+static void	ms_env_jump_var(t_env_parse *ep)
+{
+	if (*(ep->str) == '$')
+	{
+		ep->i++;
+		(ep->str)++;
+	}
+}
+
+char	*ms_env_parse(t_master *master, char *str, int quote)
 {
 	t_env_parse	*ep;
 
 	ep = ms_env_parse_create(master, str);
+	ep->double_quote = quote;
 	while (*(ep->str))
 	{
 		if (!*(ep->str) || !(ep->str + 1))
@@ -65,13 +75,12 @@ char	*ms_env_parse(t_master *master, char *str)
 		}
 		if (!ms_env_parse_str(ep))
 			return (ms_env_parse_str_check(ep));
-		ep->i++;
 		if (!*ep->str || !(*ep->str + 1))
 			break ;
-		(ep->str)++;
+		ms_env_jump_var(ep);
 		if (ep->str && !ms_env_parse_var(ep))
 			return (NULL);
-		ep->str2 = (ep->str);
+		ep->str2 = ep->str;
 		ep->k = ep->i++;
 	}
 	return (ms_env_parse_build(ep));

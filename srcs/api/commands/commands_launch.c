@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 05:00:00 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 03:51:17 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/26 19:14:21 by mrozniec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_bool	ms_cmd_execute(t_ms_input *input)
 	}
 	return (ms_cmd_execute2(input, cmd_result));
 }
-
+/*
 char	**ms_cmd_env_parse(t_master *master, char **args, int *args_size)
 {
 	int		i;
@@ -54,13 +54,9 @@ char	**ms_cmd_env_parse(t_master *master, char **args, int *args_size)
 	if (!new_args)
 		return (NULL);
 	while (++i < *args_size)
-	{
-		new_args[j] = ms_env_parse(master, args[i]);
-		if (new_args[j])
-			j++;
-	}
-	new_args[j] = 0;
-	*args_size = j;
+		new_args[i] = ft_strdup(args[i]);
+	new_args[i] = 0;
+	*args_size = i;
 	return (new_args);
 }
 
@@ -76,18 +72,18 @@ static void	*ms_cmd_launch_free(char *command, char **args)
 		free(command);
 	return (NULL);
 }
-
+*/
 t_ms_command	*ms_cmd_launch(t_master *master, char *command,
 		char **args, int args_size)
 {
-	args = ms_cmd_env_parse(master, args, &args_size);
+	/*args = ms_cmd_env_parse(master, args, &args_size);
 	if (!args)
 		return (NULL);
-	command = ms_env_parse(master, command);
+	//command = ms_env_parse(master, command);
 	if (!command)
-		return (ms_cmd_launch_free(NULL, args));
+		return (ms_cmd_launch_free(NULL, args));*/
 	ms_check_redir(&command, args);
 	ms_fork(master, command, args, args_size);
-	ms_cmd_launch_free(command, args);
+	//ms_cmd_launch_free(command, args);
 	return (NULL);
 }

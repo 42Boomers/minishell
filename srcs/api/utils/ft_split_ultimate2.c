@@ -5,110 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/03 18:02:37 by mrozniec          #+#    #+#             */
-/*   Updated: 2021/12/24 18:36:13 by tglory           ###   ########lyon.fr   */
+/*   Created: 2021/12/25 09:00:55 by mrozniec          #+#    #+#             */
+/*   Updated: 2021/12/28 17:13:55 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_skip(const char *s, int n)
+int	ft_skip2(const char *s, int n)
 {
-	while (s[n] && s[n + 1] && s[n] == '\\')
-		n += 2;
-	if (s[n] == '\"')
+	n++;
+	while (s[n] && s[n] != '\"')
 	{
-		n++;
-		while (s[n] && s[n] != '\"')
-		{
-			if (s[n + 1] && s[n] == '\\')
-				n += 2;
-			else
-				n++;
-		}
-	}
-	if (s[n] == '\'')
-	{
-		n++;
-		while (s[n] && s[n] != '\'')
-		{
-			if (s[n + 1] && s[n] == '\\')
-				n += 2;
-			else
-				n++;
-		}
-	}
-	return (n);
-}
-
-int	ft_split_ultimate2(char const *s, char c, int n)
-{
-	if (s[n] == '|' || s[n] == '<' || s[n] == '>')
-	{
-		n++;
-		if ((s[n] == '<' && s[n - 1] == '<') || (s[n] == '>' && \
-			s[n - 1] == '>'))
-			n++;
-	}
-	else
-	{
-		n = ft_skip(s, n);
-		while (s[n] != c && s[n] != '\0' && s[n] != '|' && s[n] != '<' && \
-		s[n] != '>')
-			n++;
-	}
-	return (n);
-}
-
-char	*ft_fillstr3(char const *s, char *strs, int *n, int *m)
-{
-	while ((m[0] - m[2]) > 0)
-	{
-		while (s[*n - m[0]] == '\"' || s[*n - m[0]] == '\'')
-		{
-			if (s[*n - m[0]] == '\'')
-				m[3] = !m[3];
-			n++;
-		}
-		if (s[*n - m[0]] == '$' && m[3] != 0)
-		{
-			strs[m[1] - m[0]] = '\\';
-			m[1]++;
-			strs[m[1] - m[0]] = s[*n - m[0]];
-		}
+		if (s[n + 1] && s[n] == '\\')
+			n += 2;
 		else
-			strs[m[1] - m[0]] = s[*n - m[0]];
-		m[0]--;
+			n++;
 	}
-	strs[m[1]] = '\0';
-	return (strs);
+	return (n);
 }
 
-t_bool	ft_fillstr2(char const *s, char c, int *n, int *m)
-{
-	if (s[*n] != '|' && s[*n] != '<' && s[*n] != '>')
-	{
-		while (s[*n] != '\0' && s[*n] != c && s[*n] != '|' && s[*n] != '<' && \
-			s[*n] != '>')
-		{
-			*n = ft_skip(s, *n);
-			if (s[*n] == '\'' || s[*n] == '\"')
-				m[2] += 2;
-			(*n)++;
-		}
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
-int	ft_ttabcrea2(char const *s, char c, int n, int *line)
+int	ft_ttabcrea2(const char *s, int n, char c, int *line)
 {
 	while (s[n] == c)
 		n++;
 	if (s[n] != c && s[n] != '\0')
 		(*line)++;
 	while (s[n] != c && s[n] != '\0' && s[n] != '|' && s[n] != '<' && \
-			s[n] != '>')
+		s[n] != '>')
 	{
 		n = ft_skip(s, n);
 		n++;
@@ -118,7 +42,46 @@ int	ft_ttabcrea2(char const *s, char c, int n, int *line)
 	if (s[n] == '|' || s[n] == '<' || s[n] == '>')
 		n++;
 	if ((s[n] == '<' && s[n - 1] == '<') || (s[n] == '>' && \
-	s[n - 1] == '>'))
+		s[n - 1] == '>'))
 		n++;
 	return (n);
+}
+
+char	*ft_fillstr2(t_master *master, const char *s, char *strs, int m[4])
+{
+	char	*strs_old;
+	char	*temp;
+	char	*tmp_env;
+
+	strs_old = strs;
+	temp = ft_substr(s, m[0], m[2] - m[0]);
+	m[0] = m[2] + 1;
+	if (master && ft_strlen(temp) > 0 && m[1] == 0)
+	{
+		tmp_env = ms_env_parse(master, temp, m[3]);
+		free(temp);
+		temp = tmp_env;
+	}
+	if (s[m[2]] == '\'')
+		m[1] = !m[1];
+	if (temp)
+		strs = ft_strjoin(strs_old, temp);
+	if (temp)
+		free(strs_old);
+	free(temp);
+	return (strs);
+}
+
+char	*ft_fillstr3(const char *s, char *strs, int *n, int m[3])
+{
+	if (s[*n] == '|' || (s[*n] == '<' && s[(*n) + 1] != '<') || \
+	(s[*n] == '>' && s[(*n) + 1] != '>'))
+		strs = ft_substr(s, m[0], (++(*n)) - m[0]);
+	else if ((s[*n] == '<' && s[(*n) + 1] == '<') || \
+	(s[*n] == '>' && s[(*n) + 1] == '>'))
+	{
+		(*n) += 2;
+		strs = ft_substr(s, m[0], (*n) - m[0]);
+	}
+	return (strs);
 }

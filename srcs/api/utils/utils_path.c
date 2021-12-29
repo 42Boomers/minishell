@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 22:36:30 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/22 23:43:12 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 17:52:07 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ char	*ms_prefix_get(t_master *master)
 	char	*prefix;
 
 	if (!master->last_status)
-		color = "\e[0;32m➜ \e[36m";
+		color = "\e[0;32m\e[1m➜\e[36m  ";
 	else
-		color = "\e[0;31m➜ \e[36m";
+		color = "\e[0;31m\e[1m➜\e[36m  ";
 	data = ms_prefix_get_custom(master);
 	prefix = ft_strjoin_plus(color, data, " > \e[0;33m");
 	free(data);

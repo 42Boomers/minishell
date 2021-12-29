@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:11:17 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/21 21:10:50 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/28 15:15:14 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ static t_bool	ms_pwd_print(t_ms_input *input)
 {
 	char	*pwd;
 
-	pwd = ms_pwd(input->cmd->master);
-	if (pwd)
-		ft_putstr(pwd);
+	pwd = ms_pwd_buff(input->cmd->master->name, "pwd", 128);
+	if (!pwd)
+		return (FALSE);
+	ft_putstr(pwd);
+	free(pwd);
 	ft_putchar('\n');
-	return (pwd != NULL);
+	return (TRUE);
 }
 
 t_bool	ms_cmd_pwd_register(t_ms_command *cmd)

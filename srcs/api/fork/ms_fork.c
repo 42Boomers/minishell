@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 10:07:29 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 16:52:08 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 19:53:26 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,13 @@ void	ms_fork(t_master *master, char *command, char **args, int args_size)
 	int	*redir;
 	int	pip_rec;
 
+	fd_in = -1;
 	pip_rec = 1;
 	while (pip_rec > 0)
 	{
 		pip_rec = ft_red_pip_cmd(&command, args, master);
+		if (pip_rec == -1)
+			return ;
 		if (pip_rec > 0 && ms_error_pipe(pip_end) == -1)
 			return ;
 		if (pip_rec > 0)
@@ -125,7 +128,5 @@ void	ms_fork(t_master *master, char *command, char **args, int args_size)
 				command = ms_next_fork(pip_rec, pip_end, &fd_in, &args);
 		}
 	}
-	close(fd_in);
-	close(pip_end[0]);
-	close(pip_end[1]);
+	ms_fork_free(fd_in, pip_end[0], pip_end[1]);
 }

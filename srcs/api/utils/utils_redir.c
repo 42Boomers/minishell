@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 16:52:51 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 17:16:40 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/24 19:20:20 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int	ft_red_pip_cmd(char **command, char **args, t_master *master)
 	int		redir[2];
 	char	**new;
 
+	redir[0] = 65537;
+	redir[1] = 65536;
 	ret = 1;
 	if (ft_isequals(*command, "|") || ft_isequals(*command, "<") || \
 	ft_isequals(*command, "<<") || ft_isequals(*command, ">") || \
