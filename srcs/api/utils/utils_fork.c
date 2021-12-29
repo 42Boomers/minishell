@@ -86,7 +86,7 @@ int	ms_heredoc(int fd, char *s_eof)
 	line[1]=NULL;
 	get_next_line(0, line);
 	//line = readline(">");
-	if (!line || !line[1])
+	if (!line || !line[0])
 	{
 		if (line)
 			free(line);
@@ -100,7 +100,7 @@ int	ms_heredoc(int fd, char *s_eof)
 		write(1, "> ", 2);
 		get_next_line(0, line);
 		//line = readline(">");
-		if (!line || !line[1])
+		if (!line || !line[0])
 		{
 			if (line)
 				free(line);
