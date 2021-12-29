@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jblache <jblache@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:11:17 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/16 16:49:36 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 12:06:36 by jblache          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,20 @@
  */
 static t_bool	ms_env_print(t_ms_input *input)
 {
-	input->cmd->master->cmd_ret = 0;
+	int	i;
+
+	i = 0;
+	while (input->args[i])
+	{
+		if (ft_strcmp(input->args[i], "env"))
+		{
+			ft_putstr_fd("env: ", 2);
+			ft_putstr_fd(input->args[i], 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+			exit(127);
+		}
+		i++;
+	}
 	ms_write(ms_env_format(input->cmd->master),
 		ft_lstsize(input->cmd->master->envs));
 	return (TRUE);
