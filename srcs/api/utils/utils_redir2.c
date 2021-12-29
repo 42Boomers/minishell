@@ -14,20 +14,26 @@
 
 static int	ft_heredoc(int *fd, char **args, int pos)
 {
+	register_signal_fork();
 	*fd = open(".ms_heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0641);
 	if (*fd == -1)
 		return (-1);
 	if (ms_heredoc(*fd, args[-pos]) == -2)
 	{
 		close(*fd);
+		register_signal_main();
 		return (-2);
 	}
 	close(*fd);
 	*fd = open(".ms_heredoc", O_RDONLY);
 	if (*fd == -1)
+	{
+		register_signal_main();
 		return (-1);
+	}
 	unlink(".ms_heredoc");
 	ms_del_red(args, -pos);
+	register_signal_main();
 	return (0);
 }
 
