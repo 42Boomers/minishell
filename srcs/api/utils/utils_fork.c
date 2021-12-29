@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 13:04:22 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/28 14:21:21 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 10:40:21 by mrozniec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,23 +75,41 @@ void	ms_fork_init2(char **args, int *redir, int pip_end[2], int *fd_in)
 	close(pip_end[0]);
 }
 
-void	ms_heredoc(int fd, char *s_eof)
+int	ms_heredoc(int fd, char *s_eof)
 {
-	char	*line;
+	char	**line;
 
 	if (!s_eof)
-		return ;
-	line = readline(">");
-	if (!line)
-		return ;
-	while (ft_strcmp(line, s_eof) != 0)
+		return (-2);
+	write(1, "> ", 2);
+	line = malloc(sizeof(char *) * 2);
+	line[1]=NULL;
+	get_next_line(0, line);
+	//line = readline(">");
+	if (!line || !line[1])
 	{
-		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
-		free(line);
-		line = readline(">");
-		if (!line)
-			return ;
+		if (line)
+			free(line);
+		return (-2);
 	}
-	free(line);
+	while (line[0] && ft_strcmp(line[0], s_eof) != 0)
+	{
+		write(fd, line[0], ft_strlen(line[0]));
+		write(fd, "\n", 1);
+		free(line[0]);
+		write(1, "> ", 2);
+		get_next_line(0, line);
+		//line = readline(">");
+		if (!line || !line[1])
+		{
+			if (line)
+				free(line);
+			return (-2);
+		}
+	}
+	if (line[0])
+		free(line[0]);
+	if (line)
+		free(line);
+	return (0);
 }

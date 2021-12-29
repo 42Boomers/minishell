@@ -141,7 +141,7 @@ void			ms_del_red(char **args, int pos);
 void			ms_fork_init2(char **args, int *redir, int pip_end[2],
 					int *fd_in);
 int				ms_error_pipe(int pip_end[2]);
-void			ms_heredoc(int fd, char *s_eof);
+int 			ms_heredoc(int fd, char *s_eof);
 void			register_signal_main(void);
 void			register_signal_fork(void);
 void			ctrl_c_fork(int signum, siginfo_t *sig_info, void *ucontext_t);

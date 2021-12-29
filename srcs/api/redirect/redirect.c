@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 13:08:32 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 20:04:31 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 10:29:24 by mrozniec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,24 +123,26 @@ int	ms_red_in_out(char **args, int *redir)
 	int		ret;
 	int		f_red;
 
+	redir[0] = -5;
+	redir[1] = -5;
 	f_red = 1;
 	while (f_red > 0)
 	{
-		if (f_red == (f_red | 4) && redir[0] != 0)
+		if (f_red == (f_red | 4) && redir[0] > 0)
 			close(redir[0]);
-		if (f_red == (f_red | 2) && redir[1] != 0)
+		if (f_red == (f_red | 2) && redir[1] > 0)
 			close(redir[1]);
 		ret = ms_red_in(args, redir);
 		if (ret != 0)
 		{
-			if (redir[1] != 0)
+			if (redir[1] > 0)
 				close(redir[1]);
 			return (ft_redir_error(ret, args));
 		}
 		ret = ms_red_out(args, redir);
 		if (ret != 0)
 		{
-			if (redir[0] != 0)
+			if (redir[0] > 0)
 				close(redir[0]);
 			return (ft_redir_error(ret, args));
 		}

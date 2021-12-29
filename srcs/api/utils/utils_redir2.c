@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 16:53:00 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/24 17:17:34 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2021/12/29 10:52:16 by mrozniec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ static int	ft_heredoc(int *fd, char **args, int pos)
 	*fd = open(".ms_heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0641);
 	if (*fd == -1)
 		return (-1);
-	ms_heredoc(*fd, args[-pos]);
+	if (ms_heredoc(*fd, args[-pos]) == -2)
+	{
+		close(*fd);
+		return (-2);
+	}
 	close(*fd);
 	*fd = open(".ms_heredoc", O_RDONLY);
 	if (*fd == -1)
