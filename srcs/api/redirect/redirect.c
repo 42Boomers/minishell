@@ -126,16 +126,24 @@ int	ms_red_in_out(char **args, int *redir)
 	f_red = 1;
 	while (f_red > 0)
 	{
-		if (f_red == (f_red | 4))
+		if (f_red == (f_red | 4) && redir[0] != 0)
 			close(redir[0]);
-		if (f_red == (f_red | 2))
+		if (f_red == (f_red | 2) && redir[1] != 0)
 			close(redir[1]);
 		ret = ms_red_in(args, redir);
 		if (ret != 0)
+		{
+			if (redir[1] != 0)
+				close(redir[1]);
 			return (ft_redir_error(ret, args));
+		}
 		ret = ms_red_out(args, redir);
 		if (ret != 0)
+		{
+			if (redir[0] != 0)
+				close(redir[0]);
 			return (ft_redir_error(ret, args));
+		}
 		f_red = ft_pres_red(args);
 	}
 	return (0);

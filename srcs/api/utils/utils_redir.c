@@ -94,6 +94,8 @@ int	ft_red_pip_cmd(char **command, char **args, t_master *master)
 	int		redir[2];
 	char	**new;
 
+	redir[0] = 65537;
+	redir[1] = 65536;
 	ret = 1;
 	if (ft_isequals(*command, "|") || ft_isequals(*command, "<") || \
 	ft_isequals(*command, "<<") || ft_isequals(*command, ">") || \

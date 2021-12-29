@@ -113,6 +113,8 @@ void	ms_fork(t_master *master, char *command, char **args, int args_size)
 	while (pip_rec > 0)
 	{
 		pip_rec = ft_red_pip_cmd(&command, args, master);
+		if (pip_rec == -1)
+			return ;
 		if (pip_rec > 0 && ms_error_pipe(pip_end) == -1)
 			return ;
 		if (pip_rec > 0)
