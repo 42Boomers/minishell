@@ -1,5 +1,0 @@
-*.o
-libft.a
-.vscode
-objs
-.clang-format
