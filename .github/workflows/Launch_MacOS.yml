@@ -1,0 +1,34 @@
+name: Launch MacOS
+
+on: [push, pull_request]
+
+jobs:
+  launch_macos:
+    runs-on: macos-latest
+    name: Launch Main Executable on macOS
+    steps:
+      - name: Checkout repo & Libft
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Install Homebrew & pyenv
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          /usr/local/bin/brew install readline
+      - name: Print Informations for Segfault
+        run: |
+          export HOMEBREW=/usr/local/Cellar
+          make re CFLAGS='-Wall -Wextra -g3 -fsanitize=address' > /dev/null
+          ./minishell -t
+        continue-on-error: true
+      - name: Make
+        run: make re
+      - name: Launch
+        run: ./minishell -t
+      - name: Copy libLeaksAtExit.dylib
+        run: |
+          cd /usr/local/lib
+          sudo ln -s /Applications/Xcode.app/Contents/Developer/usr/lib/libLeaksAtExit.dylib
+      - name: Leaks - Leak Checker
+        run: leaks -atExit -- ./minishell -t
+        shell: bash

@@ -1,0 +1,26 @@
+name: Launch Linux
+
+on: [push, pull_request]
+
+jobs:
+  launch_linux:
+    runs-on: ubuntu-latest
+    name: Launch Main Executable
+    steps:
+      - name: Checkout repo & Libft
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Print Informations for Segfault
+        run: |
+          make re CFLAGS='-Wall -Wextra -g3 -fsanitize=address' > /dev/null
+          ./minishell -t
+        continue-on-error: true
+      - name: Make
+        run: make re
+      - name: Start Minishell
+        run: ./minishell -t
+      - name: Valgrind - Leak Checker
+        uses: solareenlo/42valgrind-action@v1.0.3
+        with:
+          flags: 'valgrind --leak-check=full --show-leak-kinds=definite --track-origins=yes --errors-for-leak-kinds=definite ./minishell -t'

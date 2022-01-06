@@ -1,0 +1,6 @@
+minishell
+*.o
+.vscode
+.ms_history
+.idea
+.DS_Store

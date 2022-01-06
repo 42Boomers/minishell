@@ -1,0 +1,15 @@
+name: Norminette
+
+on: [push, pull_request]
+
+jobs:
+  norminette:
+    runs-on: ubuntu-latest
+    name: Norminette Sources
+    steps:
+      - name: Checkout repo & Libft
+        uses: actions/checkout@v2
+      - name: Norminette
+        uses: alexandregv/norminette-action@v3
+        with:
+          flags: 'includes srcs'

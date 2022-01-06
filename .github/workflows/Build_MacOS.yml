@@ -1,0 +1,26 @@
+name: Build MacOS
+
+on: [push, pull_request]
+
+jobs:
+  build_macos:
+    runs-on: macos-latest
+    name: Build Executable on macOS
+    steps:
+      - name: Checkout repo & Libft
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Install Homebrew & pyenv
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          /usr/local/bin/brew install readline
+        continue-on-error: true
+      - name: Make
+        run: |
+          export HOMEBREW=/usr/local/Cellar
+          make
+      - name: Clean
+        run: |
+          make clean
+          make fclean

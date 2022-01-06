@@ -1,0 +1,26 @@
+name: Libft Check
+
+on: [push, pull_request]
+
+jobs:
+  libft:
+    runs-on: ubuntu-latest
+    name: Norm/Build Libft
+    steps:
+      - name: Checkout repo & Libft
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Norminette on Libft
+        uses: alexandregv/norminette-action@v3
+        with:
+          flags: 'libft'
+      - name: Make Libft
+        run: |
+          cd libft
+          make
+      - name: Clean Libft Projet
+        run: |
+          cd libft
+          make clean
+          make fclean
