@@ -9,6 +9,10 @@ jobs:
     steps:
       - name: Checkout repo & Libft
         uses: actions/checkout@v2
+      - name: Norminette Version
+        uses: alexandregv/norminette-action@v3
+        with:
+          flags: '-v'
       - name: Norminette
         uses: alexandregv/norminette-action@v3
         with:
