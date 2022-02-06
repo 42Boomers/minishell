@@ -6,7 +6,7 @@
 /*   By: tglory <tglory@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 02:18:10 by tglory            #+#    #+#             */
-/*   Updated: 2021/12/28 15:28:19 by tglory           ###   ########lyon.fr   */
+/*   Updated: 2022/02/07 00:23:42 by tglory           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,15 @@ int	main(int ac, char **av, char **evs)
 {
 	int		ret;
 	char	**split;
+	char	*tmp;
 	int		size;
 
 	if (ac >= 3 && !ft_strncmp(av[1], "-c", 3))
 	{
-		split = ft_split_ultimate(NULL, av[2], ' ');
+		tmp = malloc(ft_strlen(av[2]) * sizeof(char));
+		if (!tmp)
+			return (1);
+		split = ft_split_ultimate(NULL, tmp, ' ');
 		size = 0;
 		while (split[size])
 			size++;
@@ -52,6 +56,8 @@ int	main(int ac, char **av, char **evs)
 		av = split;
 		ac = size + 1;
 		exit(ms_start(ac, av, evs));
+		free(tmp);
+		free(av);
 	}
 	ret = 0;
 	remove_termios_echo();
